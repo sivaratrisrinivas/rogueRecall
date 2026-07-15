@@ -6,7 +6,7 @@ import platform
 import secrets
 import time
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from importlib.resources import files
 from pathlib import Path
 from collections.abc import Callable, Mapping, Sequence
@@ -143,8 +143,77 @@ def run_targets(
     environ: Mapping[str, str] | None = None,
     transport_factory: Callable[[Mapping[str, Any]], Transport] | None = None,
 ) -> Path:
-    """Run validated Evaluation Cases against every declared Target System."""
+    """Run a non-release Evaluation Case Set against declared Target Systems."""
 
+    return _run_targets(
+        runs_root,
+        manifest,
+        cases,
+        release_resolution=None,
+        environ=environ,
+        transport_factory=transport_factory,
+    )
+
+
+def run_release(
+    runs_root: Path,
+    manifest: Mapping[str, Any],
+    release_path: Path,
+    trust_store: Any,
+    *,
+    registry_snapshot: Mapping[str, Any],
+    checked_at: datetime,
+    refresh_registry: Callable[[], Mapping[str, Any]] | None = None,
+    max_snapshot_age: timedelta = timedelta(days=1),
+    explicitly_pinned: bool = False,
+    audit_override_reason: str | None = None,
+    environ: Mapping[str, str] | None = None,
+    transport_factory: Callable[[Mapping[str, Any]], Transport] | None = None,
+) -> Path:
+    """Verify and execute the exact cases from one signed Benchmark Corpus Release."""
+
+    from .releases import load_verified_release_cases, resolve_release_for_run
+
+    resolution = resolve_release_for_run(
+        release_path,
+        trust_store,
+        registry_snapshot=registry_snapshot,
+        checked_at=checked_at,
+        refresh_registry=refresh_registry,
+        max_snapshot_age=max_snapshot_age,
+        explicitly_pinned=explicitly_pinned,
+        audit_override_reason=audit_override_reason,
+    )
+    cases = load_verified_release_cases(
+        release_path,
+        trust_store,
+        expected_release_digest=resolution["release"]["release_digest"],
+    )
+    return _run_targets(
+        runs_root,
+        manifest,
+        cases,
+        release_resolution=resolution,
+        environ=environ,
+        transport_factory=transport_factory,
+    )
+
+
+def _run_targets(
+    runs_root: Path,
+    manifest: Mapping[str, Any],
+    cases: Sequence[Mapping[str, Any]],
+    *,
+    release_resolution: Mapping[str, Any] | None,
+    environ: Mapping[str, str] | None,
+    transport_factory: Callable[[Mapping[str, Any]], Transport] | None,
+) -> Path:
+
+    validated_resolution = None
+    if release_resolution is not None:
+        from .releases import validate_release_resolution
+
+        validated_resolution = validate_release_resolution(release_resolution)
     started_monotonic = time.monotonic_ns()
     started_at = _utc_now()
     run_id = _uuid7()
@@ -202,7 +271,9 @@ def run_targets(
     observations: list[dict[str, Any]] = []
     plan: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
-    warnings: list[str] = []
+    warnings: list[str] = (
+        list(validated_resolution["warnings"]) if validated_resolution is not None else []
+    )
     contains_not_tested = False
     for report in reports:
         for warning in report["warnings"]:
@@ -294,7 +365,11 @@ def run_targets(
         },
         "versions": {
             "adapter_contract": "1.0.0",
-            "dependencies": {"Pygments": "2.19.2", "regex": "2024.11.6"},
+            "dependencies": {
+                "cryptography": "45.0.5",
+                "Pygments": "2.19.2",
+                "regex": "2024.11.6",
+            },
             "grader": GRADER_VERSION,
             "lexer": "Pygments-2.19.2",
             "normalization": "unicode-nfc-full-casefold-uax29-1.0.0",
@@ -302,6 +377,8 @@ def run_targets(
         },
         "warnings": warnings,
     }
+    if validated_resolution is not None:
+        run["corpus"] = validated_resolution
     write_json(record_path / "run.json", run)
     write_integrity(record_path)
     validate_record(record_path, require_complete=not contains_not_tested)
@@ -581,7 +658,11 @@ def _run_index(
         },
         "versions": {
             "adapter_contract": TARGET_VERSION,
-            "dependencies": {"Pygments": "2.19.2", "regex": "2024.11.6"},
+            "dependencies": {
+                "cryptography": "45.0.5",
+                "Pygments": "2.19.2",
+                "regex": "2024.11.6",
+            },
             "grader": GRADER_VERSION,
             "lexer": "not-applicable-synthetic-v1",
             "normalization": "unicode-nfc-full-casefold-uax29-1.0.0",

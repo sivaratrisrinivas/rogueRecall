@@ -126,6 +126,15 @@ def _validate_run_shape(run: dict[str, Any]) -> None:
         raise RecordValidationError("Run Record requires exactly one case or case_set object")
     if "case" in run and not isinstance(run.get("corpus"), dict):
         raise RecordValidationError("Run Record field must be an object: corpus")
+    if "corpus" in run and not isinstance(run.get("corpus"), dict):
+        raise RecordValidationError("Run Record field must be an object: corpus")
+    if "case_set" in run and isinstance(run.get("corpus"), dict):
+        from .releases import ReleaseValidationError, validate_release_resolution
+
+        try:
+            validate_release_resolution(run["corpus"])
+        except ReleaseValidationError as error:
+            raise RecordValidationError("Run Record corpus resolution is invalid") from error
     for field in ("observations", "plan"):
         if not isinstance(run.get(field), list):
             raise RecordValidationError(f"Run Record field must be a list: {field}")

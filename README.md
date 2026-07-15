@@ -25,6 +25,9 @@ The current Python 3.12 implementation includes:
 
 - immutable Complete and Incomplete Run Records with SHA-256 inventories;
 
+- canonical, immutable 50-case Benchmark Corpus Releases with Ed25519 signing,
+  offline verification, and append-only lifecycle history;
+
 - a loopback-only, read-only dashboard for inspecting evidence; and
 
 - traceable execution through versioned OpenAI Responses, Anthropic Messages,
@@ -136,6 +139,16 @@ from roguerecall import grade_observation, validate_evaluation_case
 case = validate_evaluation_case(authored_case)
 grade = grade_observation(case, raw_response)
 ```
+
+Release curators use the Python release interfaces to atomically assemble and
+sign a candidate, verify it against an offline trust key, and append signed
+publication, supersession, suspension, withdrawal, or reinstatement records.
+Before an Evaluation Run, `run_release` verifies the signed release and latest
+online registry (or the identity and age of an offline snapshot), then executes
+the exact cases loaded from that release. Stale status, explicit supersession
+pins, and permanent reasoned audit overrides remain part of the immutable Run
+Record. `run_targets` remains the separate interface for a non-release
+Evaluation Case Set and cannot attach Benchmark Corpus Release identity.
 
 ## Development
 
