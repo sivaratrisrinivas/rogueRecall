@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 from typing import Sequence
 
 from .dashboard import create_server
-from .engine import run_synthetic
+from .engine import run_synthetic, run_targets
 from .records import RecordValidationError, validate_record
 
 
@@ -21,6 +22,12 @@ def main(argv: Sequence[str] | None = None) -> int:
         choices=("finalization-interrupted", "operator-interrupted"),
         help="preserve an Incomplete Run Record after planning (test support)",
     )
+    targets_parser = subparsers.add_parser(
+        "run", help="run Evaluation Cases against declared Target Systems"
+    )
+    targets_parser.add_argument("--runs-root", type=Path, required=True)
+    targets_parser.add_argument("--manifest", type=Path, required=True)
+    targets_parser.add_argument("--case", type=Path, action="append", required=True)
     validate_parser = subparsers.add_parser(
         "validate", help="independently validate a Run Record"
     )
@@ -34,6 +41,12 @@ def main(argv: Sequence[str] | None = None) -> int:
 
     if args.command == "run-synthetic":
         record_path = run_synthetic(args.runs_root, inject_failure=args.inject_failure)
+        print(record_path)
+        return 1 if record_path.name.endswith(".incomplete") else 0
+    if args.command == "run":
+        manifest = _read_json_object(args.manifest)
+        cases = [_read_json_object(path) for path in args.case]
+        record_path = run_targets(args.runs_root, manifest, cases)
         print(record_path)
         return 1 if record_path.name.endswith(".incomplete") else 0
     if args.command == "validate":
@@ -59,6 +72,13 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
     parser.error("unknown command")
     return 2
+
+
+def _read_json_object(path: Path) -> dict[str, object]:
+    value = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise ValueError(f"JSON input must be an object: {path}")
+    return value
 
 
 if __name__ == "__main__":

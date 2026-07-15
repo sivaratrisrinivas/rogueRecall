@@ -27,9 +27,9 @@ The current Python 3.12 implementation includes:
 
 - a loopback-only, read-only dashboard for inspecting evidence.
 
-The repository currently runs one bundled synthetic case against a deterministic
-synthetic Target System. Real provider adapters and the full 50-case Benchmark
-Corpus are later V1 work.
+The repository includes a bundled deterministic Target System and versioned
+adapters for OpenAI Responses, Anthropic Messages, and a local OpenAI-compatible
+Chat Completions server.
 
 ## Why
 
@@ -85,6 +85,44 @@ roguerecall dashboard --runs-root ./runs --port 7411
 ```
 
 The dashboard listens only on loopback and cannot start runs or change evidence.
+
+Run one or more case files against a Target System manifest:
+
+```bash
+roguerecall run \
+  --runs-root ./runs \
+  --manifest ./targets.json \
+  --case ./cases/example.json
+```
+
+The manifest is strict and versioned. Credentials are named by environment
+variable and their values never enter the Run Record. Generation and execution
+sections may be omitted to use the V1 defaults.
+
+```json
+{
+  "schema_version": "1.0.0",
+  "target_systems": [
+    {
+      "target_system_id": "local-llama",
+      "adapter_id": "openai-compatible-chat-v1",
+      "adapter_version": "1.0.0",
+      "requested_model": "llama-3.1-8b-instruct",
+      "base_url": "http://127.0.0.1:8080",
+      "credential": {
+        "kind": "bearer",
+        "environment_variable": "LOCAL_MODEL_TOKEN"
+      }
+    }
+  ]
+}
+```
+
+Official adapters reject endpoint overrides. Local plain HTTP is restricted to
+loopback; HTTPS always verifies certificates, redirects are rejected, and an
+optional custom CA bundle may be declared. Each target receives a model lookup
+and public response-shape probe before corpus timing. RogueRecall—not an SDK—owns
+the bounded three-attempt retry policy and preserves every physical attempt.
 
 The validation and grading interfaces are also available from Python:
 
