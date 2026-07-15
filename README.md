@@ -23,13 +23,17 @@ The current Python 3.12 implementation includes:
 
 - explicit null outcomes for invalid cases and grader or lexer failures;
 
-- immutable Complete and Incomplete Run Records with SHA-256 inventories; and
+- immutable Complete and Incomplete Run Records with SHA-256 inventories;
 
-- a loopback-only, read-only dashboard for inspecting evidence.
+- a loopback-only, read-only dashboard for inspecting evidence; and
 
-The repository includes a bundled deterministic Target System and versioned
-adapters for OpenAI Responses, Anthropic Messages, and a local OpenAI-compatible
-Chat Completions server.
+- traceable execution through versioned OpenAI Responses, Anthropic Messages,
+  and local OpenAI-compatible Chat Completions adapters.
+
+The Target System execution contract includes strict secret-redacted manifests,
+fixed provider endpoints, secure local URL validation, capability preflight,
+independent per-target concurrency, bounded retries, explicit deadlines, and
+incrementally persisted evidence for every physical attempt.
 
 ## Why
 
@@ -142,4 +146,6 @@ uv run --python 3.12 --with mypy==1.17.1 mypy --strict src
 
 The test suite covers successful and interrupted runs, integrity tampering,
 secret exclusion, fail-closed case validation, grading boundaries, Unicode
-normalization, prompt contamination, boilerplate exclusion, and repeatability.
+normalization, prompt contamination, boilerplate exclusion, repeatability, all
+three adapter contracts, refusal and truncation handling, retry exhaustion,
+deterministic target stopping, and persistence failure.
