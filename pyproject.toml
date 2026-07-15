@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "roguerecall"
+version = "0.1.0"
+description = "A local benchmark for observable protected-text reproduction"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[project.scripts]
+roguerecall = "roguerecall.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/roguerecall"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
