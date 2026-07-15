@@ -1,6 +1,30 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Python environments and build output
+.venv/
+venv/
 dist/
 build/
 *.egg-info/
+
+# Local evidence and tool state
+runs/
+.impeccable/
+.codex/
+
+# Credentials and machine-local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
