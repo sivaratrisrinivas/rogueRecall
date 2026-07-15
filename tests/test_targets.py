@@ -105,6 +105,25 @@ def test_official_adapters_reject_endpoint_overrides() -> None:
         validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
 
 
+def test_official_capabilities_come_from_the_adapter_catalog() -> None:
+    manifest = local_manifest()
+    target = manifest["target_systems"][0]  # type: ignore[index]
+    target["adapter_id"] = "openai-responses-v1"  # type: ignore[index]
+    target["requested_model"] = "gpt-5-2026-01-01"  # type: ignore[index]
+    target["base_url"] = None  # type: ignore[index]
+    target["local_artifact"] = None  # type: ignore[index]
+
+    with pytest.raises(TargetManifestError, match="versioned catalog"):
+        validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
+
+    del target["capabilities"]  # type: ignore[index]
+    validated = validate_target_manifest(
+        manifest, environ={"LOCAL_MODEL_TOKEN": "secret"}
+    )["target_systems"][0]
+    assert validated["capabilities"] == {"temperature": False}
+    assert "temperature_unsupported" in validated["warnings"]
+
+
 def test_manifest_fails_closed_on_unknown_fields_and_missing_credentials() -> None:
     unknown = local_manifest()
     unknown["target_systems"][0]["surprise"] = True  # type: ignore[index]

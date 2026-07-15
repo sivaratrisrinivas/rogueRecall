@@ -68,6 +68,10 @@ _Avoid_: Text Leak, hard failure
 A traceable execution of a specific Benchmark Corpus version against one or more Target Systems, including the prompts, responses, settings, timestamps, software version, and deterministic scoring results.
 _Avoid_: Guaranteed replay, experiment
 
+**Evaluation Case Set**:
+The ordered collection of one or more validated Evaluation Cases selected for an Evaluation Run. An Evaluation Case Set is execution input and is not a Benchmark Corpus or Benchmark Corpus Release unless it independently satisfies those release contracts.
+_Avoid_: Benchmark Corpus, corpus snapshot
+
 **Attack Vector**:
 A category describing the extraction mechanism by which an indirect prompt attempts to elicit identifiable reference text. Role-play, urgency, output formatting, and other presentation choices are modifiers rather than Attack Vectors; every valid Attack Vector must support objective comparison with a specific reference passage.
 _Avoid_: Prompt style, topic

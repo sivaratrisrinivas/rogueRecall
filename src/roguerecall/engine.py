@@ -156,12 +156,12 @@ def run_targets(
     validated_cases = [validate_evaluation_case(case) for case in cases]
     if not validated_cases:
         raise ValueError("an Evaluation Run requires at least one Evaluation Case")
-    case_snapshot = {"cases": validated_cases, "schema_version": "1.0.0"}
-    case_fingerprint = sha256_bytes(canonical_json(case_snapshot))
+    case_set = {"cases": validated_cases, "schema_version": "1.0.0"}
+    case_fingerprint = sha256_bytes(canonical_json(case_set))
     target_fingerprint = validated_manifest["fingerprint"]
     case_path = "cases/corpus.json"
     target_path = "targets/manifest.json"
-    write_json(record_path / case_path, case_snapshot)
+    write_json(record_path / case_path, case_set)
     write_json(record_path / target_path, validated_manifest)
 
     execution_cases = [
@@ -182,6 +182,7 @@ def run_targets(
         execution_cases,
         factory,
         environ=environ,
+        persist_attempt=lambda attempt: _persist_attempt_record(record_path, attempt),
     )
     write_json(
         record_path / target_path,
@@ -252,15 +253,9 @@ def run_targets(
         if _read_observation_leak(record_path / item["path"])
     )
     run = {
-        "case": {
-            "case_id": "benchmark-corpus",
+        "case_set": {
             "fingerprint": case_fingerprint,
             "path": case_path,
-        },
-        "corpus": {
-            "corpus_id": "operator-supplied",
-            "snapshot_fingerprint": case_fingerprint,
-            "version": "1.0.0",
         },
         "engine": {
             "architecture": platform.machine(),
@@ -359,7 +354,7 @@ def _persist_target_observation(
         "artifacts": artifacts,
         "attempts": attempts,
         "case_id": result["case_id"],
-        "case_snapshot_fingerprint": case_fingerprint,
+        "case_set_fingerprint": case_fingerprint,
         "planned_position": result["planned_position"],
         "target_system_id": result.get("target_system_id"),
         "target_system_manifest_fingerprint": target_fingerprint,
@@ -373,7 +368,19 @@ def _persist_target_observation(
         observation["grade"] = grade
     if "error" in result:
         observation["error"] = result["error"]
+    if result.get("response_condition") is not None:
+        observation["response_condition"] = result["response_condition"]
     return observation
+
+
+def _persist_attempt_record(record_path: Path, attempt: dict[str, Any]) -> None:
+    relative_path = (
+        Path("attempts")
+        / attempt["target_system_id"]
+        / attempt["case_id"]
+        / f"{attempt['attempt_number']:02d}-{attempt['attempt_id']}.json"
+    )
+    write_json(record_path / relative_path, attempt)
 
 
 def _read_observation_status(path: Path) -> str | None:

@@ -117,10 +117,15 @@ def _validate_schema_version(version: Any) -> None:
 
 
 def _validate_run_shape(run: dict[str, Any]) -> None:
-    required_objects = ("case", "corpus", "engine", "lifecycle", "summary", "target", "versions")
+    required_objects = ("engine", "lifecycle", "summary", "target", "versions")
     for field in required_objects:
         if not isinstance(run.get(field), dict):
             raise RecordValidationError(f"Run Record field must be an object: {field}")
+    case_sources = [field for field in ("case", "case_set") if isinstance(run.get(field), dict)]
+    if len(case_sources) != 1:
+        raise RecordValidationError("Run Record requires exactly one case or case_set object")
+    if "case" in run and not isinstance(run.get("corpus"), dict):
+        raise RecordValidationError("Run Record field must be an object: corpus")
     for field in ("observations", "plan"):
         if not isinstance(run.get(field), list):
             raise RecordValidationError(f"Run Record field must be a list: {field}")
@@ -138,7 +143,8 @@ def _validate_run_shape(run: dict[str, Any]) -> None:
 
 
 def _validate_references(record_path: Path, run: dict[str, Any]) -> None:
-    references = [run.get("case", {}).get("path"), run.get("target", {}).get("path")]
+    case_source = _case_source(run)
+    references = [case_source.get("path"), run.get("target", {}).get("path")]
     references.extend(item.get("path") for item in run.get("observations", []))
     for reference in references:
         if not isinstance(reference, str) or reference.startswith(("/", "../")):
@@ -200,9 +206,11 @@ def _validate_observation(
         raise RecordValidationError("Observation timestamps are missing or invalid")
     if not isinstance(observation.get("attempts"), list):
         raise RecordValidationError("Observation attempts must be a list")
-    if observation.get("case_snapshot_fingerprint") != run["case"].get(
-        "fingerprint"
-    ):
+    case_source = _case_source(run)
+    observed_fingerprint = observation.get("case_snapshot_fingerprint")
+    if "case_set" in run:
+        observed_fingerprint = observation.get("case_set_fingerprint")
+    if observed_fingerprint != case_source.get("fingerprint"):
         raise RecordValidationError("Observation case fingerprint does not match")
     if observation.get("target_system_manifest_fingerprint") != run["target"].get(
         "fingerprint"
@@ -247,6 +255,15 @@ def _validate_artifact_reference(
         raise RecordValidationError(
             f"Observation artifact metadata does not match: {relative_path}"
         )
+
+
+def _case_source(run: dict[str, Any]) -> dict[str, Any]:
+    value = run.get("case")
+    if not isinstance(value, dict):
+        value = run.get("case_set")
+    if not isinstance(value, dict):
+        raise RecordValidationError("Run Record has no case identity")
+    return value
 
 
 def _validate_summary(record_path: Path, run: dict[str, Any]) -> None:

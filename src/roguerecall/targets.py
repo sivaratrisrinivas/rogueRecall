@@ -4,6 +4,7 @@ import copy
 import base64
 import ipaddress
 import json
+import http.client
 import os
 import random
 import re
@@ -12,6 +13,7 @@ import ssl
 import time
 import uuid
 import platform
+import threading
 from collections.abc import Mapping
 from collections.abc import Callable, Sequence
 from concurrent.futures import ThreadPoolExecutor
@@ -21,13 +23,6 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 from typing import Any, Protocol
 from urllib.parse import quote, urlsplit, urlunsplit
-from urllib.error import HTTPError, URLError
-from urllib.request import (
-    HTTPRedirectHandler,
-    HTTPSHandler,
-    Request,
-    build_opener,
-)
 
 from .records import canonical_json, sha256_bytes
 
@@ -122,59 +117,82 @@ class Transport(Protocol):
     def send(self, request: HttpRequest) -> HttpResponse: ...
 
 
-class _RejectRedirects(HTTPRedirectHandler):
-    def redirect_request(
-        self,
-        req: Request,
-        fp: Any,
-        code: int,
-        msg: str,
-        headers: Any,
-        newurl: str,
-    ) -> None:
-        return None
-
-
 class UrllibTransport:
-    """Standard-library HTTP transport with redirects and implicit retries disabled."""
+    """Standard-library transport with explicit deadlines and no redirects/retries."""
 
     def __init__(self, ca_bundle: str | None = None) -> None:
         self._ca_bundle = ca_bundle
 
     def send(self, request: HttpRequest) -> HttpResponse:
-        context = ssl.create_default_context(cafile=self._ca_bundle)
-        opener = build_opener(_RejectRedirects(), HTTPSHandler(context=context))
-        wire_request = Request(
-            request.url,
-            data=request.body if request.body else None,
-            headers=request.headers,
-            method=request.method,
+        started = time.monotonic()
+        deadline = started + request.attempt_timeout_seconds
+        parsed = urlsplit(request.url)
+        if parsed.hostname is None:
+            raise TransportError("invalid_url", "HTTP URL has no host", retryable=False)
+        connect_timeout = min(
+            request.connect_timeout_seconds, request.attempt_timeout_seconds
         )
+        if parsed.scheme == "https":
+            context = ssl.create_default_context(cafile=self._ca_bundle)
+            connection: http.client.HTTPConnection = http.client.HTTPSConnection(
+                parsed.hostname, parsed.port, timeout=connect_timeout, context=context
+            )
+        else:
+            connection = http.client.HTTPConnection(
+                parsed.hostname, parsed.port, timeout=connect_timeout
+            )
+        phase = "connect"
         try:
-            with opener.open(
-                wire_request, timeout=request.attempt_timeout_seconds
-            ) as response:
-                return HttpResponse(
-                    status=response.status,
-                    headers=dict(response.headers.items()),
-                    body=response.read(),
-                )
-        except HTTPError as error:
-            if 300 <= error.code < 400:
+            connection.connect()
+            phase = "attempt"
+            _set_socket_deadline(connection, deadline)
+            path = parsed.path or "/"
+            if parsed.query:
+                path = f"{path}?{parsed.query}"
+            connection.request(
+                request.method,
+                path,
+                body=request.body if request.body else None,
+                headers=request.headers,
+            )
+            _set_socket_deadline(connection, deadline)
+            response = connection.getresponse()
+            if 300 <= response.status < 400:
                 raise TransportError(
                     "redirect_rejected", "provider redirect was rejected", retryable=False
-                ) from None
+                )
+            chunks: list[bytes] = []
+            while True:
+                _set_socket_deadline(connection, deadline)
+                chunk = response.read(64 * 1024)
+                if not chunk:
+                    break
+                chunks.append(chunk)
             return HttpResponse(
-                status=error.code,
-                headers=dict(error.headers.items()),
-                body=error.read(),
+                status=response.status,
+                headers=dict(response.headers.items()),
+                body=b"".join(chunks),
             )
         except (TimeoutError, socket.timeout):
-            raise TransportError("attempt_timeout", "HTTP attempt timed out") from None
-        except (URLError, ConnectionError, OSError) as error:
-            reason = getattr(error, "reason", None)
-            code = "attempt_timeout" if isinstance(reason, socket.timeout) else "connection_failure"
-            raise TransportError(code, "HTTP transport failed") from None
+            code = "connect_timeout" if phase == "connect" else "attempt_timeout"
+            raise TransportError(code, "HTTP attempt timed out") from None
+        except TransportError:
+            raise
+        except (http.client.HTTPException, ssl.SSLError, ConnectionError, OSError):
+            raise TransportError("connection_failure", "HTTP transport failed") from None
+        finally:
+            connection.close()
+
+
+def _set_socket_deadline(
+    connection: http.client.HTTPConnection, deadline: float
+) -> None:
+    remaining = deadline - time.monotonic()
+    if remaining <= 0:
+        raise TimeoutError
+    if connection.sock is None:
+        raise TransportError("connection_failure", "HTTP socket is unavailable")
+    connection.sock.settimeout(remaining)
 
 
 def validate_target_manifest(
@@ -214,6 +232,7 @@ def execute_target_system(
     sleep: Callable[[float], None] = time.sleep,
     jitter: Callable[[float], float] | None = None,
     persist_attempt: Callable[[dict[str, Any]], None] | None = None,
+    stop_all: threading.Event | None = None,
 ) -> dict[str, Any]:
     """Preflight and execute corpus cases for one validated Target System.
 
@@ -244,6 +263,8 @@ def execute_target_system(
     position = 0
     concurrency = target_copy["execution"]["concurrency"]
     while position < len(cases):
+        if stop_all is not None and stop_all.is_set():
+            raise EngineExecutionError("Evaluation Run stopped after persistence failure")
         if shared_cause is not None:
             observations.extend(
                 _not_tested(cases[index], index, shared_cause)
@@ -252,8 +273,11 @@ def execute_target_system(
             break
         batch = list(enumerate(cases[position : position + concurrency], position))
         with ThreadPoolExecutor(max_workers=concurrency) as pool:
-            futures = [
-                pool.submit(
+            futures = []
+            for case_position, case in batch:
+                queued_monotonic = time.monotonic_ns()
+                futures.append(
+                    pool.submit(
                     _execute_case,
                     target_copy,
                     case,
@@ -264,9 +288,10 @@ def execute_target_system(
                     sleep,
                     random_delay,
                     persist_attempt,
+                    queued_monotonic,
+                    stop_all,
                 )
-                for case_position, case in batch
-            ]
+                )
             batch_observations = [future.result() for future in futures]
         for observation in batch_observations:
             for warning in observation.get("warnings", []):
@@ -290,12 +315,26 @@ def execute_target_systems(
     transport_factory: Callable[[Mapping[str, Any]], Transport],
     *,
     environ: Mapping[str, str] | None = None,
+    persist_attempt: Callable[[dict[str, Any]], None] | None = None,
 ) -> list[dict[str, Any]]:
     """Execute all manifest targets independently and retain manifest order."""
 
     targets = manifest.get("target_systems")
     if not isinstance(targets, list) or not targets:
         raise TargetManifestError("validated manifest contains no Target Systems")
+    stop_all = threading.Event()
+
+    def persist_or_stop(attempt: dict[str, Any]) -> None:
+        if stop_all.is_set():
+            raise EngineExecutionError("Evaluation Run persistence is unavailable")
+        if persist_attempt is None:
+            return
+        try:
+            persist_attempt(attempt)
+        except Exception:
+            stop_all.set()
+            raise
+
     with ThreadPoolExecutor(max_workers=len(targets)) as pool:
         futures = [
             pool.submit(
@@ -304,6 +343,8 @@ def execute_target_systems(
                 cases,
                 transport_factory(target),
                 environ=environ,
+                persist_attempt=persist_or_stop,
+                stop_all=stop_all,
             )
             for target in targets
         ]
@@ -384,13 +425,18 @@ def _execute_case(
     sleep: Callable[[float], None],
     jitter: Callable[[float], float],
     persist_attempt: Callable[[dict[str, Any]], None] | None,
+    queued_monotonic: int,
+    stop_all: threading.Event | None,
 ) -> dict[str, Any]:
     case_id, prompt = _case_identity(case)
+    queue_milliseconds = (time.monotonic_ns() - queued_monotonic) / 1_000_000
     logical_request_id = str(uuid.uuid4())
     attempts: list[dict[str, Any]] = []
     started_at = _utc_now()
     max_attempts = target["execution"]["max_attempts"]
     for attempt_number in range(1, max_attempts + 1):
+        if stop_all is not None and stop_all.is_set():
+            raise EngineExecutionError("Evaluation Run stopped after persistence failure")
         attempt_id = str(uuid.uuid4())
         request = _request(target, "completion", prompt, environment, attempt_id)
         attempt_started = _utc_now()
@@ -412,6 +458,8 @@ def _execute_case(
         delay, source = _retry_delay(response, attempt_number, jitter) if will_retry else (0.0, None)
         credential_values = _credential_values(target, environment)
         result = _redact_secrets(result, credential_values)
+        if result["kind"] == "completed":
+            _response_warnings(target, result, warnings)
         attempt = _attempt_evidence(
             target,
             case_id,
@@ -429,12 +477,13 @@ def _execute_case(
             source,
             transport_error,
             credential_values,
+            queue_milliseconds if attempt_number == 1 else 0.0,
+            warnings,
         )
         attempt = _redact_secrets(attempt, credential_values)
-        _persist(attempt, persist_attempt)
         attempts.append(attempt)
         if result["kind"] == "completed":
-            _response_warnings(target, result, warnings)
+            _persist(attempt, persist_attempt)
             return {
                 "attempts": attempts,
                 "case_id": case_id,
@@ -452,6 +501,7 @@ def _execute_case(
                 "warnings": list(warnings),
             }
         if not will_retry:
+            _persist(attempt, persist_attempt)
             terminal_error = result["error"]
             if retryable:
                 terminal_error = {
@@ -475,6 +525,7 @@ def _execute_case(
         sleep(delay)
         actual_wait = (time.monotonic_ns() - wait_started) / 1_000_000_000
         attempt["retry"]["actual_wait_seconds"] = delay if sleep is not time.sleep else actual_wait
+        _persist(attempt, persist_attempt)
     raise AssertionError("attempt loop must return a terminal observation")
 
 
@@ -575,6 +626,7 @@ def _classify_response(target: dict[str, Any], response: HttpResponse) -> dict[s
     if not isinstance(raw, dict):
         return _protocol_error("successful response body was not an object")
     adapter_id = target["adapter_id"]
+    condition: str | None
     try:
         if adapter_id == "openai-compatible-chat-v1":
             choices = raw["choices"]
@@ -584,12 +636,12 @@ def _classify_response(target: dict[str, Any], response: HttpResponse) -> dict[s
             message = choice["message"]
             content = message.get("content")
             refusal = message.get("refusal")
-            if isinstance(content, str):
-                text = content
-                condition = "response_truncated" if choice.get("finish_reason") == "length" else None
-            elif isinstance(refusal, str):
+            if isinstance(refusal, str):
                 text = refusal
                 condition = "response_refusal"
+            elif isinstance(content, str):
+                text = content
+                condition = "response_truncated" if choice.get("finish_reason") == "length" else None
             else:
                 return _protocol_error("chat response contains no textual content")
             returned_model = raw.get("model")
@@ -642,6 +694,10 @@ def _classify_response(target: dict[str, Any], response: HttpResponse) -> dict[s
         "condition": condition,
         "kind": "completed",
         "provider_response_id": provider_id,
+        "server_request_id": _allowed_response_headers(response.headers).get(
+            "x-request-id"
+        )
+        or _allowed_response_headers(response.headers).get("request-id"),
         "raw": raw,
         "returned_model": returned_model,
         "stop_reason": stop_reason,
@@ -667,6 +723,8 @@ def _attempt_evidence(
     retry_source: str | None,
     transport_error: TransportError | None,
     secrets: Sequence[str],
+    queue_milliseconds: float,
+    warnings: Sequence[str],
 ) -> dict[str, Any]:
     response_headers = {} if response is None else _allowed_response_headers(response.headers)
     evidence: dict[str, Any] = {
@@ -679,6 +737,7 @@ def _attempt_evidence(
         "logical_request_id": logical_request_id,
         "monotonic_elapsed_milliseconds": (time.monotonic_ns() - monotonic_started) / 1_000_000,
         "planned_position": position,
+        "queue_elapsed_milliseconds": queue_milliseconds,
         "request": {
             "body": json.loads(request.body) if request.body else None,
             "body_sha256": sha256_bytes(request.body),
@@ -715,12 +774,17 @@ def _attempt_evidence(
             "connect_seconds": request.connect_timeout_seconds,
         },
         "versions": {
-            "http_library": "urllib",
+            "extraction_rule": f"{target['adapter_id']}-text-extraction-1.0.0",
+            "http_library": "http.client",
             "operating_system": platform.system(),
             "python": platform.python_version(),
+            "provider_sdk": "none",
             "roguerecall": "0.1.0",
         },
+        "warnings": list(warnings),
     }
+    if result.get("condition") is not None:
+        evidence["response_condition"] = result["condition"]
     if result["kind"] != "completed":
         evidence["error"] = result["error"]
     if transport_error is not None:
@@ -758,7 +822,7 @@ def _response_warnings(
 ) -> None:
     if result.get("usage") is None:
         _append_warning(warnings, "usage_unavailable")
-    if result.get("provider_response_id") is None:
+    if result.get("server_request_id") is None:
         _append_warning(warnings, "server_request_id_unavailable")
     returned_model = result.get("returned_model")
     if returned_model is None:
@@ -1000,6 +1064,15 @@ def _validate_target(
         raise TargetManifestError("capabilities must declare only temperature")
     if not isinstance(capabilities["temperature"], bool):
         raise TargetManifestError("temperature capability must be boolean")
+    if adapter_id in OFFICIAL_ADAPTERS:
+        catalog_temperature = _official_temperature_capability(
+            adapter_id, target["requested_model"]
+        )
+        if "capabilities" in raw_target and capabilities["temperature"] != catalog_temperature:
+            raise TargetManifestError(
+                "official adapter capabilities come from the versioned catalog"
+            )
+        capabilities = {"temperature": catalog_temperature}
 
     warnings: list[str] = []
     if not capabilities["temperature"]:
@@ -1130,3 +1203,9 @@ def _positive_number(container: Mapping[str, Any], field: str) -> float:
 
 def _looks_pinned(model: str) -> bool:
     return bool(re.search(r"(?:20\d{2}[-_]\d{2}[-_]\d{2}|\d{4})", model))
+
+
+def _official_temperature_capability(adapter_id: str, model: str) -> bool:
+    if adapter_id == "anthropic-messages-v1":
+        return True
+    return re.match(r"(?:o1|o3|o4|gpt-5)(?:-|$)", model) is None
