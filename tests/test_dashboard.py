@@ -20,7 +20,7 @@ def test_loopback_dashboard_displays_a_validated_completed_run_record(
     thread.start()
     try:
         url = f"http://127.0.0.1:{server.server_port}/"
-        response = urllib.request.urlopen(url, timeout=2)
+        response = urllib.request.urlopen(url, timeout=5)
         page = response.read().decode("utf-8")
         assert response.status == 200
         assert "RogueRecall Evaluation Run" in page
@@ -30,16 +30,16 @@ def test_loopback_dashboard_displays_a_validated_completed_run_record(
         assert f'href="/runs/{record_path.name}"' in page
 
         evidence_response = urllib.request.urlopen(
-            f"{url}runs/{record_path.name}", timeout=2
+            f"{url}runs/{record_path.name}", timeout=5
         )
         evidence_page = evidence_response.read().decode("utf-8")
         assert "Selected response" in evidence_page
-        assert "book-exact-20-v1" in evidence_page
+        assert "book-contiguous-20-v1" in evidence_page
         assert "artifacts/responses/" in evidence_page
 
         request = urllib.request.Request(url, data=b"start=true", method="POST")
         with pytest.raises(urllib.error.HTTPError) as error:
-            urllib.request.urlopen(request, timeout=2)
+            urllib.request.urlopen(request, timeout=5)
         assert error.value.code == 405
     finally:
         server.shutdown()

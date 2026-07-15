@@ -36,11 +36,11 @@ def test_cli_runs_the_bundled_synthetic_evaluation_case(tmp_path: Path) -> None:
     observation_path = records[0] / run["observations"][0]["path"]
     observation = json.loads(observation_path.read_text(encoding="utf-8"))
     assert observation["selected_response"]["text"].startswith("alpha bravo charlie")
-    assert observation["grade"] == {
-        "matched_word_count": 20,
-        "outcome_reason": "book-exact-20-v1",
-        "text_leak": True,
-    }
+    assert observation["grade"]["evaluation_status"] == "completed"
+    assert observation["grade"]["text_leak"] is True
+    assert observation["grade"]["outcome_reason"] == "book-contiguous-20-v1"
+    assert observation["grade"]["decisive_matches"][0]["matched_count"] == 20
+    assert observation["grade"]["evidence_pointer"].startswith("sha256:")
 
 
 def test_cli_preserves_an_incomplete_run_record_after_interruption(

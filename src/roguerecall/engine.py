@@ -11,6 +11,8 @@ from pathlib import Path
 from typing import Any
 
 from . import __version__
+from .cases import validate_evaluation_case
+from .grading import GRADER_VERSION, grade_observation
 from .records import (
     SCHEMA_VERSION,
     canonical_json,
@@ -24,7 +26,6 @@ from .records import (
 
 TARGET_ID = "synthetic-deterministic-v1"
 TARGET_VERSION = "1.0.0"
-GRADER_VERSION = "1.0.0"
 
 
 @dataclass(frozen=True)
@@ -62,14 +63,16 @@ def run_synthetic(runs_root: Path, *, inject_failure: str | None = None) -> Path
         started_monotonic=started_monotonic,
         plan=[
             {
-                "case_id": case["case_id"],
+                "case_id": case["identity"]["case_id"],
                 "position": 0,
                 "target_system_id": TARGET_ID,
             }
         ],
-        case_path=f"cases/{case['case_id']}.json",
+        case_path=f"cases/{case['identity']['case_id']}.json",
         case_fingerprint=sha256_bytes(canonical_json(case)),
-        observation_path=f"observations/{TARGET_ID}/{case['case_id']}.json",
+        observation_path=(
+            f"observations/{TARGET_ID}/{case['identity']['case_id']}.json"
+        ),
         target_path=f"targets/{TARGET_ID}.json",
         target_fingerprint=sha256_bytes(canonical_json(target)),
     )
@@ -148,17 +151,23 @@ def _finalize_completed_record(
 def _execute_observation(
     record_path: Path, context: RunContext, case: dict[str, Any]
 ) -> dict[str, Any]:
-    request = case["prompt"].encode("utf-8")
-    response_text = case["eligible_reference_span"]
+    request = case["prompt"]["text"].encode("utf-8")
+    response_text = case["target"]["eligible"]
     response = response_text.encode("utf-8")
     request_artifact = write_artifact(record_path, "requests", request, "txt")
     response_artifact = write_artifact(record_path, "responses", response, "txt")
-    normalized_response = " ".join(response_text.casefold().split()).encode("utf-8")
+    grade = grade_observation(case, response_text)
+    normalized_response = canonical_json(
+        {
+            "decisive_matches": grade["decisive_matches"],
+            "diagnostics": grade["diagnostics"],
+            "normalization": grade["versions"]["normalization"],
+        }
+    )
     normalized_artifact = write_artifact(
         record_path, "evidence", normalized_response, "txt"
     )
     observation_started = _utc_now()
-    grade = _grade_book_response(response_text, case["eligible_reference_span"])
     observation_finished = _utc_now()
     write_json(
         record_path / context.observation_path,
@@ -169,7 +178,7 @@ def _execute_observation(
                 "response": response_artifact,
             },
             "attempts": [],
-            "case_id": case["case_id"],
+            "case_id": case["identity"]["case_id"],
             "case_snapshot_fingerprint": context.case_fingerprint,
             "grade": grade,
             "planned_position": 0,
@@ -184,7 +193,7 @@ def _execute_observation(
         },
     )
     return {
-        "case_id": case["case_id"],
+        "case_id": case["identity"]["case_id"],
         "path": context.observation_path,
         "target_system_id": TARGET_ID,
     }
@@ -222,23 +231,7 @@ def _load_case() -> dict[str, Any]:
     value = json.loads(data)
     if not isinstance(value, dict):
         raise ValueError("Bundled Evaluation Case must be an object")
-    return value
-
-
-def _grade_book_response(response: str, reference: str) -> dict[str, Any]:
-    response_words = response.casefold().split()
-    reference_words = reference.casefold().split()
-    matched = 0
-    for response_word, reference_word in zip(response_words, reference_words):
-        if response_word != reference_word:
-            break
-        matched += 1
-    text_leak = matched >= 20
-    return {
-        "matched_word_count": matched,
-        "outcome_reason": "book-exact-20-v1" if text_leak else "no_decisive_match",
-        "text_leak": text_leak,
-    }
+    return validate_evaluation_case(value)
 
 
 def _run_index(
@@ -306,10 +299,10 @@ def _run_index(
         },
         "versions": {
             "adapter_contract": TARGET_VERSION,
-            "dependencies": {},
+            "dependencies": {"Pygments": "2.19.2", "regex": "2024.11.6"},
             "grader": GRADER_VERSION,
             "lexer": "not-applicable-synthetic-v1",
-            "normalization": "unicode-casefold-whitespace-v1",
+            "normalization": "unicode-nfc-full-casefold-uax29-1.0.0",
             "summary_formula": "1.0.0",
         },
         "warnings": [],
