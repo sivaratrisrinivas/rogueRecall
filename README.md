@@ -150,6 +150,45 @@ pins, and permanent reasoned audit overrides remain part of the immutable Run
 Record. `run_targets` remains the separate interface for a non-release
 Evaluation Case Set and cannot attach Benchmark Corpus Release identity.
 
+### Benchmark Corpus release workflow
+
+Release identities use Ed25519. Keep the configured private key outside Run
+Records and distribute only its public trust identity. The release API stages
+and verifies every corpus artifact before publishing the initial signed registry
+entry:
+
+```python
+from roguerecall import (
+    CorpusRegistry,
+    TrustStore,
+    assemble_and_publish_release,
+    run_release,
+)
+
+trust = TrustStore.from_identities([bundled_public_identity])
+registry = CorpusRegistry(trust)
+manifest, publication = assemble_and_publish_release(
+    release_path,
+    registry,
+    version="1.0.0",
+    cases=approved_cases,
+    composition=composition_categories,
+    artifacts=release_artifacts,
+    notice_bundle=release_notice_bundle,
+    approvals=independent_approvals,
+    contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
+    released_at=release_time,
+    release_channel="github:owner/repository",
+    signer=configured_release_identity,
+    publication_reason="initial_publication",
+    publication_authority="Release Curator",
+)
+```
+
+`run_release` verifies that signed release and registry state, loads the exact
+50 cases from the verified artifact, and records the registry snapshot identity,
+age, warnings, and any permanent audit-only override in the Run Record.
+
 ## Development
 
 ```bash
