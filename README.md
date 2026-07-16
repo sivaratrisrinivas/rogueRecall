@@ -157,6 +157,18 @@ Evaluation Case Set and cannot attach Benchmark Corpus Release identity.
 
 ### Benchmark Corpus release workflow
 
+RogueRecall does not yet ship its default public Benchmark Corpus Release.
+[Issue #26](https://github.com/sivaratrisrinivas/rogueRecall/issues/26) remains
+open until 50 rights-cleared Source Works have complete Contributor
+Attestations, durable Rights Evidence, independent reviews, and release-curator
+approval. The intake validator and human review templates are documented in
+[docs/corpus](docs/corpus/README.md).
+
+V1 records and reports the publication eras selected for books and lyrical
+compositions but applies no per-era minimum. This makes corpus acquisition more
+feasible without broadening the rights allowlist or weakening review gates; see
+[ADR-0001](docs/adr/0001-record-literary-eras-without-v1-quotas.md).
+
 Release identities use Ed25519. Keep the configured private key outside Run
 Records and distribute only its public trust identity. The release API stages
 and verifies every corpus artifact before publishing the initial signed registry
