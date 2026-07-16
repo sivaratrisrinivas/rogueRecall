@@ -206,13 +206,15 @@ categories, and exception ownership and expiry. Correctness, traceability,
 provider, corpus, security, accessibility, packaging, and documentation gates
 cannot be waived; only an explicit performance exception is accepted.
 
-The checked-in V1 bundle records the qualification work completed in the local
-Linux x86-64 environment. It is not a claim that issue #29 is fully qualified:
-primary cross-platform and supported-browser run reports, scanner outputs, the
-reproducible frozen Grader Validation Set with per-case results, and final
-corpus signing evidence still need to be attached before closing that issue.
-The current provider-dependent five-minute condition is an owned, expiring
-performance exception rather than a measured pass.
+The checked-in V1 bundle includes the reproducible 909-example frozen Grader
+Validation Set, per-case results, raw adapter and corpus JUnit reports, and
+recursive artifact verification. The
+[V1 qualification workflow](https://github.com/sivaratrisrinivas/rogueRecall/actions/workflows/v1-qualification.yml)
+records passing Linux, macOS, and Windows evidence on x86-64 and ARM64, real
+Chromium/Firefox/WebKit checks, strict typing, dependency auditing, secret
+scanning, and qualification-bundle validation. The provider-dependent
+five-minute condition remains an owned, expiring performance exception rather
+than a measured pass; no non-waivable gate is excepted.
 
 ### Benchmark Corpus release workflow
 
