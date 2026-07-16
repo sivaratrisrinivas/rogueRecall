@@ -1,2 +1,6 @@
-docs/corpus/candidate-v1/evidence/**/rights-*.bin binary
-docs/corpus/candidate-v1/evidence/**/source.txt binary
+* text=auto eol=lf
+*.bin binary
+*.png binary
+*.jpg binary
+*.zip binary
+*.whl binary
