@@ -1,5 +1,7 @@
 {
   "set_version": "1.0.0",
+  "command": "python scripts/generate_grader_validation.py && pytest -q tests/test_qualification_evidence.py",
+  "per_example_artifact": {"path": "grader-validation-set.json", "sha256": "1b67f3232b1aeb1e9cb967f13ce3f31545cab4b92aa9c2fe06c3f63b87888a31"},
   "construction": "Locked deterministic threshold, normalization, prompt-echo, source-identification, boilerplate, lexer-error, and adversarial-fragment conformance strata. The negative strata are fixtures, not an independently sampled operational population; confidence bounds therefore describe only this frozen set.",
   "overall": {"true_positive": 12, "true_negative": 897, "false_positive": 0, "false_negative": 0, "sample_count": 909, "sensitivity": 1.0, "false_positive_upper_95": 0.0033341531534265556},
   "domains": {

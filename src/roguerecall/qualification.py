@@ -189,7 +189,7 @@ def _exceptions(value: object, now: datetime) -> dict[str, dict[str, Any]]:
     return result
 
 
-def _artifact(value: object, root: Path) -> None:
+def _artifact(value: object, root: Path, seen: set[Path] | None = None) -> None:
     if not isinstance(value, dict):
         raise QualificationValidationError("artifact reference must be an object")
     _exact_keys(value, {"path", "sha256"}, "artifact")
@@ -199,12 +199,36 @@ def _artifact(value: object, root: Path) -> None:
     digest = _nonempty_text(value["sha256"], f"artifact {relative} sha256")
     if len(digest) != 64 or any(character not in "0123456789abcdef" for character in digest):
         raise QualificationValidationError(f"artifact {relative} has invalid sha256")
+    path = root / relative
     try:
-        actual = hashlib.sha256((root / relative).read_bytes()).hexdigest()
+        content = path.read_bytes()
+        actual = hashlib.sha256(content).hexdigest()
     except OSError as error:
         raise QualificationValidationError(f"cannot read artifact {relative}: {error}") from error
     if actual != digest:
         raise QualificationValidationError(f"artifact hash mismatch: {relative}")
+    visited = seen if seen is not None else set()
+    resolved = path.resolve()
+    if resolved in visited or path.suffix != ".json":
+        return
+    visited.add(resolved)
+    try:
+        document = json.loads(content)
+    except json.JSONDecodeError as error:
+        raise QualificationValidationError(f"artifact {relative} is invalid JSON: {error}") from error
+    _nested_artifacts(document, root, visited)
+
+
+def _nested_artifacts(value: object, root: Path, seen: set[Path]) -> None:
+    if isinstance(value, dict):
+        if set(value) == {"path", "sha256"}:
+            _artifact(value, root, seen)
+            return
+        for child in value.values():
+            _nested_artifacts(child, root, seen)
+    elif isinstance(value, list):
+        for child in value:
+            _nested_artifacts(child, root, seen)
 
 
 def _conformance_item(value: object, label: str) -> None:

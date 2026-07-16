@@ -3,6 +3,7 @@
   "recorded_at": "2026-07-16T12:00:00+05:30",
   "environment": {"os": "Linux", "architecture": "x86-64", "python": "CPython 3.12.10"},
   "command": "pytest -q tests/test_targets.py tests/test_target_run.py",
+  "junit_artifact": {"path": "adapter-conformance.junit.xml", "sha256": "b22a24266a07309bc015afaf78b2f1fc8a8d6b81426a6a46096a1ddc1242161e"},
   "result": {"passed": 28, "failed": 0, "duration_seconds": 0.99},
   "contract_version": "1.0.0",
   "scenarios": [

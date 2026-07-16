@@ -1,0 +1,80 @@
+name: V1 qualification evidence
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "docs/qualification/**"
+      - "docs/corpus/candidate-v1/**"
+      - "pyproject.toml"
+      - ".github/workflows/v1-qualification.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compatibility:
+    name: ${{ matrix.id }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {id: linux-x64, os: ubuntu-24.04}
+          - {id: linux-arm64, os: ubuntu-24.04-arm}
+          - {id: macos-x64, os: macos-15-intel}
+          - {id: macos-arm64, os: macos-15}
+          - {id: windows-x64, os: windows-2025}
+          - {id: windows-arm64, os: windows-11-arm}
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Install test tools
+        run: python -m pip install . pytest==8.4.1 mypy==1.17.1
+      - name: Test and record JUnit evidence
+        run: python -m pytest --junitxml=qualification-${{ matrix.id }}.xml
+      - name: Typecheck
+        run: python -m mypy --strict src
+      - name: Validate qualification bundle
+        run: python -m roguerecall.cli validate-qualification docs/qualification/v1/qualification.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qualification-${{ matrix.id }}
+          path: qualification-${{ matrix.id }}.xml
+
+  security:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install . pip-audit==2.9.0 detect-secrets==1.5.0
+      - name: Dependency audit
+        run: python -m pip_audit --format=json --output=dependency-audit.json
+      - name: Secret scan
+        run: detect-secrets scan --all-files --exclude-files 'docs/corpus/candidate-v1/evidence/.*' > secret-scan.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qualification-security
+          path: |
+            dependency-audit.json
+            secret-scan.json
+
+  browsers:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - run: python -m pip install . playwright==1.54.0
+      - run: python -m playwright install --with-deps chromium firefox webkit
+      - name: Real-browser accessibility contract
+        run: python scripts/browser_qualification.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: qualification-browsers
+          path: browser-qualification.json
