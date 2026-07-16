@@ -181,7 +181,8 @@ grade = grade_observation(case, raw_response)
 ```
 
 Release curators use the Python release interfaces to atomically assemble and
-sign a candidate, verify it against an offline trust key, and append signed
+sign a candidate after distinct counsel, release-curator, and independent
+rights-reviewer approvals, verify it against an offline trust key, and append signed
 publication, supersession, suspension, withdrawal, or reinstatement records.
 Before an Evaluation Run, `run_release` verifies the signed release and latest
 online registry (or the identity and age of an offline snapshot), then executes
@@ -218,10 +219,10 @@ than a measured pass; no non-waivable gate is excepted.
 
 ### Benchmark Corpus release workflow
 
-RogueRecall does not yet ship its default public Benchmark Corpus Release.
 [Issue #26](https://github.com/sivaratrisrinivas/rogueRecall/issues/26) produced
-the frozen, human-reviewed 50-case Corpus Candidate Record. A signed Benchmark
-Corpus Release remains a downstream publication operation. The intake
+the frozen, human-reviewed 50-case Corpus Candidate Record. Publication fails
+closed until a distinct counsel approval and protected Ed25519 release identity
+are supplied; the repository does not manufacture either assertion. The intake
 validator and human review templates are documented in
 [docs/corpus](docs/corpus/README.md).
 
@@ -253,7 +254,7 @@ manifest, publication = assemble_and_publish_release(
     composition=composition_categories,
     artifacts=release_artifacts,
     notice_bundle=release_notice_bundle,
-    approvals=independent_approvals,
+    approvals=[counsel_approval, curator_approval, rights_reviewer_approval],
     contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
     released_at=release_time,
     release_channel="github:owner/repository",
@@ -266,6 +267,32 @@ manifest, publication = assemble_and_publish_release(
 `run_release` verifies that signed release and registry state, loads the exact
 50 cases from the verified artifact, and records the registry snapshot identity,
 age, warnings, and any permanent audit-only override in the Run Record.
+
+Anyone can verify a downloaded release without network access using the public
+trust identity distributed alongside it:
+
+```bash
+roguerecall verify-release ./roguerecall-corpus-1.0.0 \
+  --trust-key ./roguerecall-release-key.json
+```
+
+The command emits the verified version, signer key ID, and release digest as
+JSON. Compare that digest and every published asset SHA-256 value with the
+GitHub Release manifest before operating the benchmark.
+
+Project licensing boundaries are explicit in [RIGHTS.md](RIGHTS.md), with the
+repository notice in [NOTICE](NOTICE) and dependency/corpus guidance in
+[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Apache-2.0 covers RogueRecall
+software and CC BY 4.0 covers eligible RogueRecall Material; third-party
+excerpts, Rights Evidence, and Target System responses remain outside both
+blanket grants and require their case-specific notices.
+
+Interpret results as observations of the configured Target System at run time,
+not evidence about training data, model weights, causation, or universal
+provider behavior. Preserve signed releases and Run Records when reporting a
+rights concern. Suspension, withdrawal, and replacement use signed append-only
+status records so evidence remains auditable; `roguerecall purge` preserves Run
+Records unless complete removal is explicitly confirmed.
 
 ## Development
 

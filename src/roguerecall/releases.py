@@ -164,7 +164,12 @@ def validate_corpus_candidate(candidate: Mapping[str, Any]) -> dict[str, Any]:
     approvals_value = candidate.get("approvals")
     if not isinstance(approvals_value, list):
         raise ReleaseValidationError("Corpus Candidate Record approvals must be a list")
-    approvals = _validate_approvals(approvals_value, cases)
+    approvals = _validate_approvals(
+        approvals_value,
+        cases,
+        required_roles={"release_curator", "rights_reviewer"},
+        gate_name="Corpus Candidate Record",
+    )
     curator_confirmation = _validate_curator_confirmation(
         candidate.get("curator_confirmation")
     )
@@ -1117,11 +1122,16 @@ def _validate_corpus_composition(
 
 
 def _validate_approvals(
-    approvals: list[Mapping[str, Any]], cases: Sequence[Mapping[str, Any]]
+    approvals: list[Mapping[str, Any]],
+    cases: Sequence[Mapping[str, Any]],
+    *,
+    required_roles: set[str] | None = None,
+    gate_name: str = "release",
 ) -> list[dict[str, str]]:
-    expected = {"release_curator", "rights_reviewer"}
-    if len(approvals) != 2 or {item.get("role") for item in approvals} != expected:
-        raise ReleaseValidationError("release requires curator and rights reviewer approvals")
+    expected = required_roles or {"counsel", "release_curator", "rights_reviewer"}
+    if len(approvals) != len(expected) or {item.get("role") for item in approvals} != expected:
+        roles = ", ".join(sorted(expected))
+        raise ReleaseValidationError(f"{gate_name} requires distinct approvals for: {roles}")
     normalized = []
     for item in approvals:
         if set(item) != {"identity", "reference", "role"}:
@@ -1134,7 +1144,7 @@ def _validate_approvals(
             }
         )
     identities = {item["identity"] for item in normalized}
-    if len(identities) != 2:
+    if len(identities) != len(expected):
         raise ReleaseValidationError("release approvers must be different people")
     authors = {case["review"]["author"] for case in cases}
     if identities & authors:

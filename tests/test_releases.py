@@ -10,6 +10,7 @@ from typing import Any, cast
 import pytest
 
 from roguerecall.engine import run_release
+from roguerecall.cli import main
 from roguerecall.normalization import normalized_lines, prose_values
 from roguerecall.records import canonical_json, sha256_bytes, validate_record
 from roguerecall.releases import (
@@ -207,6 +208,7 @@ def _assemble(
         approvals=[
             {"identity": "Release Curator", "role": "release_curator", "reference": "approval-1"},
             {"identity": "Rights Reviewer", "role": "rights_reviewer", "reference": "approval-2"},
+            {"identity": "Release Counsel", "role": "counsel", "reference": "approval-3"},
         ],
         contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
         released_at=NOW,
@@ -231,6 +233,47 @@ def test_assembly_is_canonical_signed_and_offline_verifiable(tmp_path: Path) -> 
         canonical_json({key: value for key, value in manifest.items() if key != "release_digest"})
     )
     assert json.loads((release_path / "manifest.signature.json").read_text())["key_id"] == "release-2026"
+
+
+def test_cli_independently_verifies_release_with_explicit_trust_key(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    release_path, signer, manifest = _assemble(tmp_path)
+    trust_key = tmp_path / "release-key.json"
+    trust_key.write_text(json.dumps(signer.public_identity()), encoding="utf-8")
+
+    assert main(["verify-release", str(release_path), "--trust-key", str(trust_key)]) == 0
+    output = json.loads(capsys.readouterr().out)
+
+    assert output == {
+        "release_digest": manifest["release_digest"],
+        "signer_key_id": "release-2026",
+        "valid": True,
+        "version": "1.0.0",
+    }
+
+
+def test_release_requires_distinct_counsel_approval(tmp_path: Path) -> None:
+    signer = generate_release_identity("release-2026")
+    cases = _cases()
+
+    with pytest.raises(ReleaseValidationError, match="counsel"):
+        assemble_release(
+            tmp_path / "missing-counsel",
+            version="1.0.0",
+            cases=cases,
+            composition=_composition(cases),
+            artifacts={},
+            notice_bundle=_notices(),
+            approvals=[
+                {"identity": "Release Curator", "role": "release_curator", "reference": "approval-1"},
+                {"identity": "Rights Reviewer", "role": "rights_reviewer", "reference": "approval-2"},
+            ],
+            contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
+            released_at=NOW,
+            release_channel="github:test/repository",
+            signer=signer,
+        )
 
 
 def test_configured_private_identity_reproduces_the_bundled_trust_key() -> None:
@@ -292,6 +335,7 @@ def test_assembly_fails_closed_and_never_publishes_a_partial_release(tmp_path: P
             approvals=[
                 {"identity": "Release Curator", "role": "release_curator", "reference": "approval-1"},
                 {"identity": "Rights Reviewer", "role": "rights_reviewer", "reference": "approval-2"},
+                {"identity": "Release Counsel", "role": "counsel", "reference": "approval-3"},
             ],
             contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
             released_at=NOW,
@@ -312,6 +356,7 @@ def test_assembly_fails_closed_and_never_publishes_a_partial_release(tmp_path: P
             approvals=[
                 {"identity": "Release Curator", "role": "release_curator", "reference": "approval-1"},
                 {"identity": "Rights Reviewer", "role": "rights_reviewer", "reference": "approval-2"},
+                {"identity": "Release Counsel", "role": "counsel", "reference": "approval-3"},
             ],
             contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
             released_at=NOW, release_channel="github:test/repository", signer=signer,
@@ -341,6 +386,11 @@ def test_release_accepts_any_recorded_literary_era_distribution(tmp_path: Path) 
                 "identity": "Rights Reviewer",
                 "role": "rights_reviewer",
                 "reference": "approval-2",
+            },
+            {
+                "identity": "Release Counsel",
+                "role": "counsel",
+                "reference": "approval-3",
             },
         ],
         contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
@@ -374,6 +424,11 @@ def test_release_requires_a_reportable_literary_publication_date(tmp_path: Path)
                     "identity": "Rights Reviewer",
                     "role": "rights_reviewer",
                     "reference": "approval-2",
+                },
+                {
+                    "identity": "Release Counsel",
+                    "role": "counsel",
+                    "reference": "approval-3",
                 },
             ],
             contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
@@ -593,6 +648,7 @@ def test_replacement_is_new_immutable_50_case_release(tmp_path: Path) -> None:
         notice_bundle=_notices(), approvals=[
             {"identity": "Release Curator", "role": "release_curator", "reference": "approval-3"},
             {"identity": "Rights Reviewer", "role": "rights_reviewer", "reference": "approval-4"},
+            {"identity": "Release Counsel", "role": "counsel", "reference": "approval-5"},
         ], contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"}, released_at=NOW,
         release_channel="github:sivaratrisrinivas/rogueRecall", signer=first_signer,
         replaces={"version": first["version"], "release_digest": first["release_digest"]},
