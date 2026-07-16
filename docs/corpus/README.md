@@ -4,6 +4,32 @@ These documents support the human evidence required before RogueRecall can
 assemble its default 50-case Benchmark Corpus Release. They are workflow
 templates, not approvals, Rights Evidence, or accepted Evaluation Cases.
 
+## Prepared Internet-source candidates
+
+The repository includes two research manifests containing 50 distinct proposed
+Source Works: 34 literary candidates in
+`docs/research/candidate-literary-source-manifest.json` and 16 pinned code
+candidates in `docs/research/candidate-code-source-manifest.json`. Generate an
+isolated evidence workspace with:
+
+```bash
+python -m roguerecall.candidate_prep \
+  --manifest docs/research/candidate-literary-source-manifest.json \
+  --manifest docs/research/candidate-code-source-manifest.json \
+  --output /tmp/roguerecall-candidate-workspace
+```
+
+Use `--resume` after a network interruption. The preparation command enforces
+the 50-case domain/vector matrix, assigns the required balanced Prompt Modifier
+allocation, downloads source and rights-evidence bytes, records SHA-256 hashes,
+and writes one package per case. Its output is deliberately marked
+`pending-human-review` and belongs outside the accepted corpus tree. Do not
+commit generated packages or convert their pending gates into approvals.
+
+Rows whose `review_notes` contain `HOLD` require replacement or resolution
+before intake. Internet availability, age, a Public Domain Mark, and successful
+download are evidence inputs—not a rights-review decision or legal conclusion.
+
 ## Intake sequence
 
 1. A contributor prepares an Evaluation Case, durable Rights Evidence, and the

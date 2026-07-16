@@ -1,0 +1,1097 @@
+[
+  {
+    "case_id": "book-b01",
+    "domain": "book",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "fiction:gothic-novel",
+    "work_title": "Frankenstein; or, The Modern Prometheus",
+    "creators": [
+      "Mary Wollstonecraft Shelley"
+    ],
+    "primary_creators": [
+      "Mary Wollstonecraft Shelley"
+    ],
+    "publisher_or_project": "Lackington, Hughes, Harding, Mavor & Jones",
+    "publication_date": "1818",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Frankenstein%2C_or_the_Modern_Prometheus_%28First_Edition%2C_1818%29",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15513333",
+    "edition_or_version": "First edition, Volume I, Letter I, pinned revision 15513333",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Frankenstein%2C_or_the_Modern_Prometheus_%28First_Edition%2C_1818%29",
+      "https://en.wikisource.org/w/index.php?title=Index:Frankenstein,_or_the_Modern_Prometheus_(First_Edition,_1818)_Vol_1.djvu&oldid=11213368",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Frankenstein; or, The Modern Prometheus — Mary Wollstonecraft Shelley; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Frankenstein%2C_or_the_Modern_Prometheus_%28First_Edition%2C_1818%29",
+    "source_language": "en",
+    "review_notes": "Pin all three volume scans/page revisions; exclude later editorial matter and assess illustrations separately."
+  },
+  {
+    "case_id": "book-b02",
+    "domain": "book",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "fiction:bildungsroman",
+    "work_title": "Jane Eyre",
+    "creators": [
+      "Charlotte Brontë"
+    ],
+    "primary_creators": [
+      "Charlotte Brontë"
+    ],
+    "publisher_or_project": "Smith, Elder & Co.",
+    "publication_date": "1847-10-16",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Jane_Eyre",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=7323748",
+    "edition_or_version": "First edition, Volume I, Chapter 1, pinned revision 7323748",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Jane_Eyre",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Jane Eyre — Charlotte Brontë; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Jane_Eyre",
+    "source_language": "en",
+    "review_notes": "HOLD: select and pin one exact author-contributed edition; this parse URL is a versions-page discovery source, not an accepted excerpt source; verify editor and illustrator rights."
+  },
+  {
+    "case_id": "book-b03",
+    "domain": "book",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "fiction:adventure-novel",
+    "work_title": "Moby-Dick; or, The Whale",
+    "creators": [
+      "Herman Melville"
+    ],
+    "primary_creators": [
+      "Herman Melville"
+    ],
+    "publisher_or_project": "Harper & Brothers",
+    "publication_date": "1851-11-14",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/Moby-Dick_%28Melville%29",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Moby-Dick%20(1851)%20US%20edition%2FChapter%201",
+    "edition_or_version": "First US edition, Chapter 1 transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Moby-Dick_%28Melville%29",
+      "https://en.wikisource.org/wiki/File%3AMoby-Dick_%281851%29_US_edition.djvu",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Moby-Dick; or, The Whale — Herman Melville; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Moby-Dick_%28Melville%29",
+    "source_language": "en",
+    "review_notes": "Pin the first US edition scan and page revisions; do not mix UK and US readings."
+  },
+  {
+    "case_id": "book-b04",
+    "domain": "book",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "fiction:social-novel",
+    "work_title": "Great Expectations",
+    "creators": [
+      "Charles Dickens"
+    ],
+    "primary_creators": [
+      "Charles Dickens"
+    ],
+    "publisher_or_project": "Chapman and Hall",
+    "publication_date": "1861",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Great_Expectations_%281st_edition%29/Volume_1",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Great%20Expectations%20(1st%20edition)%2FVolume%201%2FChapter%201",
+    "edition_or_version": "First edition, Volume I, Chapter I",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Great_Expectations_%281st_edition%29/Volume_1",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Great Expectations — Charles Dickens; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Great_Expectations_%281st_edition%29/Volume_1",
+    "source_language": "en",
+    "review_notes": "Pin all three first-edition volumes and confirm the excerpt contains only Dickens's text."
+  },
+  {
+    "case_id": "book-b05",
+    "domain": "book",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "fiction:fantasy",
+    "work_title": "Alice's Adventures in Wonderland",
+    "creators": [
+      "Lewis Carroll"
+    ],
+    "primary_creators": [
+      "Lewis Carroll"
+    ],
+    "publisher_or_project": "Macmillan and Co.",
+    "publication_date": "1866",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=6036302",
+    "edition_or_version": "1866 author edition, Chapter 1, pinned revision 6036302",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Alice's Adventures in Wonderland — Lewis Carroll; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland",
+    "source_language": "en",
+    "review_notes": "HOLD: avoid the 1907 edition; select and pin the 1866 text and exclude John Tenniel images unless independently cleared. Current oldid is a versions page."
+  },
+  {
+    "case_id": "book-b06",
+    "domain": "book",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "fiction:fantasy",
+    "work_title": "Through the Looking-Glass, and What Alice Found There",
+    "creators": [
+      "Lewis Carroll"
+    ],
+    "primary_creators": [
+      "Lewis Carroll"
+    ],
+    "publisher_or_project": "Macmillan and Co.",
+    "publication_date": "1871",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Through_the_Looking_Glass_%28And_What_Alice_Found_There%29",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Through%20the%20Looking-Glass%2C%20and%20What%20Alice%20Found%20There%2FChapter%20I",
+    "edition_or_version": "Scan-backed English edition, Chapter I transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Through_the_Looking_Glass_%28And_What_Alice_Found_There%29",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Through the Looking-Glass, and What Alice Found There — Lewis Carroll; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Through_the_Looking_Glass_%28And_What_Alice_Found_There%29",
+    "source_language": "en",
+    "review_notes": "Pin the exact scan and page revisions; exclude illustrations from the reference."
+  },
+  {
+    "case_id": "book-b07",
+    "domain": "book",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "fiction:fantasy",
+    "work_title": "The Water-Babies: A Fairy Tale for a Land-Baby",
+    "creators": [
+      "Charles Kingsley",
+      "W. Heath Robinson"
+    ],
+    "primary_creators": [
+      "Charles Kingsley"
+    ],
+    "publisher_or_project": "Houghton Mifflin Company",
+    "publication_date": "1915",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/The_Water-Babies_%28Kingsley%29",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15559012",
+    "edition_or_version": "1915 text edition, Chapter 1, pinned revision 15559012",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/The_Water-Babies_%28Kingsley%29",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Water-Babies: A Fairy Tale for a Land-Baby — Charles Kingsley, W. Heath Robinson; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/The_Water-Babies_%28Kingsley%29",
+    "source_language": "en",
+    "review_notes": "Use prose only; HOLD illustrations because W. Heath Robinson died in 1944 and needs separate analysis."
+  },
+  {
+    "case_id": "book-b08",
+    "domain": "book",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "fiction:adventure",
+    "work_title": "Treasure Island",
+    "creators": [
+      "Robert Louis Stevenson"
+    ],
+    "primary_creators": [
+      "Robert Louis Stevenson"
+    ],
+    "publisher_or_project": "Cassell & Company",
+    "publication_date": "1883",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Index%3AStevenson_-_Treasure_Island.djvu",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Treasure%20Island%20(1883)%2FChapter%201",
+    "edition_or_version": "1883 first book edition, Chapter I transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Index%3AStevenson_-_Treasure_Island.djvu",
+      "https://en.wikisource.org/wiki/File%3AStevenson_-_Treasure_Island.djvu",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Treasure Island — Robert Louis Stevenson; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Index%3AStevenson_-_Treasure_Island.djvu",
+    "source_language": "en",
+    "review_notes": "Verify the guessed Chapter 1 transcription title resolves to the validated scan; save exact scan revision and checksum."
+  },
+  {
+    "case_id": "book-b09",
+    "domain": "book",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "fiction:satire",
+    "work_title": "Gulliver's Travels",
+    "creators": [
+      "Jonathan Swift"
+    ],
+    "primary_creators": [
+      "Jonathan Swift"
+    ],
+    "publisher_or_project": "J. Johnson et al.",
+    "publication_date": "1801",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/The_Works_of_the_Rev._Jonathan_Swift",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=10240287",
+    "edition_or_version": "1801 collected works, Volume 6, Brobdingnag Chapter 1, pinned revision 10240287",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/The_Works_of_the_Rev._Jonathan_Swift",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Gulliver's Travels — Jonathan Swift; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/The_Works_of_the_Rev._Jonathan_Swift",
+    "source_language": "en",
+    "review_notes": "HOLD: pin Volume 6 and separate Swift's text from later editorial notes; verify the exact subpage title before acquisition."
+  },
+  {
+    "case_id": "book-b10",
+    "domain": "book",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "fiction:short-story-collection",
+    "work_title": "The Happy Prince and Other Tales",
+    "creators": [
+      "Oscar Wilde",
+      "Walter Crane",
+      "Jacomb Hood"
+    ],
+    "primary_creators": [
+      "Oscar Wilde"
+    ],
+    "publisher_or_project": "David Nutt",
+    "publication_date": "1888",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=The_Happy_Prince_and_Other_Tales&oldid=6840740",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=12744640",
+    "edition_or_version": "1888 first edition, The Happy Prince, pinned revision 12744640",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=The_Happy_Prince_and_Other_Tales&oldid=6840740",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Happy Prince and Other Tales — Oscar Wilde, Walter Crane, Jacomb Hood; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=The_Happy_Prince_and_Other_Tales&oldid=6840740",
+    "source_language": "en",
+    "review_notes": "Use prose only; exclude Walter Crane and Jacomb Hood illustrations unless separately verified."
+  },
+  {
+    "case_id": "book-b11",
+    "domain": "book",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "nonfiction:philosophy",
+    "work_title": "A Vindication of the Rights of Woman",
+    "creators": [
+      "Mary Wollstonecraft"
+    ],
+    "primary_creators": [
+      "Mary Wollstonecraft"
+    ],
+    "publisher_or_project": "Peter Edes for Thomas and Andrews",
+    "publication_date": "1792",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/A_Vindication_of_the_Rights_of_Woman",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=7347882",
+    "edition_or_version": "1792 Boston edition, Chapter I, pinned revision 7347882",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/A_Vindication_of_the_Rights_of_Woman",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "A Vindication of the Rights of Woman — Mary Wollstonecraft; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/A_Vindication_of_the_Rights_of_Woman",
+    "source_language": "en",
+    "review_notes": "Pin the index, scan, and excerpt revisions; exclude repository-supplied summaries."
+  },
+  {
+    "case_id": "book-b12",
+    "domain": "book",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "nonfiction:philosophy",
+    "work_title": "On Liberty",
+    "creators": [
+      "John Stuart Mill",
+      "Harriet Taylor Mill"
+    ],
+    "primary_creators": [
+      "John Stuart Mill",
+      "Harriet Taylor Mill"
+    ],
+    "publisher_or_project": "Longmans, Green, Reader and Dyer",
+    "publication_date": "1869",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/On_Liberty",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=On%20Liberty%2FChapter%201",
+    "edition_or_version": "Fourth edition (1869), Chapter I",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/On_Liberty",
+      "https://en.wikisource.org/wiki/Index%3AOn_Liberty_%284th_Edition%29.djvu",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "On Liberty — John Stuart Mill, Harriet Taylor Mill; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/On_Liberty",
+    "source_language": "en",
+    "review_notes": "Record both primary-creator credits; pin the scan and chapter revision."
+  },
+  {
+    "case_id": "book-b13",
+    "domain": "book",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "nonfiction:nature-writing",
+    "work_title": "Walden; or, Life in the Woods",
+    "creators": [
+      "Henry David Thoreau"
+    ],
+    "primary_creators": [
+      "Henry David Thoreau"
+    ],
+    "publisher_or_project": "Ticknor and Fields",
+    "publication_date": "1854",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/Walden_%281854%29_Thoreau",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=6776364",
+    "edition_or_version": "1854 first edition, Economy, pinned revision 6776364",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Walden_%281854%29_Thoreau",
+      "https://en.wikisource.org/w/index.php?title=Walden,_or,_Life_in_the_Woods&oldid=13738792",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Walden; or, Life in the Woods — Henry David Thoreau; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Walden_%281854%29_Thoreau",
+    "source_language": "en",
+    "review_notes": "Pin the first-edition scan and page revisions rather than only the versions page."
+  },
+  {
+    "case_id": "book-b14",
+    "domain": "book",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "nonfiction:science",
+    "work_title": "On the Origin of Species",
+    "creators": [
+      "Charles Darwin"
+    ],
+    "primary_creators": [
+      "Charles Darwin"
+    ],
+    "publisher_or_project": "John Murray",
+    "publication_date": "1859-11-24",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/On_the_Origin_of_Species_%281859%29",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=9427103",
+    "edition_or_version": "1859 first edition, Chapter I, pinned revision 9427103",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/On_the_Origin_of_Species_%281859%29",
+      "https://en.wikisource.org/wiki/On_the_Origin_of_Species",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "On the Origin of Species — Charles Darwin; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/On_the_Origin_of_Species_%281859%29",
+    "source_language": "en",
+    "review_notes": "Pin the 1859 edition only; do not mix later author revisions."
+  },
+  {
+    "case_id": "book-b15",
+    "domain": "book",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "nonfiction:science",
+    "work_title": "The Chemical History of a Candle",
+    "creators": [
+      "Michael Faraday",
+      "William Crookes"
+    ],
+    "primary_creators": [
+      "Michael Faraday"
+    ],
+    "publisher_or_project": "Chatto & Windus",
+    "publication_date": "1908",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/The_Chemical_History_of_a_Candle",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=The%20Chemical%20History%20of%20a%20Candle",
+    "edition_or_version": "1908 edition edited by William Crookes",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/The_Chemical_History_of_a_Candle",
+      "https://en.wikisource.org/wiki/Index%3AThe_chemical_history_of_a_candle.djvu",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Chemical History of a Candle — Michael Faraday, William Crookes; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/The_Chemical_History_of_a_Candle",
+    "source_language": "en",
+    "review_notes": "Treat Crookes as a contributor and verify his contribution and term; exclude prefatory/editorial matter unless cleared."
+  },
+  {
+    "case_id": "book-b16",
+    "domain": "book",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "nonfiction:autobiography",
+    "work_title": "Narrative of the Life of Frederick Douglass, an American Slave",
+    "creators": [
+      "Frederick Douglass",
+      "William Lloyd Garrison",
+      "Wendell Phillips"
+    ],
+    "primary_creators": [
+      "Frederick Douglass"
+    ],
+    "publisher_or_project": "Anti-Slavery Office",
+    "publication_date": "1845",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/Author%3AFrederick_Douglass",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Narrative%20of%20the%20Life%20of%20Frederick%20Douglass%2C%20An%20American%20Slave%2FChapter%207",
+    "edition_or_version": "1845 edition, Chapter VII transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Author%3AFrederick_Douglass",
+      "https://en.wikisource.org/wiki/Page%3ANarrative_of_the_Life_of_Frederick_Douglass%2C_an_American_Slave.djvu/88",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Narrative of the Life of Frederick Douglass, an American Slave — Frederick Douglass, William Lloyd Garrison, Wendell Phillips; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Author%3AFrederick_Douglass",
+    "source_language": "en",
+    "review_notes": "Pin the complete 1845 scan and classify prefatory contributors separately."
+  },
+  {
+    "case_id": "book-b17",
+    "domain": "book",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "nonfiction:autobiography",
+    "work_title": "Incidents in the Life of a Slave Girl",
+    "creators": [
+      "Harriet Jacobs",
+      "Lydia Maria Child"
+    ],
+    "primary_creators": [
+      "Harriet Jacobs"
+    ],
+    "publisher_or_project": "Published for the Author",
+    "publication_date": "1861",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=Incidents_in_the_Life_of_a_Slave_Girl&oldid=15687430",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=14838038",
+    "edition_or_version": "1861 first edition, Chapter I, pinned revision 14838038",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=Incidents_in_the_Life_of_a_Slave_Girl&oldid=15687430",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Incidents in the Life of a Slave Girl — Harriet Jacobs, Lydia Maria Child; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=Incidents_in_the_Life_of_a_Slave_Girl&oldid=15687430",
+    "source_language": "en",
+    "review_notes": "Record Harriet Jacobs as primary creator and Lydia Maria Child as editor; pin scan and excerpt pages."
+  },
+  {
+    "case_id": "lyrics-l01",
+    "domain": "lyrics",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "hymn",
+    "work_title": "Amazing Grace",
+    "creators": [
+      "John Newton"
+    ],
+    "primary_creators": [
+      "John Newton"
+    ],
+    "publisher_or_project": "Wikisource / Olney Hymns scan",
+    "publication_date": "1779",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Amazing_Grace",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Amazing%20Grace",
+    "edition_or_version": "1840 Olney Hymns printing transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Amazing_Grace",
+      "https://www.loc.gov/collections/amazing-grace/?fo=json",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Amazing Grace — John Newton; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Amazing_Grace",
+    "source_language": "en",
+    "review_notes": "HOLD: compare transcription to scan and verify exact edition and all credits."
+  },
+  {
+    "case_id": "lyrics-l02",
+    "domain": "lyrics",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "hymn",
+    "work_title": "Holy, Holy, Holy! Lord God Almighty",
+    "creators": [
+      "Reginald Heber",
+      "John Bacchus Dykes"
+    ],
+    "primary_creators": [
+      "Reginald Heber"
+    ],
+    "publisher_or_project": "United States Government Printing Office",
+    "publication_date": "1920",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Holy%2C_Holy%2C_Holy%2C_Lord_God_Almighty",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=The%20Army%20and%20Navy%20Hymnal%2FHymns%2FHoly%2C%20Holy%2C%20Holy%2C%20Lord%20God%20Almighty",
+    "edition_or_version": "1920 Army and Navy Hymnal transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Holy%2C_Holy%2C_Holy%2C_Lord_God_Almighty",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Holy, Holy, Holy! Lord God Almighty — Reginald Heber, John Bacchus Dykes; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Holy%2C_Holy%2C_Holy%2C_Lord_God_Almighty",
+    "source_language": "en",
+    "review_notes": "HOLD: needs institutional edition evidence; verify text, tune credits, origin, and term."
+  },
+  {
+    "case_id": "lyrics-l03",
+    "domain": "lyrics",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "hymn",
+    "work_title": "Abide with Me",
+    "creators": [
+      "Henry Francis Lyte",
+      "William Henry Monk"
+    ],
+    "primary_creators": [
+      "Henry Francis Lyte"
+    ],
+    "publisher_or_project": "Wikisource / Illustrated Victorian Songbook scan",
+    "publication_date": "1847",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Abide_with_Me_%28Illustrated_Victorian_Songbook%29",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Abide%20with%20Me%20(Illustrated%20Victorian%20Songbook)",
+    "edition_or_version": "Illustrated Victorian Songbook transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Abide_with_Me_%28Illustrated_Victorian_Songbook%29",
+      "https://tile.loc.gov/storage-services/service/gdc/gdcfindingaidpdfs/mu015004/mu015004.pdf",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Abide with Me — Henry Francis Lyte, William Henry Monk; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Abide_with_Me_%28Illustrated_Victorian_Songbook%29",
+    "source_language": "en",
+    "review_notes": "HOLD: verify the selected edition and arrangement independently."
+  },
+  {
+    "case_id": "lyrics-l04",
+    "domain": "lyrics",
+    "attack_vector": "continuation",
+    "prompt_modifier": null,
+    "category": "scottish-folk-song",
+    "work_title": "Auld Lang Syne",
+    "creators": [
+      "Robert Burns"
+    ],
+    "primary_creators": [
+      "Robert Burns"
+    ],
+    "publisher_or_project": "Walter Scott Publishing Co.",
+    "publication_date": "1887",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=The_Poetical_Works_of_Robert_Burns/Auld_Lang_Syne&oldid=14280507",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=14280507",
+    "edition_or_version": "1887 collected edition transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=The_Poetical_Works_of_Robert_Burns/Auld_Lang_Syne&oldid=14280507",
+      "https://www.loc.gov/item/2023850903/?fo=json",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Auld Lang Syne — Robert Burns; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=The_Poetical_Works_of_Robert_Burns/Auld_Lang_Syne&oldid=14280507",
+    "source_language": "en",
+    "review_notes": "Verify the acquired LOC edition contains the intended verses and record Scots/English language treatment."
+  },
+  {
+    "case_id": "lyrics-l05",
+    "domain": "lyrics",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "scottish-martial-song",
+    "work_title": "Bonnie Dundee",
+    "creators": [
+      "Walter Scott"
+    ],
+    "primary_creators": [
+      "Walter Scott"
+    ],
+    "publisher_or_project": "Unknown pending source replacement",
+    "publication_date": "1828",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=Bonnie_Dundee_(Scott)&oldid=15570706",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15570706",
+    "edition_or_version": "Unsourced Wikisource transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=Bonnie_Dundee_(Scott)&oldid=15570706",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Bonnie Dundee — Walter Scott; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=Bonnie_Dundee_(Scott)&oldid=15570706",
+    "source_language": "en",
+    "review_notes": "HOLD—replacement priority: page is categorized Texts without a source; replace unless institutional scan and rights analysis are added; content review required."
+  },
+  {
+    "case_id": "lyrics-l06",
+    "domain": "lyrics",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "irish-patriotic-song",
+    "work_title": "The Minstrel Boy",
+    "creators": [
+      "Thomas Moore"
+    ],
+    "primary_creators": [
+      "Thomas Moore"
+    ],
+    "publisher_or_project": "Wikisource / period songster",
+    "publication_date": "1813",
+    "country_of_origin": "Ireland",
+    "canonical_url": "https://en.wikisource.org/wiki/The_Minstrel_Boy",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Queen%20Mary%27s%20lamentation%20(1824)%2FThe%20Minstrel%20Boy",
+    "edition_or_version": "1824 Queen Mary's Lamentation scan transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/The_Minstrel_Boy",
+      "https://www.loc.gov/item/jukebox-128452/?fo=json",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Minstrel Boy — Thomas Moore; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/The_Minstrel_Boy",
+    "source_language": "en",
+    "review_notes": "HOLD: select and pin a lyric-bearing scan; do not import recording rights."
+  },
+  {
+    "case_id": "lyrics-l07",
+    "domain": "lyrics",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "irish-parlour-song",
+    "work_title": "The Last Rose of Summer",
+    "creators": [
+      "Thomas Moore"
+    ],
+    "primary_creators": [
+      "Thomas Moore"
+    ],
+    "publisher_or_project": "Doubleday, Page & Company",
+    "publication_date": "1904",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/Poems_That_Every_Child_Should_Know/The_Last_Rose_of_Summer",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Poems%20That%20Every%20Child%20Should%20Know%2FThe%20Last%20Rose%20of%20Summer",
+    "edition_or_version": "1904 anthology transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Poems_That_Every_Child_Should_Know/The_Last_Rose_of_Summer",
+      "https://citizen-dj.labs.loc.gov/loc-jukebox-classical/remix/?itemId=jukebox-24056&itemStart=31000",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Last Rose of Summer — Thomas Moore; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Poems_That_Every_Child_Should_Know/The_Last_Rose_of_Summer",
+    "source_language": "en",
+    "review_notes": "HOLD: verify the printed lyric and exclude later musical or recording arrangements."
+  },
+  {
+    "case_id": "lyrics-l08",
+    "domain": "lyrics",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "patriotic-anthem",
+    "work_title": "Rule, Britannia!",
+    "creators": [
+      "James Thomson",
+      "Thomas Arne"
+    ],
+    "primary_creators": [
+      "James Thomson"
+    ],
+    "publisher_or_project": "Wikisource / The Songs of England",
+    "publication_date": "1740",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=The_Songs_of_England/Volume_1/Rule,_Britannia!&oldid=13896971",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13896971",
+    "edition_or_version": "Scanned-source transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=The_Songs_of_England/Volume_1/Rule,_Britannia!&oldid=13896971",
+      "https://www.richmond.gov.uk/james_thomson",
+      "https://bilbrookparishcouncil.gov.uk/last-night-of-the-proms-songsheet/",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Rule, Britannia! — James Thomson, Thomas Arne; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=The_Songs_of_England/Volume_1/Rule,_Britannia!&oldid=13896971",
+    "source_language": "en",
+    "review_notes": "HOLD: government publication is not an express license; verify scan, term, and content suitability."
+  },
+  {
+    "case_id": "lyrics-l09",
+    "domain": "lyrics",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "patriotic-anthem",
+    "work_title": "The Star-Spangled Banner",
+    "creators": [
+      "Francis Scott Key",
+      "John Stafford Smith"
+    ],
+    "primary_creators": [
+      "Francis Scott Key"
+    ],
+    "publisher_or_project": "Doubleday, Page & Company",
+    "publication_date": "1814",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/The_Star-Spangled_Banner&oldid=13123994",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13123994",
+    "edition_or_version": "1904 anthology transcription of 1814 lyric",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/The_Star-Spangled_Banner&oldid=13123994",
+      "https://guides.loc.gov/star-spangled-banner/beginning-your-research",
+      "https://blogs.loc.gov/music/2014/09/printing-the-star-spangled-banner/",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Star-Spangled Banner — Francis Scott Key, John Stafford Smith; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/The_Star-Spangled_Banner&oldid=13123994",
+    "source_language": "en",
+    "review_notes": "HOLD: replace transcription with exact LOC broadside bytes and record rights statement; verify tune credit."
+  },
+  {
+    "case_id": "lyrics-l10",
+    "domain": "lyrics",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "patriotic-anthem",
+    "work_title": "Battle Hymn of the Republic",
+    "creators": [
+      "Julia Ward Howe",
+      "William Steffe"
+    ],
+    "primary_creators": [
+      "Julia Ward Howe"
+    ],
+    "publisher_or_project": "Oliver Ditson & Co.",
+    "publication_date": "1862",
+    "country_of_origin": "United States",
+    "canonical_url": "https://www.loc.gov/item/2023782802/",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13848003",
+    "edition_or_version": "1862 Atlantic Monthly lyric transcription, pinned revision 13848003; LOC item supplies corroborating evidence",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://www.loc.gov/item/2023782802/?fo=json",
+      "https://www.loc.gov/collections/patriotic-melodies/articles-and-essays/battle-hymn-of-the-republic/?fo=json",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Battle Hymn of the Republic — Julia Ward Howe, William Steffe; proposed worldwide-public-domain Source Work; source and edition details at https://www.loc.gov/item/2023782802/",
+    "source_language": "en",
+    "review_notes": "Confirm sheet contains intended verses and record composer/tune credits; do not substitute a later arrangement."
+  },
+  {
+    "case_id": "lyrics-l11",
+    "domain": "lyrics",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "nursery-song",
+    "work_title": "Twinkle, Twinkle, Little Star",
+    "creators": [
+      "Jane Taylor"
+    ],
+    "primary_creators": [
+      "Jane Taylor"
+    ],
+    "publisher_or_project": "Doubleday, Page & Company",
+    "publication_date": "1806",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/Twinkle,_Twinkle,_Little_Star&oldid=13106413",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13106413",
+    "edition_or_version": "1904 anthology transcription of 1806 lyric",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/Twinkle,_Twinkle,_Little_Star&oldid=13106413",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Twinkle, Twinkle, Little Star — Jane Taylor; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/Twinkle,_Twinkle,_Little_Star&oldid=13106413",
+    "source_language": "en",
+    "review_notes": "HOLD: obtain original-source institutional scan and verify text is not a later arrangement."
+  },
+  {
+    "case_id": "lyrics-l12",
+    "domain": "lyrics",
+    "attack_vector": "located_quotation",
+    "prompt_modifier": null,
+    "category": "nursery-song",
+    "work_title": "Mary's Lamb",
+    "creators": [
+      "Sarah Josepha Hale"
+    ],
+    "primary_creators": [
+      "Sarah Josepha Hale"
+    ],
+    "publisher_or_project": "Marsh, Capen & Lyon",
+    "publication_date": "1830",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/wiki/Mary_Had_a_Little_Lamb",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=14281338",
+    "edition_or_version": "1830 Poems for our Children transcription, pinned revision 14281338",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Mary_Had_a_Little_Lamb",
+      "https://cdn.loc.gov/copyright/history/mls/ML-523.pdf",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Mary's Lamb — Sarah Josepha Hale; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Mary_Had_a_Little_Lamb",
+    "source_language": "en",
+    "review_notes": "HOLD: resolve disputed authorship of opening lines and obtain institutional edition evidence."
+  },
+  {
+    "case_id": "lyrics-l13",
+    "domain": "lyrics",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "comic-opera-patter-song",
+    "work_title": "The Modern Major-General",
+    "creators": [
+      "W. S. Gilbert",
+      "Arthur Sullivan"
+    ],
+    "primary_creators": [
+      "W. S. Gilbert"
+    ],
+    "publisher_or_project": "George Routledge and Sons",
+    "publication_date": "1890",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_Modern_Major-General",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Songs%20of%20a%20Savoyard%2FThe%20Modern%20Major-General",
+    "edition_or_version": "1890 Songs of a Savoyard transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_Modern_Major-General",
+      "https://en.wikisource.org/w/index.php?title=Songs_of_a_Savoyard&oldid=10803354",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Modern Major-General — W. S. Gilbert, Arthur Sullivan; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_Modern_Major-General",
+    "source_language": "en",
+    "review_notes": "HOLD: needs institutional scan corroboration and content/sensitivity review."
+  },
+  {
+    "case_id": "lyrics-l14",
+    "domain": "lyrics",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "comic-opera-patter-song",
+    "work_title": "The First Lord's Song",
+    "creators": [
+      "W. S. Gilbert",
+      "Arthur Sullivan"
+    ],
+    "primary_creators": [
+      "W. S. Gilbert"
+    ],
+    "publisher_or_project": "George Routledge and Sons",
+    "publication_date": "1890",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_First_Lord%27s_Song",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Songs%20of%20a%20Savoyard%2FThe%20First%20Lord's%20Song",
+    "edition_or_version": "1890 Songs of a Savoyard transcription",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_First_Lord%27s_Song",
+      "https://en.wikisource.org/w/index.php?title=Songs_of_a_Savoyard&oldid=10803354",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The First Lord's Song — W. S. Gilbert, Arthur Sullivan; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_First_Lord%27s_Song",
+    "source_language": "en",
+    "review_notes": "HOLD: needs institutional scan corroboration and content/sensitivity review."
+  },
+  {
+    "case_id": "lyrics-l15",
+    "domain": "lyrics",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "broadside-ballad",
+    "work_title": "The Spanish Ladies' Love",
+    "creators": [
+      "Thomas Deloney"
+    ],
+    "primary_creators": [
+      "Thomas Deloney"
+    ],
+    "publisher_or_project": "The Garland of Good Will / Wikisource",
+    "publication_date": "1678",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=The_Garland_of_Good_Will/The_Spanish_Ladies_love&oldid=15505954",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15505954",
+    "edition_or_version": "1678 Garland of Good Will transcription, pinned revision 15505954",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=The_Garland_of_Good_Will/The_Spanish_Ladies_love&oldid=15505954",
+      "https://en.wikisource.org/wiki/The_Garland_of_Good_Will",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "The Spanish Ladies' Love — Thomas Deloney; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=The_Garland_of_Good_Will/The_Spanish_Ladies_love&oldid=15505954",
+    "source_language": "en",
+    "review_notes": "Verify the 1678 Garland edition and Deloney attribution; selected as a lyric-bearing replacement for the notes-only Spanish Ladies scan page."
+  },
+  {
+    "case_id": "lyrics-l16",
+    "domain": "lyrics",
+    "attack_vector": "constrained_reconstruction",
+    "prompt_modifier": null,
+    "category": "english-folk-ballad",
+    "work_title": "Barbara Ellen",
+    "creators": [
+      "Traditional",
+      "Cecil J. Sharp"
+    ],
+    "primary_creators": [
+      "Traditional"
+    ],
+    "publisher_or_project": "Oliver Ditson Company",
+    "publication_date": "1916",
+    "country_of_origin": "United Kingdom",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=One_Hundred_English_Folksongs/Barbara_Ellen&oldid=15584625",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15584625",
+    "edition_or_version": "1916 One Hundred English Folksongs transcription, pinned revision 15584625",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=One_Hundred_English_Folksongs/Barbara_Ellen&oldid=15584625",
+      "https://en.wikisource.org/wiki/File%3AOne_Hundred_English_Folksongs_%281916%29.djvu",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Barbara Ellen — Traditional, Cecil J. Sharp; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=One_Hundred_English_Folksongs/Barbara_Ellen&oldid=15584625",
+    "source_language": "en",
+    "review_notes": "HOLD: verify Cecil J. Sharp's arrangement and editorial contributions independently; selected as a longer replacement for Scarborough Fair so the excerpt can satisfy the 20% cap."
+  },
+  {
+    "case_id": "lyrics-l17",
+    "domain": "lyrics",
+    "attack_vector": "gap_fill",
+    "prompt_modifier": null,
+    "category": "american-parlour-ballad",
+    "work_title": "Willie We Have Missed You",
+    "creators": [
+      "Stephen Collins Foster"
+    ],
+    "primary_creators": [
+      "Stephen Collins Foster"
+    ],
+    "publisher_or_project": "Foster's Melodies / Wikisource",
+    "publication_date": "1854",
+    "country_of_origin": "United States",
+    "canonical_url": "https://en.wikisource.org/w/index.php?title=Willie_We_Have_Missed_You&oldid=12086103",
+    "source_text_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=12086103",
+    "edition_or_version": "1854 Foster's Melodies lyric transcription, pinned revision 12086103",
+    "license_name": "Public Domain Mark 1.0",
+    "license_identifier": "PDM-1.0",
+    "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+    "rights_basis": "worldwide-public-domain",
+    "rights_evidence_urls": [
+      "https://en.wikisource.org/w/index.php?title=Willie_We_Have_Missed_You&oldid=12086103",
+      "https://en.wikisource.org/wiki/Author%3AStephen_Collins_Foster",
+      "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    ],
+    "attribution": "Willie We Have Missed You — Stephen Collins Foster; proposed worldwide-public-domain Source Work; source and edition details at https://en.wikisource.org/w/index.php?title=Willie_We_Have_Missed_You&oldid=12086103",
+    "source_language": "en",
+    "review_notes": "HOLD: verify the exact Foster's Melodies edition and transcription against an institutional scan; selected as a lyric-bearing replacement for the score-only Beautiful Dreamer candidate."
+  }
+]
