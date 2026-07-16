@@ -92,6 +92,11 @@ roguerecall dashboard --runs-root ./runs --port 7411
 ```
 
 The dashboard listens only on loopback and cannot start runs or change evidence.
+It provides a denominator-explicit overview, a searchable evidence ledger with
+canonical artifact pointers, compatibility-gated case-paired comparisons, and
+traceable CSV export packages. Incomplete Run Records stay hidden unless the
+Benchmark Operator explicitly enables diagnostic viewing; they never contribute
+ordinary rates or calculated comparison changes.
 
 Run one or more case files against a Target System manifest:
 
