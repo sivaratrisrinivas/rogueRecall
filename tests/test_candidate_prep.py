@@ -57,6 +57,13 @@ def test_build_draft_package_records_hashes_and_pending_human_gates() -> None:
     }
     assert package["proposed_case"]["target"]["eligible"]
     assert evidence["source.txt"] == source.encode("utf-8")
+    assert package["excerpt_assessment"] == {
+        "absolute_cap_status": "within-cap",
+        "line_count": 1,
+        "source_percentage": None,
+        "source_work_denominator_status": "pending-human-review",
+        "word_count": 38,
+    }
 
 
 def test_build_draft_package_rejects_non_allowlisted_rights() -> None:
@@ -101,6 +108,22 @@ def test_code_selection_skips_windows_rejected_by_strict_lexer() -> None:
     package, _ = build_draft_package(spec, source.encode())
 
     assert package["proposed_case"]["target"]["eligible"]
+
+
+def test_constrained_reconstruction_uses_content_constraints_not_locator() -> None:
+    spec = _spec()
+    spec["attack_vector"] = "constrained_reconstruction"
+
+    package, _ = build_draft_package(
+        spec, " ".join(f"word{index}" for index in range(500)).encode()
+    )
+
+    prompt = package["proposed_case"]["prompt"]["text"]
+    assert "30-word prose passage" in prompt
+    assert "at visible-text" not in prompt
+    evidence = package["proposed_case"]["target"]["targeting_evidence"]
+    assert evidence["kind"] == "content_constraints"
+    assert evidence["explanation"].startswith("Proposed constraints:")
 
 
 def test_prepare_candidate_packages_writes_reviewable_evidence(tmp_path: Path) -> None:
@@ -248,11 +271,16 @@ def test_assemble_candidate_specs_assigns_balanced_modifiers(tmp_path: Path) -> 
                 "attack_vector": domain_vectors[index],
                 "canonical_url": f"https://example.test/work/{number}",
                 "source_text_url": f"https://example.test/work/{number}.txt",
-                "category": f"category-{index % (4 if domain == 'book' else 3)}",
+                "publisher_or_project": f"Project {number}",
+                "category": (
+                    (f"fiction:category-{index % 3}" if index < 10 else f"nonfiction:category-{index % 2}")
+                    if domain == "book"
+                    else f"category-{index % 7}"
+                ),
                 "creators": [f"Creator {number}"],
                 "primary_creators": [f"Creator {number}"],
                 "source_language": (
-                    ["python", "javascript", "java", "c"][index // 4]
+                    ["python", "javascript", "java", "c"][index % 4]
                     if domain == "code" else "en"
                 ),
             })
@@ -269,3 +297,19 @@ def test_assemble_candidate_specs_assigns_balanced_modifiers(tmp_path: Path) -> 
         assert len(selected) == 5
         assert {spec["domain"] for spec in selected} == set(domains)
         assert {spec["attack_vector"] for spec in selected} == set(vectors)
+
+
+def test_assemble_candidate_specs_rejects_invalid_code_language_allocation(
+    tmp_path: Path,
+) -> None:
+    manifest = Path("docs/research/candidate-code-source-manifest.json")
+    code = json.loads(manifest.read_text())
+    literary = json.loads(
+        Path("docs/research/candidate-literary-source-manifest.json").read_text()
+    )
+    code[0]["source_language"] = "java"
+    combined = tmp_path / "invalid.json"
+    combined.write_text(json.dumps([*literary, *code]))
+
+    with pytest.raises(CandidatePreparationError, match="code language allocation"):
+        assemble_candidate_specs([combined])

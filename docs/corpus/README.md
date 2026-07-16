@@ -22,8 +22,11 @@ python -m roguerecall.candidate_prep \
 Use `--resume` after a network interruption. The preparation command enforces
 the 50-case domain/vector matrix, assigns the required balanced Prompt Modifier
 allocation, downloads source and rights-evidence bytes, records SHA-256 hashes,
-and writes one package per case. Its output is deliberately marked
-`pending-human-review` and belongs outside the accepted corpus tree. Do not
+checks the absolute word and line caps, and writes one package per case. The
+Source Work percentage remains `null` and pending human review because the
+chapter-level acquisitions do not establish a whole-work denominator. Its
+output is deliberately marked `pending-human-review` and belongs outside the
+repository's corpus intake tree; it is not a Benchmark Corpus Release. Do not
 commit generated packages or convert their pending gates into approvals.
 
 Rows whose `review_notes` contain `HOLD` require replacement or resolution
