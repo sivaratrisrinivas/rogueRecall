@@ -1,3 +1,6 @@
 cryptography==46.0.3
+cffi==2.1.0
+pycparser==3.0
+typing-extensions==4.16.0
 Pygments==2.19.2
 regex==2024.11.6

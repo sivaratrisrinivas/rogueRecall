@@ -52,9 +52,9 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
-      - run: python -m pip install . pip-audit==2.9.0 detect-secrets==1.5.0
+      - run: python -m pip install . pip-audit==2.10.1 detect-secrets==1.5.0
       - name: Dependency audit
-        run: python -m pip_audit --requirement requirements-audit.txt --format=json --output=dependency-audit.json
+        run: python -m pip_audit --requirement requirements-audit.txt --no-deps --format=json --output=dependency-audit.json
       - name: Secret scan
         run: detect-secrets scan --all-files --exclude-files 'docs/corpus/candidate-v1/evidence/.*' > secret-scan.json
       - uses: actions/upload-artifact@v4
