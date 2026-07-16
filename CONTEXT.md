@@ -24,6 +24,18 @@ _Avoid_: Private dataset, training dataset
 An immutable, signed distribution of one exact Benchmark Corpus version and its Release Notice Bundle. Supersession, suspension, withdrawal, and reinstatement change the release's recorded status without changing its contents or identity.
 _Avoid_: Mutable dataset, latest corpus, corpus snapshot
 
+**Corpus Candidate Record**:
+A validated, pre-release record of the eligible candidate pool, explicit exclusions, structured Selection Slots, deterministic seed, frozen 50-case membership, contributor attestations, independent reviews, and curator decisions. A Corpus Candidate Record is not a Benchmark Corpus Release and carries no release signature or lifecycle status.
+_Avoid_: Draft release, accepted corpus, candidate manifest
+
+**Selection Slot**:
+A structured set of domain, Attack Vector, era, category or genre, language, and Prompt Modifier criteria used to group interchangeable eligible candidates before deterministic seeded selection. A Selection Slot has a stable identifier, but its criteria—not the identifier alone—determine candidate fit.
+_Avoid_: Bucket, arbitrary slot name
+
+**Contributor Attestation**:
+A case-specific statement by a RogueRecall Contributor confirming their authority over contributed RogueRecall Material, the recorded rights basis for the exact reference excerpt, disclosure of applicable conditions, and exclusion from prompt development, grader-threshold selection, and exploratory Target System testing. It supplements rather than replaces DCO sign-off and independent review.
+_Avoid_: Author attestation, DCO-only approval
+
 **Corpus Release Manifest**:
 The canonical signed inventory that identifies a Benchmark Corpus Release, its applicable contracts, its Evaluation Case revisions, and the hashes of every distributed artifact. It is the authority for verifying the release's identity and integrity.
 _Avoid_: File list, checksum file, release notes

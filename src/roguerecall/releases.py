@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import base64
 import copy
+import hashlib
 import json
 import re
 import tempfile
@@ -104,6 +105,91 @@ def load_release_identity(key_id: str, private_key: bytes) -> ReleaseIdentity:
     except (TypeError, ValueError) as error:
         raise ReleaseValidationError("configured release private key is invalid") from error
     return ReleaseIdentity(key_id, loaded)
+
+
+def validate_corpus_candidate(candidate: Mapping[str, Any]) -> dict[str, Any]:
+    """Validate a frozen 50-case Corpus Candidate Record before release assembly.
+
+    The Corpus Candidate Record makes selection, contributor attestations,
+    independent approvals, and curator decisions explicit. It does not sign or
+    publish a Benchmark Corpus Release.
+    """
+
+    expected_fields = {
+        "approvals",
+        "attestations",
+        "cases",
+        "composition",
+        "curator_confirmation",
+        "independent_reviews",
+        "release_version",
+        "schema_version",
+        "selection",
+    }
+    if not isinstance(candidate, Mapping) or set(candidate) != expected_fields:
+        raise ReleaseValidationError("Corpus Candidate Record fields are invalid")
+    if candidate.get("schema_version") != RELEASE_SCHEMA_VERSION:
+        raise ReleaseValidationError("unsupported Corpus Candidate Record version")
+
+    raw_cases = candidate.get("cases")
+    if not isinstance(raw_cases, list):
+        raise ReleaseValidationError("Corpus Candidate Record cases must be a list")
+    cases = _validate_release_cases(raw_cases, candidate.get("release_version"))
+    case_ids = [case["identity"]["case_id"] for case in cases]
+    if case_ids != sorted(case_ids):
+        raise ReleaseValidationError("Corpus Candidate Record cases require stable case_id order")
+
+    composition = candidate.get("composition")
+    if not isinstance(composition, Mapping):
+        raise ReleaseValidationError("Corpus Candidate Record composition is invalid")
+    selection, pool_cases = _validate_candidate_selection(
+        candidate.get("selection"), set(case_ids), candidate.get("release_version")
+    )
+    pool_by_id = {
+        entry["case"]["identity"]["case_id"]: entry
+        for entry in selection["candidate_pool"]
+    }
+    selected_primary_creators = {
+        case_id: pool_by_id[case_id]["primary_creators"] for case_id in case_ids
+    }
+    validated_composition = _validate_corpus_composition(
+        cases, composition, selected_primary_creators
+    )
+    for case in cases:
+        case_id = case["identity"]["case_id"]
+        pool_entry = pool_by_id[case_id]
+        if pool_entry["case"] != case:
+            raise ReleaseValidationError(
+                "selected Evaluation Case differs from its eligible pool record"
+            )
+        if pool_entry["category"] != validated_composition[case_id]:
+            raise ReleaseValidationError(
+                "selected case category differs from its Selection Slot evidence"
+            )
+    attestations = _validate_candidate_attestations(
+        candidate.get("attestations"), pool_cases
+    )
+    independent_reviews = _validate_independent_reviews(
+        candidate.get("independent_reviews"), pool_cases
+    )
+    approvals_value = candidate.get("approvals")
+    if not isinstance(approvals_value, list):
+        raise ReleaseValidationError("Corpus Candidate Record approvals must be a list")
+    approvals = _validate_approvals(approvals_value, cases)
+    curator_confirmation = _validate_curator_confirmation(
+        candidate.get("curator_confirmation")
+    )
+    return {
+        "approvals": approvals,
+        "attestations": attestations,
+        "cases": cases,
+        "composition": validated_composition,
+        "curator_confirmation": curator_confirmation,
+        "independent_reviews": independent_reviews,
+        "release_version": candidate["release_version"],
+        "schema_version": RELEASE_SCHEMA_VERSION,
+        "selection": selection,
+    }
 
 
 class TrustStore:
@@ -877,7 +963,9 @@ def _validate_release_cases(
 
 
 def _validate_corpus_composition(
-    cases: Sequence[Mapping[str, Any]], categories: Mapping[str, str]
+    cases: Sequence[Mapping[str, Any]],
+    categories: Mapping[str, str],
+    primary_creators: Mapping[str, Sequence[str]] | None = None,
 ) -> dict[str, str]:
     case_ids = [case["identity"]["case_id"] for case in cases]
     if set(categories) != set(case_ids) or any(
@@ -907,13 +995,23 @@ def _validate_corpus_composition(
     if cells != Counter(expected_cells):
         raise ReleaseValidationError("Benchmark Corpus domain and Attack Vector matrix is invalid")
 
-    creators = Counter(
-        creator
+    primary_sources = Counter(
+        principal
         for case in cases
-        for creator in case["source_work"]["creators"]
+        for principal in (
+            [case["source_work"]["publisher_or_project"]]
+            if case["classification"]["domain"] == "code"
+            else (
+                primary_creators[case["identity"]["case_id"]]
+                if primary_creators is not None
+                else case["source_work"]["creators"]
+            )
+        )
     )
-    if any(count > 2 for count in creators.values()):
-        raise ReleaseValidationError("a primary creator exceeds the Source Work concentration limit")
+    if any(count > 2 for count in primary_sources.values()):
+        raise ReleaseValidationError(
+            "a primary creator or code repository owner exceeds the Source Work concentration limit"
+        )
 
     for domain in ("book", "lyrics"):
         eras: Counter[str] = Counter()
@@ -1054,6 +1152,357 @@ def _validate_approvals(
     if identities & authors:
         raise ReleaseValidationError("release approvers cannot author included cases")
     return sorted(normalized, key=lambda item: item["role"])
+
+
+def _validate_candidate_selection(
+    value: Any, selected_case_ids: set[str], release_version: Any
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    fields = {
+        "algorithm",
+        "candidate_pool",
+        "exclusions",
+        "frozen_at",
+        "seed",
+        "target_system_feedback_used",
+    }
+    if not isinstance(value, Mapping) or set(value) != fields:
+        raise ReleaseValidationError("Corpus Candidate Record selection fields are invalid")
+    if value.get("algorithm") != "sha256-seed-case-id-v1":
+        raise ReleaseValidationError("Benchmark Corpus selection algorithm is unsupported")
+    seed = _required_text(value.get("seed"), "Benchmark Corpus selection seed")
+    frozen_at = _timestamp(
+        _parse_timestamp(value.get("frozen_at"), "candidate freeze timestamp")
+    )
+    if value.get("target_system_feedback_used") is not False:
+        raise ReleaseValidationError(
+            "Benchmark Corpus selection must not use Target System feedback"
+        )
+    raw_pool = value.get("candidate_pool")
+    if not isinstance(raw_pool, list) or not raw_pool:
+        raise ReleaseValidationError("Corpus Candidate Record pool must be non-empty")
+
+    allowed_reasons = {
+        "exploratory_target_testing",
+        "grader_threshold_selection",
+        "prompt_development",
+        "rights_ineligible",
+        "validation_failed",
+        "withdrawn",
+    }
+    pool: list[dict[str, Any]] = []
+    pool_cases: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    eligible_by_slot: dict[str, list[str]] = {}
+    slot_definitions: dict[str, dict[str, Any]] = {}
+    source_works: set[tuple[str, str]] = set()
+    for item in raw_pool:
+        if not isinstance(item, Mapping) or set(item) != {
+            "case",
+            "category",
+            "category_evidence",
+            "creator_role_evidence",
+            "selection_slot",
+        }:
+            raise ReleaseValidationError("Corpus Candidate Record pool entry is invalid")
+        case = _validate_pool_case(item.get("case"), release_version)
+        case_id = case["identity"]["case_id"]
+        if case_id in seen_ids:
+            raise ReleaseValidationError("Corpus Candidate Record pool IDs must be unique")
+        seen_ids.add(case_id)
+        source_identity = (
+            case["source_work"]["canonical_url"],
+            case["source_work"]["edition_or_version"],
+        )
+        if source_identity in source_works:
+            raise ReleaseValidationError("candidate pool Source Works must be distinct")
+        source_works.add(source_identity)
+        category = _required_text(item.get("category"), "candidate category")
+        evidence = item.get("category_evidence")
+        if not isinstance(evidence, Mapping) or set(evidence) != {
+            "explanation", "reference"
+        }:
+            raise ReleaseValidationError("candidate category evidence is invalid")
+        category_evidence = {
+            "explanation": _required_text(
+                evidence.get("explanation"), "candidate category evidence explanation"
+            ),
+            "reference": _required_text(
+                evidence.get("reference"), "candidate category evidence reference"
+            ),
+        }
+        creator_role_evidence, normalized_primary_creators = (
+            _validate_creator_role_evidence(item.get("creator_role_evidence"), case)
+        )
+        slot = _validate_selection_slot(item.get("selection_slot"), case, category)
+        slot_id = slot["slot_id"]
+        prior_slot = slot_definitions.get(slot_id)
+        if prior_slot is not None and prior_slot != slot:
+            raise ReleaseValidationError("Selection Slot criteria conflict")
+        slot_definitions[slot_id] = slot
+        eligible_by_slot.setdefault(slot_id, []).append(case_id)
+        pool_cases.append(case)
+        pool.append(
+            {
+                "case": case,
+                "category": category,
+                "category_evidence": category_evidence,
+                "creator_role_evidence": creator_role_evidence,
+                "primary_creators": normalized_primary_creators,
+                "selection_slot": slot,
+            }
+        )
+
+    exclusions = _validate_candidate_exclusions(value.get("exclusions"), allowed_reasons)
+    excluded_ids = {item["case_id"] for item in exclusions}
+    if seen_ids & excluded_ids:
+        raise ReleaseValidationError("a candidate cannot be both eligible and excluded")
+    if not selected_case_ids <= seen_ids:
+        raise ReleaseValidationError("selected case is absent from the eligible candidate pool")
+    if sum(slot["quota"] for slot in slot_definitions.values()) != 50 or any(
+        len(eligible_by_slot[slot_id]) < slot["quota"]
+        for slot_id, slot in slot_definitions.items()
+    ):
+        raise ReleaseValidationError(
+            "Corpus Candidate Record slot quotas must allocate 50 eligible cases"
+        )
+    winners = {
+        case_id
+        for slot_id, case_ids in eligible_by_slot.items()
+        for case_id in sorted(
+            case_ids,
+            key=lambda candidate_id: hashlib.sha256(
+                f"{seed}\0{candidate_id}".encode("utf-8")
+            ).hexdigest(),
+        )[: slot_definitions[slot_id]["quota"]]
+    }
+    if winners != selected_case_ids:
+        raise ReleaseValidationError("Benchmark Corpus deterministic selection is not reproducible")
+    return {
+        "algorithm": "sha256-seed-case-id-v1",
+        "candidate_pool": sorted(
+            pool, key=lambda item: item["case"]["identity"]["case_id"]
+        ),
+        "exclusions": exclusions,
+        "frozen_at": frozen_at,
+        "seed": seed,
+        "target_system_feedback_used": False,
+    }, pool_cases
+
+
+def _validate_pool_case(value: Any, release_version: Any) -> dict[str, Any]:
+    if not isinstance(value, Mapping):
+        raise ReleaseValidationError("eligible candidate case must be an object")
+    try:
+        validated = validate_evaluation_case(
+            {key: item for key, item in value.items() if key != "computed"}
+        )
+    except EvaluationCaseValidationError as error:
+        raise ReleaseValidationError(f"eligible candidate case is invalid: {error}") from error
+    if "computed" in value and dict(value) != validated:
+        raise ReleaseValidationError("eligible candidate computed fields are not canonical")
+    if release_version not in validated["rights"]["release_versions"]:
+        raise ReleaseValidationError("eligible candidate Rights Record omits release version")
+    return validated
+
+
+def _validate_creator_role_evidence(
+    value: Any, case: Mapping[str, Any]
+) -> tuple[dict[str, dict[str, Any]], list[str]]:
+    creators = case["source_work"]["creators"]
+    if case["classification"]["domain"] == "code":
+        if value != {}:
+            raise ReleaseValidationError("code candidates must not classify creator roles")
+        return {}, []
+    if not isinstance(value, Mapping) or set(value) != set(creators):
+        raise ReleaseValidationError(
+            "creator role evidence must classify every Source Work credit"
+        )
+    normalized: dict[str, dict[str, Any]] = {}
+    primary_creators: list[str] = []
+    for creator in creators:
+        evidence = value[creator]
+        if not isinstance(evidence, Mapping) or set(evidence) != {
+            "is_primary",
+            "reference",
+        } or not isinstance(evidence.get("is_primary"), bool):
+            raise ReleaseValidationError("candidate creator role evidence is invalid")
+        is_primary = evidence["is_primary"]
+        normalized[creator] = {
+            "is_primary": is_primary,
+            "reference": _required_text(
+                evidence.get("reference"), "creator role evidence reference"
+            ),
+        }
+        if is_primary:
+            primary_creators.append(creator)
+    if not primary_creators:
+        raise ReleaseValidationError("non-code candidates require a primary creator")
+    return normalized, primary_creators
+
+
+def _validate_selection_slot(
+    value: Any, case: Mapping[str, Any], category: str
+) -> dict[str, Any]:
+    fields = {
+        "attack_vector", "category", "domain", "era", "prompt_modifier",
+        "quota", "slot_id", "source_language",
+    }
+    if not isinstance(value, Mapping) or set(value) != fields:
+        raise ReleaseValidationError("Selection Slot fields are invalid")
+    classification = case["classification"]
+    year = int(case["source_work"]["publication_date"][:4])
+    expected_era = None if classification["domain"] == "code" else (
+        "pre_1950" if year < 1950 else "1950_1999" if year < 2000 else "2000_onward"
+    )
+    modifiers = classification["prompt_modifiers"]
+    expected_modifier = modifiers[0] if modifiers else None
+    quota = value.get("quota")
+    if isinstance(quota, bool) or not isinstance(quota, int) or quota < 1:
+        raise ReleaseValidationError("Selection Slot quota is invalid")
+    criteria = {
+        "attack_vector": classification["attack_vector"],
+        "category": category,
+        "domain": classification["domain"],
+        "era": expected_era,
+        "prompt_modifier": expected_modifier,
+        "source_language": case["grading"]["source_language"],
+    }
+    expected = {
+        **criteria,
+        "quota": quota,
+        "slot_id": f"slot-{hashlib.sha256(canonical_json(criteria)).hexdigest()}",
+    }
+    if dict(value) != expected:
+        raise ReleaseValidationError("Selection Slot criteria do not match the candidate")
+    return expected
+
+
+def _validate_candidate_exclusions(
+    value: Any, allowed_reasons: set[str]
+) -> list[dict[str, Any]]:
+    if not isinstance(value, list):
+        raise ReleaseValidationError("candidate exclusions must be a list")
+    normalized = []
+    seen: set[str] = set()
+    for item in value:
+        if not isinstance(item, Mapping) or set(item) != {
+            "case_id", "evidence_reference", "reasons"
+        }:
+            raise ReleaseValidationError("candidate exclusion entry is invalid")
+        case_id = _required_text(item.get("case_id"), "excluded candidate case_id")
+        reasons = item.get("reasons")
+        if case_id in seen or not isinstance(reasons, list) or not reasons:
+            raise ReleaseValidationError("candidate exclusion evidence is invalid")
+        if len(reasons) != len(set(reasons)) or any(
+            not isinstance(reason, str) or reason not in allowed_reasons for reason in reasons
+        ):
+            raise ReleaseValidationError("candidate exclusion reason is invalid")
+        seen.add(case_id)
+        normalized.append({
+            "case_id": case_id,
+            "evidence_reference": _required_text(
+                item.get("evidence_reference"), "candidate exclusion evidence reference"
+            ),
+            "reasons": sorted(reasons),
+        })
+    return sorted(normalized, key=lambda item: item["case_id"])
+
+
+def _validate_candidate_attestations(
+    value: Any, cases: Sequence[Mapping[str, Any]]
+) -> dict[str, dict[str, Any]]:
+    case_by_id = {case["identity"]["case_id"]: case for case in cases}
+    if not isinstance(value, Mapping) or set(value) != set(case_by_id):
+        raise ReleaseValidationError("Corpus Candidate Record attestations are incomplete")
+    normalized: dict[str, dict[str, Any]] = {}
+    for case_id, attestation in value.items():
+        if not isinstance(attestation, Mapping) or set(attestation) != {
+            "contributor", "dco_signed_off", "reference", "rights_attestation"
+        }:
+            raise ReleaseValidationError("Corpus Candidate Record attestation is invalid")
+        contributor = _required_text(attestation.get("contributor"), "attestation contributor")
+        if contributor != case_by_id[case_id]["review"]["author"]:
+            raise ReleaseValidationError("attestation contributor must match the case contributor")
+        if attestation.get("dco_signed_off") is not True or attestation.get(
+            "rights_attestation"
+        ) is not True:
+            raise ReleaseValidationError("RogueRecall Contributor attestations must be affirmative")
+        normalized[case_id] = {
+            "contributor": contributor,
+            "dco_signed_off": True,
+            "reference": _required_text(attestation.get("reference"), "attestation reference"),
+            "rights_attestation": True,
+        }
+    return {case_id: normalized[case_id] for case_id in sorted(normalized)}
+
+
+def _validate_independent_reviews(
+    value: Any, cases: Sequence[Mapping[str, Any]]
+) -> dict[str, dict[str, Any]]:
+    case_by_id = {case["identity"]["case_id"]: case for case in cases}
+    if not isinstance(value, Mapping) or set(value) != set(case_by_id):
+        raise ReleaseValidationError("Corpus Candidate Record independent reviews are incomplete")
+    normalized: dict[str, dict[str, Any]] = {}
+    for case_id, review in value.items():
+        if not isinstance(review, Mapping) or set(review) != {
+            "checklist_passed", "reference", "reviewer"
+        }:
+            raise ReleaseValidationError("candidate independent review is invalid")
+        reviewer = _required_text(review.get("reviewer"), "independent reviewer")
+        case = case_by_id[case_id]
+        if reviewer != case["review"]["reviewer"] or reviewer in {
+            case["review"]["author"], *case["source_work"]["creators"]
+        }:
+            raise ReleaseValidationError("independent reviewer conflicts with the case")
+        if review.get("checklist_passed") is not True:
+            raise ReleaseValidationError("independent review checklist must pass")
+        normalized[case_id] = {
+            "checklist_passed": True,
+            "reference": _required_text(
+                review.get("reference"), "independent review reference"
+            ),
+            "reviewer": reviewer,
+        }
+    return {case_id: normalized[case_id] for case_id in sorted(normalized)}
+
+
+def _validate_curator_confirmation(value: Any) -> dict[str, Any]:
+    gates = {
+        "composition",
+        "concentration",
+        "contamination",
+        "gradeability",
+        "lifecycle",
+        "warnings_reviewed",
+    }
+    if not isinstance(value, Mapping) or set(value) != gates | {"warnings"}:
+        raise ReleaseValidationError("release curator confirmation fields are invalid")
+    if any(value.get(gate) is not True for gate in gates):
+        raise ReleaseValidationError("release curator must affirm every corpus gate")
+    warnings = value.get("warnings")
+    if not isinstance(warnings, list):
+        raise ReleaseValidationError("release curator warnings must be a list")
+    normalized_warnings = []
+    for warning in warnings:
+        if not isinstance(warning, Mapping) or set(warning) != {
+            "code", "disposition", "rationale"
+        }:
+            raise ReleaseValidationError("release curator warning decision is invalid")
+        if warning.get("disposition") != "resolved":
+            raise ReleaseValidationError(
+                "release curator warnings must be resolved before validation"
+            )
+        normalized_warnings.append(
+            {
+                "code": _required_text(warning.get("code"), "warning code"),
+                "disposition": warning["disposition"],
+                "rationale": _required_text(warning.get("rationale"), "warning rationale"),
+            }
+        )
+    return {
+        **{gate: True for gate in sorted(gates)},
+        "warnings": sorted(normalized_warnings, key=lambda item: item["code"]),
+    }
 
 
 def _validate_notice_bundle(notices: Mapping[str, bytes]) -> dict[str, bytes]:

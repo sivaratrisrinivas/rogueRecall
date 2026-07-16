@@ -18,6 +18,7 @@ from .releases import (
     load_release_identity,
     load_verified_release_cases,
     resolve_release_for_run,
+    validate_corpus_candidate,
     verify_release,
 )
 from .targets import (
@@ -49,6 +50,7 @@ __all__ = [
     "resolve_release_for_run",
     "run_release",
     "validate_evaluation_case",
+    "validate_corpus_candidate",
     "validate_target_manifest",
     "verify_release",
 ]

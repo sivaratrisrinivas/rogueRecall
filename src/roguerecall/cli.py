@@ -8,6 +8,7 @@ from typing import Sequence
 from .dashboard import create_server
 from .engine import run_synthetic, run_targets
 from .records import RecordValidationError, validate_record
+from .releases import ReleaseValidationError, validate_corpus_candidate
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -32,6 +33,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         "validate", help="independently validate a Run Record"
     )
     validate_parser.add_argument("record", type=Path)
+    candidate_parser = subparsers.add_parser(
+        "validate-corpus-candidate",
+        help="validate a frozen Corpus Candidate Record before assembly",
+    )
+    candidate_parser.add_argument("candidate", type=Path)
     dashboard_parser = subparsers.add_parser(
         "dashboard", help="serve validated results read-only over loopback"
     )
@@ -59,6 +65,17 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"invalid: {error}")
             return 1
         print(f"valid: {args.record}")
+        return 0
+    if args.command == "validate-corpus-candidate":
+        try:
+            validate_corpus_candidate(_read_json_object(args.candidate))
+        except ReleaseValidationError as error:
+            print(f"invalid: {error}")
+            return 1
+        except (OSError, ValueError) as error:
+            print(f"invalid: cannot read candidate JSON: {error}")
+            return 1
+        print(f"valid: {args.candidate}")
         return 0
     if args.command == "dashboard":
         server = create_server(args.runs_root, port=args.port)

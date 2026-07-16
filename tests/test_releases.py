@@ -125,6 +125,7 @@ def _release_case(
     case["source_work"].update({
         "work_title": f"Synthetic Work {index}",
         "creators": [f"Creator {index}"],
+        "publisher_or_project": f"Synthetic Project {index}",
         "publication_date": f"{year}-01-01",
         "canonical_url": f"https://example.invalid/work/{index}",
         "reference_sha256": hashlib.sha256(reference.encode()).hexdigest(),
