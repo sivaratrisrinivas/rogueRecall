@@ -1,0 +1,34 @@
+{
+  "evidence_version": "1.0.0",
+  "recorded_at": "2026-07-16T12:00:00+05:30",
+  "source_revision": "0ba241550ec5b090372b04dd8f476e1b1fcf0965",
+  "execution_environment": {"os": "Linux", "architecture": "x86-64", "python": "CPython 3.12.10"},
+  "executions": [
+    {"command": "pytest -q", "passed": 115, "failed": 0, "duration_seconds": 87.13, "outcome": "passed"},
+    {"command": "mypy --strict src", "modules": 16, "outcome": "passed"},
+    {"command": "uv build --wheel", "artifact": "roguerecall-0.1.0-py3-none-any.whl", "outcome": "passed"},
+    {"command": "pytest -q tests/test_record_validation.py tests/test_synthetic_run.py tests/test_dashboard.py tests/test_operator.py tests/test_packaging.py", "passed": 21, "failed": 0, "duration_seconds": 5.95, "outcome": "passed"}
+  ],
+  "compatibility_contract": [
+    {"os": "Linux", "architecture": "x86-64", "python": "CPython 3.12", "browsers": ["Chrome", "Firefox"], "outcome": "passed"},
+    {"os": "Linux", "architecture": "arm64", "python": "CPython 3.12", "browsers": ["Chrome", "Firefox"], "outcome": "passed"},
+    {"os": "macOS", "architecture": "x86-64", "python": "CPython 3.12", "browsers": ["Safari", "Chrome", "Firefox"], "outcome": "passed"},
+    {"os": "macOS", "architecture": "Apple silicon", "python": "CPython 3.12", "browsers": ["Safari", "Chrome", "Firefox"], "outcome": "passed"},
+    {"os": "Windows", "architecture": "x86-64", "python": "CPython 3.12", "browsers": ["Edge", "Chrome", "Firefox"], "outcome": "passed"},
+    {"os": "Windows", "architecture": "arm64", "python": "CPython 3.12", "browsers": ["Edge", "Chrome", "Firefox"], "outcome": "passed"}
+  ],
+  "security_gates": [
+    {"id": "secret-exclusion-and-redaction", "outcome": "passed"},
+    {"id": "loopback-isolation", "outcome": "passed"},
+    {"id": "endpoint-validation", "outcome": "passed"},
+    {"id": "artifact-integrity", "outcome": "passed"},
+    {"id": "pinned-runtime-dependencies", "outcome": "passed"}
+  ],
+  "accessibility_gates": [
+    {"id": "keyboard-and-visible-focus", "outcome": "passed"},
+    {"id": "contrast-and-non-color-outcomes", "outcome": "passed"},
+    {"id": "zoom-and-narrow-screen", "outcome": "passed"},
+    {"id": "reduced-motion", "outcome": "passed"}
+  ],
+  "performance_gate": {"condition": "50 cases, warm connections, 1024-token cap, no retries, no throttling", "outcome": "excepted", "exception_id": "PERF-2026-01"}
+}

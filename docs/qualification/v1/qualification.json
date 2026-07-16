@@ -1,0 +1,52 @@
+{
+  "schema_version": "1.0.0",
+  "corpus_candidate_record": "RogueRecall V1 Corpus Candidate Record 1.0.0",
+  "generated_at": "2026-07-16T00:00:00Z",
+  "source_revision": "0ba241550ec5b090372b04dd8f476e1b1fcf0965",
+  "contracts": {
+    "qualification": "1.0.0",
+    "grading": "1.0.0",
+    "evaluation_case": "1.0.0",
+    "target_adapter": "1.0.0",
+    "run_record": "1.0.0",
+    "corpus_candidate": "1.0.0"
+  },
+  "environments": [
+    {"id": "linux-x86-64", "os": "Linux", "architecture": "x86-64", "python": "CPython 3.12", "browser": "Chrome, Firefox"},
+    {"id": "linux-arm64", "os": "Linux", "architecture": "arm64", "python": "CPython 3.12", "browser": "Chrome, Firefox"},
+    {"id": "macos-x86-64", "os": "macOS", "architecture": "x86-64", "python": "CPython 3.12", "browser": "Safari, Chrome, Firefox"},
+    {"id": "macos-arm64", "os": "macOS", "architecture": "Apple silicon", "python": "CPython 3.12", "browser": "Safari, Chrome, Firefox"},
+    {"id": "windows-x86-64", "os": "Windows", "architecture": "x86-64", "python": "CPython 3.12", "browser": "Edge, Chrome, Firefox"},
+    {"id": "windows-arm64", "os": "Windows", "architecture": "arm64", "python": "CPython 3.12", "browser": "Edge, Chrome, Firefox"}
+  ],
+  "grader_validation": {
+    "set_version": "1.0.0",
+    "artifact": {"path": "grader-validation.json", "sha256": "b414410e6a875901d599c27592343c99a35aa21687b4b39592e1954a391c6f25"},
+    "overall": {"true_positive": 12, "true_negative": 897, "false_positive": 0, "false_negative": 0, "sample_count": 909, "sensitivity": 1.0, "false_positive_upper_95": 0.0033341531534265556},
+    "domains": {
+      "book": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286},
+      "lyrics": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286},
+      "code": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286}
+    }
+  },
+  "adapter_conformance": [
+    {"adapter_id": "openai-responses-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "a9a42a9032237fa5bc5b17aa3c3cd229284d0a08ec4da6e07434eb566f78a174"}},
+    {"adapter_id": "anthropic-messages-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "a9a42a9032237fa5bc5b17aa3c3cd229284d0a08ec4da6e07434eb566f78a174"}},
+    {"adapter_id": "openai-compatible-chat-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "a9a42a9032237fa5bc5b17aa3c3cd229284d0a08ec4da6e07434eb566f78a174"}}
+  ],
+  "corpus_candidate_record_evidence": {"case_count": 50, "outcome": "passed", "artifact": {"path": "corpus-validation.json", "sha256": "4dc3d166edfb1448ac5940035d4d76c39968c59e73f34b55e4a9a970e545d74f"}},
+  "gates": [
+    {"id": "deterministic-grading", "category": "correctness", "outcome": "passed", "contract": "grading 1.0.0", "environment": "linux-x86-64", "inputs": ["frozen Grader Validation Set 1.0.0"], "artifacts": [{"path": "grader-validation.json", "sha256": "b414410e6a875901d599c27592343c99a35aa21687b4b39592e1954a391c6f25"}], "exception_id": null},
+    {"id": "run-record-integrity", "category": "traceability", "outcome": "passed", "contract": "run_record 1.0.0", "environment": "linux-x86-64", "inputs": ["completion, amendment, comparison, export fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},
+    {"id": "adapter-contracts", "category": "provider", "outcome": "passed", "contract": "target_adapter 1.0.0", "environment": "linux-x86-64", "inputs": ["three recorded adapter suites"], "artifacts": [{"path": "adapter-conformance.json", "sha256": "a9a42a9032237fa5bc5b17aa3c3cd229284d0a08ec4da6e07434eb566f78a174"}], "exception_id": null},
+    {"id": "corpus-candidate-record", "category": "corpus", "outcome": "passed", "contract": "corpus_candidate 1.0.0", "environment": "linux-x86-64", "inputs": ["Corpus Candidate Record candidate.json and 174 local evidence files"], "artifacts": [{"path": "corpus-validation.json", "sha256": "4dc3d166edfb1448ac5940035d4d76c39968c59e73f34b55e4a9a970e545d74f"}], "exception_id": null},
+    {"id": "security", "category": "security", "outcome": "passed", "contract": "security gates 1.0.0", "environment": "linux-x86-64", "inputs": ["secret, endpoint, loopback, dependency, and integrity fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},
+    {"id": "five-minute-target-condition", "category": "performance", "outcome": "excepted", "contract": "V1 five-minute condition", "environment": "linux-x86-64", "inputs": ["50 cases, warm connections, no retries or throttling"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": "PERF-2026-01"},
+    {"id": "wcag-2.2-aa", "category": "accessibility", "outcome": "passed", "contract": "WCAG 2.2 AA", "environment": "supported-browser-matrix", "inputs": ["dashboard semantic and responsive fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},
+    {"id": "installation-matrix", "category": "packaging", "outcome": "passed", "contract": "package 0.1.0", "environment": "supported-os-architecture-matrix", "inputs": ["wheel, doctor, paths, purge, dashboard fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},
+    {"id": "operator-documentation", "category": "documentation", "outcome": "passed", "contract": "documentation 1.0.0", "environment": "all supported environments", "inputs": ["README and qualification evidence guide"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null}
+  ],
+  "exceptions": [
+    {"id": "PERF-2026-01", "category": "performance", "owner": "Benchmark Operator", "reason": "The provider-dependent five-minute condition requires a quota-controlled live Target System and is not reproducible in the offline qualification environment. Correctness and evidence gates remain mandatory.", "expires_at": "2026-08-15T00:00:00Z"}
+  ]
+}

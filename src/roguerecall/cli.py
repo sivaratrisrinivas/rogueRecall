@@ -12,6 +12,7 @@ from .engine import run_synthetic, run_targets
 from .records import RecordValidationError, validate_record
 from .releases import ReleaseValidationError, validate_corpus_candidate
 from .installation import InstallationPaths, discover_paths, purge, run_doctor
+from .qualification import QualificationValidationError, validate_qualification_report
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -41,6 +42,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="validate a frozen Corpus Candidate Record before assembly",
     )
     candidate_parser.add_argument("candidate", type=Path)
+    qualification_parser = subparsers.add_parser(
+        "validate-qualification",
+        help="validate a V1 qualification report and its evidence artifacts",
+    )
+    qualification_parser.add_argument("report", type=Path)
     dashboard_parser = subparsers.add_parser(
         "dashboard", help="serve validated results read-only over loopback"
     )
@@ -89,6 +95,14 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"invalid: cannot read candidate JSON: {error}")
             return 1
         print(f"valid: {args.candidate}")
+        return 0
+    if args.command == "validate-qualification":
+        try:
+            validate_qualification_report(args.report)
+        except QualificationValidationError as error:
+            print(f"invalid: {error}")
+            return 1
+        print(f"valid: {args.report}")
         return 0
     if args.command == "dashboard":
         server = create_server(args.runs_root, port=args.port)

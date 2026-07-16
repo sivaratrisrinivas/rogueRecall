@@ -1,0 +1,23 @@
+{
+  "evidence_version": "1.0.0",
+  "recorded_at": "2026-07-16T12:00:00+05:30",
+  "environment": {"os": "Linux", "architecture": "x86-64", "python": "CPython 3.12.10"},
+  "command": "pytest -q tests/test_targets.py tests/test_target_run.py",
+  "result": {"passed": 28, "failed": 0, "duration_seconds": 0.99},
+  "contract_version": "1.0.0",
+  "scenarios": [
+    {"id": "request-construction", "outcome": "passed"},
+    {"id": "text-extraction", "outcome": "passed"},
+    {"id": "retry-and-retry-after", "outcome": "passed"},
+    {"id": "attempt-deadline", "outcome": "passed"},
+    {"id": "response-classification", "outcome": "passed"},
+    {"id": "secret-redaction", "outcome": "passed"},
+    {"id": "attempt-evidence-completeness", "outcome": "passed"},
+    {"id": "persistence-failure", "outcome": "passed"}
+  ],
+  "adapters": [
+    {"adapter_id": "openai-responses-v1", "outcome": "passed"},
+    {"adapter_id": "anthropic-messages-v1", "outcome": "passed"},
+    {"adapter_id": "openai-compatible-chat-v1", "outcome": "passed"}
+  ]
+}

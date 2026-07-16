@@ -28,6 +28,7 @@ from .targets import (
     execute_target_systems,
     validate_target_manifest,
 )
+from .qualification import QualificationValidationError, validate_qualification_report
 
 __all__ = [
     "EvaluationCaseValidationError",
@@ -35,6 +36,7 @@ __all__ = [
     "CorpusRegistry",
     "ReleaseIdentity",
     "ReleaseValidationError",
+    "QualificationValidationError",
     "TargetManifestError",
     "TrustStore",
     "assemble_and_publish_release",
@@ -52,5 +54,6 @@ __all__ = [
     "validate_evaluation_case",
     "validate_corpus_candidate",
     "validate_target_manifest",
+    "validate_qualification_report",
     "verify_release",
 ]
