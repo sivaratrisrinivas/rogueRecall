@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b07",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b07/rights-01.bin",
+      "sha256": "1e20613a6bceb2bb4010decff3a6d1dde4cf749a133c3adfa3c7cfc2328ce4cc",
+      "source_url": "https://en.wikisource.org/wiki/The_Water-Babies_%28Kingsley%29"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b07/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b07/source.txt",
+    "sha256": "76febfe138c25ff7c624eb10fca20aaf31b1b5ea6e1f62ef5e0b2a21ed0b38a2",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15559012"
+  }
+}

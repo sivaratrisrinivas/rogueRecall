@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l15",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l15/rights-01.bin",
+      "sha256": "b1c212b02dd5e151b5859addf80d03a8bd30221b8d8b951d9be4067d660fc7ae",
+      "source_url": "https://en.wikisource.org/w/index.php?title=The_Garland_of_Good_Will/The_Spanish_Ladies_love&oldid=15505954"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l15/rights-02.bin",
+      "sha256": "4f6f65079de9320df34655f97c1a3cb4adb919bad4589428d0299dd9bf5de67c",
+      "source_url": "https://en.wikisource.org/wiki/The_Garland_of_Good_Will"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l15/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l15/source.txt",
+    "sha256": "8e51acdc4d09ee961bdd9f8aba90176cce6f1810e552b6ff89e5353b93e59170",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15505954"
+  }
+}

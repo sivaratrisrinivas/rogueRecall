@@ -1,0 +1,20 @@
+{
+  "case_id": "code-java-gap-fill-gson",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-gap-fill-gson/rights-01.bin",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source_url": "https://raw.githubusercontent.com/google/gson/c9f3fd55854a743b66f857ace3c7b268ea3e2ef7/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-gap-fill-gson/rights-02.bin",
+      "sha256": "2de94baaa838a264a9f579abed7a018d3f3c3a2020bfe908ec92b486115a4e8c",
+      "source_url": "https://github.com/google/gson/commit/c9f3fd55854a743b66f857ace3c7b268ea3e2ef7"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-java-gap-fill-gson/source.txt",
+    "sha256": "bab4d10bb5f8328f6ad1883f11751be532c1ff142eaca091fba3f51b874e523e",
+    "source_url": "https://raw.githubusercontent.com/google/gson/c9f3fd55854a743b66f857ace3c7b268ea3e2ef7/gson/src/main/java/com/google/gson/Gson.java"
+  }
+}

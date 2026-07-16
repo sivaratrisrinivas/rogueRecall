@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l10",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l10/rights-01.bin",
+      "sha256": "35e3f8fcb054abf759859155612badf641b0fa8f6ddc7f7e42591a6d5a279049",
+      "source_url": "https://www.loc.gov/item/2023782802/?fo=json"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l10/rights-02.bin",
+      "sha256": "da46a717cba5df9d64189537ea3efe5c83828b1b8d17ad8819a50a05f8712ae0",
+      "source_url": "https://www.loc.gov/collections/patriotic-melodies/articles-and-essays/battle-hymn-of-the-republic/?fo=json"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l10/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l10/source.txt",
+    "sha256": "7ece0478c7ffd57a1db174d3e27405f813ecc6a1c4ec09271aa799f107bc709a",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13848003"
+  }
+}

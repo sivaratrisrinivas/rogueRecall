@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l03",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l03/rights-01.bin",
+      "sha256": "f2e62f2b028da3b799e9c4c542a34411f8211441dd61c8897524b6703b2fe9d3",
+      "source_url": "https://en.wikisource.org/wiki/Abide_with_Me_%28Illustrated_Victorian_Songbook%29"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l03/rights-02.bin",
+      "sha256": "f08424640e0c8be2aaa0bc195e5edfdc691f07feb5d17b64e2559702aae7c425",
+      "source_url": "https://tile.loc.gov/storage-services/service/gdc/gdcfindingaidpdfs/mu015004/mu015004.pdf"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l03/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l03/source.txt",
+    "sha256": "37df90000996cab4e0779765bc984434a920e6d7c24dca4ff17eaff50f0a560f",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Abide%20with%20Me%20(Illustrated%20Victorian%20Songbook)"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b03",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b03/rights-01.bin",
+      "sha256": "15615ea04781ce1c27ef9cf9480ede833b7fccf5d4f4dda1a7075d8e9bbf8add",
+      "source_url": "https://en.wikisource.org/wiki/Moby-Dick_%28Melville%29"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b03/rights-02.bin",
+      "sha256": "ecf47398389bf9b89d59697478166a24b2e8e1fb37e0ef627141d71a83679c05",
+      "source_url": "https://en.wikisource.org/wiki/File%3AMoby-Dick_%281851%29_US_edition.djvu"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b03/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b03/source.txt",
+    "sha256": "7e66f5783f6f0ce72648d31e538b2c5e73b74c3b22e62a2a27585e03ef9d1861",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Moby-Dick%20(1851)%20US%20edition%2FChapter%201"
+  }
+}

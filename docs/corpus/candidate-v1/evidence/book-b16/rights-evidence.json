@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b16",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b16/rights-01.bin",
+      "sha256": "49f39deaf32cc01dfc6a560336dbbc11b6c153a6b49c3d3029224236ef693bbb",
+      "source_url": "https://en.wikisource.org/wiki/Author%3AFrederick_Douglass"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b16/rights-02.bin",
+      "sha256": "586716fb11b97fdefbb37e7849b15d8b00eac5eac83902f07d6c4413abbd07ff",
+      "source_url": "https://en.wikisource.org/wiki/Page%3ANarrative_of_the_Life_of_Frederick_Douglass%2C_an_American_Slave.djvu/88"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b16/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b16/source.txt",
+    "sha256": "651c6e185cf4740b4d82e0000f90238b2c723c5a20c4672be6b4ad1f12197e1d",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Narrative%20of%20the%20Life%20of%20Frederick%20Douglass%2C%20An%20American%20Slave%2FChapter%207"
+  }
+}

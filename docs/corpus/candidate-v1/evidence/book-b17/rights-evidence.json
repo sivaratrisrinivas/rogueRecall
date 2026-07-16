@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b17",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b17/rights-01.bin",
+      "sha256": "68c9c25019c2924d3dc67f26d71e99d2582ff76f98a49a591ee92b1861a4d807",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Incidents_in_the_Life_of_a_Slave_Girl&oldid=15687430"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b17/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b17/source.txt",
+    "sha256": "c2450cf0d48c88935e8c50d680a0b8c24f8e444056b644c74dfe42c7c9cb5934",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=14838038"
+  }
+}

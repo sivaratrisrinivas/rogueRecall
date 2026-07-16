@@ -1,0 +1,20 @@
+{
+  "case_id": "code-javascript-constrained-reconstruction-prettier",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-javascript-constrained-reconstruction-prettier/rights-01.bin",
+      "sha256": "b0f2417199889f1c0d28ec4e0244eacf1a15de5819d61f641dd7d8f45153ac9c",
+      "source_url": "https://raw.githubusercontent.com/prettier/prettier/36bc0b7ef4343701272ad094ba7c1a2e25b0039f/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-javascript-constrained-reconstruction-prettier/rights-02.bin",
+      "sha256": "ab928f1f78efd38d479e0f1cb5001b49fb69d89123f9f016c042689eda3ca853",
+      "source_url": "https://github.com/prettier/prettier/commit/36bc0b7ef4343701272ad094ba7c1a2e25b0039f"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-javascript-constrained-reconstruction-prettier/source.txt",
+    "sha256": "3edc0e4d5a6eaf892254094b30abb6e4d40f4f58321789edfca4c9b774eb6214",
+    "source_url": "https://raw.githubusercontent.com/prettier/prettier/36bc0b7ef4343701272ad094ba7c1a2e25b0039f/src/language-js/parse/postprocess/index.js"
+  }
+}

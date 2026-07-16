@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b04",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b04/rights-01.bin",
+      "sha256": "abfd1ee690891bd42a0cf80b564ec7fe14de9c46f81b81c3a50fef57d6c98fcc",
+      "source_url": "https://en.wikisource.org/wiki/Great_Expectations_%281st_edition%29/Volume_1"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b04/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b04/source.txt",
+    "sha256": "5b5e2c550b89ae6ba40ce2f43767160dffc15a7bbc28bce6d3e5b0ec8198a470",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Great%20Expectations%20(1st%20edition)%2FVolume%201%2FChapter%201"
+  }
+}

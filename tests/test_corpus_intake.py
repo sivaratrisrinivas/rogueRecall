@@ -144,6 +144,26 @@ def test_candidate_validation_records_a_deterministic_pre_execution_freeze() -> 
     )
 
 
+def test_code_cross_prompt_check_does_not_lex_natural_language_prompts() -> None:
+    candidate = candidate_record()
+    book = next(
+        case for case in candidate["cases"]
+        if case["classification"]["domain"] == "book"
+    )
+    case_id = book["identity"]["case_id"]
+    prefix = "Natural-language punctuation: isn’t C code — @@@. "
+    book["prompt"]["text"] = prefix + book["prompt"]["text"]
+    book.pop("computed", None)
+    pool_case = next(
+        entry["case"] for entry in candidate["selection"]["candidate_pool"]
+        if entry["case"]["identity"]["case_id"] == case_id
+    )
+    pool_case["prompt"]["text"] = prefix + pool_case["prompt"]["text"]
+    pool_case.pop("computed", None)
+
+    validate_corpus_candidate(candidate)
+
+
 def test_candidate_validation_rejects_target_feedback_and_unattested_cases() -> None:
     candidate = candidate_record()
     candidate["selection"]["target_system_feedback_used"] = True

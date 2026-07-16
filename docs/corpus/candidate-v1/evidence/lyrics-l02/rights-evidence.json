@@ -1,0 +1,20 @@
+{
+  "case_id": "lyrics-l02",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l02/rights-01.bin",
+      "sha256": "dd05d9bfe00f4b4c64369a3a86dba3b84785f8ccd8c06e20987a7c6b76e62d35",
+      "source_url": "https://en.wikisource.org/wiki/The_Army_and_Navy_Hymnal/Hymns/Holy%2C_Holy%2C_Holy%2C_Lord_God_Almighty"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l02/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l02/source.txt",
+    "sha256": "2b89a81a8847fefc5743fe21ade07e176b39d1f3f860b33524fee17acc186fde",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=The%20Army%20and%20Navy%20Hymnal%2FHymns%2FHoly%2C%20Holy%2C%20Holy%2C%20Lord%20God%20Almighty"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l12",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l12/rights-01.bin",
+      "sha256": "5b38e653bd6a3adbd289f1916c7fc10847d08b329bf7ac801dececc9deaf58ef",
+      "source_url": "https://en.wikisource.org/wiki/Mary_Had_a_Little_Lamb"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l12/rights-02.bin",
+      "sha256": "3b76b2307abbc847181ff2febecd02d6d68ab7f969cda860e1685864d54bf7ec",
+      "source_url": "https://cdn.loc.gov/copyright/history/mls/ML-523.pdf"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l12/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l12/source.txt",
+    "sha256": "10cf94f6b2c925b1af70a81262af75b15f530abfa6fedbb50d85fe60c72f13d6",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=14281338"
+  }
+}

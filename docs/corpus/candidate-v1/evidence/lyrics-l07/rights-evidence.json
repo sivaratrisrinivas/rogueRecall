@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l07",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l07/rights-01.bin",
+      "sha256": "1fdc43b992bfe4f8b808ae7dfbe13758f051cabb1ec5f53f3ec0a4398c0c0dfb",
+      "source_url": "https://en.wikisource.org/wiki/Poems_That_Every_Child_Should_Know/The_Last_Rose_of_Summer"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l07/rights-02.bin",
+      "sha256": "7fa4d5c3a09792cba42c4864bbc3dbf07a47148aedaf02b6c22f1f90f6d852f4",
+      "source_url": "https://citizen-dj.labs.loc.gov/loc-jukebox-classical/remix/?itemId=jukebox-24056&itemStart=31000"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l07/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l07/source.txt",
+    "sha256": "c497404786f32e2cfb8e415c87a5c8d46cae275921200e23305be4ebff9b18fd",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Poems%20That%20Every%20Child%20Should%20Know%2FThe%20Last%20Rose%20of%20Summer"
+  }
+}

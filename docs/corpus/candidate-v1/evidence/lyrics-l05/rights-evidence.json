@@ -1,0 +1,20 @@
+{
+  "case_id": "lyrics-l05",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l05/rights-01.bin",
+      "sha256": "a0e8eab612b2fd0f1779d336b914a58298e5dc662eb42b334b1a36919f4a9af2",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Bonnie_Dundee_(Scott)&oldid=15570706"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l05/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l05/source.txt",
+    "sha256": "d899f558bd36872e59f0c56af97f0b881ef0ed738123e1f3564c0592dc5c11b5",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15570706"
+  }
+}

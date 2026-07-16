@@ -1,0 +1,1804 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="X-UA-Compatible" content="IE=Edge" /><meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Beginning Your Research - The Star-Spangled Banner: A Guide to Resources - Research Guides at Library of Congress</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noarchive" />
+<link rel="shortcut icon" href='https://www.loc.gov/favicon.ico'/>
+<link rel="icon" sizes="192x192" href="https://www.loc.gov/touch-icon-192x192.png">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://www.loc.gov/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://www.loc.gov/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://www.loc.gov/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon-precomposed" href="https://www.loc.gov/apple-touch-icon-precomposed.png">
+<meta name="msapplication-TileColor" content="#ffffff" />
+<meta name="msapplication-TileImage" content="https://www.loc.gov/ms-icon-144x144.png" />
+
+
+<!-- public_metadata.twig -->
+
+    <!-- auto generated dublin core metadata -->
+    <meta name="DC.Title" content="Research Guides: The Star-Spangled Banner: A Guide to Resources: Beginning Your Research"/>
+    <meta name="DC.Creator" content="James Wintle"/>
+    <meta name="DC.Subject" content="American History, American Popular Culture, Early American History, Music and Performing Arts, Primary Documents in American History"/>
+    <meta name="DC.Description" content="On March 3, 1931, &quot;The Star-Spangled Banner&quot; was designated as the national anthem of the United States by congressional resolution. This guide provides access to digitized primary sources and a wide variety of resources related to its complicated history"/>
+    <meta name="DC.Publishers" content="Library of Congress"/>
+    <meta name="DC.Rights" content="Copyright Library of Congress 2026"/>
+    <meta name="DC.Language" content="en"/>
+    <meta name="DC.Identifier" content="https://guides.loc.gov/star-spangled-banner/beginning-your-research"/>
+    <meta name="DC.Date.Created" content="Feb 8, 2021"/>
+    <meta name="DC.Date.Modified" content="Jul 7, 2025"/>
+    
+
+<meta property="og:title" content="Research Guides: The Star-Spangled Banner: A Guide to Resources: Beginning Your Research">
+<meta property="og:description" content="On March 3, 1931, &quot;The Star-Spangled Banner&quot; was designated as the national anthem of the United States by congressional resolution. This guide provides access to digitized primary sources and a wide variety of resources related to its complicated history">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://guides.loc.gov/star-spangled-banner/beginning-your-research">
+    <meta property="og:image" content="https://guides.loc.gov/ld.php?screenshot=bbcbifh.png&amp;size=facebook&amp;cb=1784184954">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="627">
+    <meta name="twitter:image" content="https://guides.loc.gov/ld.php?screenshot=bbcbifh.png&amp;size=twitter&amp;cb=1784184954">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@springshare">
+
+
+
+<link rel="stylesheet" href="https://static-assets-us.libguides.com/web/jquery/css/jquery-ui.min.css?2691" />
+
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+<link rel="stylesheet" type="text/css" href="https://static-assets-us.libguides.com/web/slick-1.8.1/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="https://static-assets-us.libguides.com/web/slick-1.8.1/slick/slick-theme.css">
+
+    <link rel="stylesheet" href="https://static-assets-us.libguides.com/web/css3.28.1/lg-public.min.css" />
+
+<script type="text/javascript" src="https://static-assets-us.libguides.com/web/jquery/js/1.12.4_jquery.min.js"></script>
+<script>
+    jQuery(document).ready(function () {
+                        var s_lg_guide_name = jQuery('#s-lg-guide-name');
+        if (s_lg_guide_name.length) {
+            if (jQuery.trim(s_lg_guide_name.text()) === '') {
+                s_lg_guide_name.remove();
+            }
+        }
+    });
+
+    function handleGuideMenuEscapeKey(e) {
+        if (e.key !== 'Escape') return;
+
+        const activeEl = document.activeElement;
+        if (!activeEl) return;
+
+        const menu = activeEl.closest('.s-lg-subtab-ul.dropdown-menu');
+        if (!menu) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        const dropdown = menu.closest('.dropdown');
+        if (!dropdown) return;
+
+        const trigger = dropdown.querySelector('.s-lg-tab-drop.dropdown-toggle');
+        menu.classList.remove('show');
+        if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.focus();
+        }
+    }
+
+    document.addEventListener('keydown', handleGuideMenuEscapeKey, true);
+</script>
+
+    <script src="//code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script>
+        jQuery.ui ||
+        document.write('<script src="https://static-assets-us.libguides.com/web/jquery/js/jquery-ui.min.js?2691">\x3C/script>');
+    </script>
+
+    <script type="text/javascript" src="https://static-assets-us.libguides.com/web/js3.28.1/lg-public.min.js"></script>
+<style>/** bs3/bootstrap_tab_box_css.twig **/
+
+            
+#s-lg-tabs-container .nav-tabs > li > a,
+#s-lg-tabs-container .nav-tabs > li > button,
+#s-lg-tabs-container .nav-pills > li > a,
+#s-lg-tabs-container .nav-pills > li > button {
+    border: 1px solid transparent;
+         -webkit-border-radius: 0;
+         -moz-border-radius: 0;
+         border-radius: 0;
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: bold;
+    padding: 4px 15px;
+}
+
+#s-lg-tabs-container .nav-tabs {
+    border-bottom: 0;
+}
+
+#s-lg-tabs-container .nav-tabs > li#s-lg-admin-tab-add > a {
+    -webkit-border-radius: 4px 4px 0 0;
+    -moz-border-radius: 4px 4px 0 0;
+    border-radius: 4px 4px 0 0;
+}
+
+#s-lg-tabs-container .nav-tabs > li > a:hover,
+#s-lg-tabs-container .nav-tabs > li > button:hover,
+#s-lg-tabs-container .nav-pills > li > a:hover,
+#s-lg-tabs-container .nav-pills > li > button:hover {
+    border: 1px solid transparent;
+         -webkit-border-radius: 0;
+         -moz-border-radius: 0;
+         border-radius: 0;
+    background-color: #ffffff;
+    color: #000000;
+}
+
+#s-lg-tabs-container .nav-tabs > .active > a,
+#s-lg-tabs-container .nav-tabs > .active > button,
+#s-lg-tabs-container .nav-pills > .active > a,
+#s-lg-tabs-container .nav-pills > .active > button {
+    color: #000000;
+    cursor: default;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+         -webkit-border-radius: 0;
+         -moz-border-radius: 0;
+         border-radius: 0;
+    border-bottom-color: transparent;
+    font-weight: bold;
+}
+
+#s-lg-tabs-container .nav-tabs > .active > .s-lg-subtab-ul > .active > a,
+#s-lg-tabs-container .nav-tabs > .active > .s-lg-subtab-ul > .active > button {
+    color: #000000;
+    cursor: default;
+    background-color: #ffffff;
+    border-bottom-color: transparent;
+}
+
+#s-lg-tabs-container .nav-tabs > .active > a:hover,
+#s-lg-tabs-container .nav-pills > .active > a:hover,
+#s-lg-tabs-container .nav-tabs > .active > button:hover,
+#s-lg-tabs-container .nav-pills > .active > button:hover {
+    color: #000000;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 1px solid transparent;
+         -webkit-border-radius: 0;
+         -moz-border-radius: 0;
+         border-radius: 0;
+    border-bottom-color: transparent;
+    font-weight: bold;
+}
+
+#s-lg-tabs-container .nav .dropdown-toggle .caret {
+    border-top-color: #e1e1e1;
+}
+
+#s-lg-tabs-container .nav-tabs button.dropdown-toggle .caret {
+    margin-left: 2px;
+    margin-top: -3px;
+}
+
+#s-lg-tabs-container .nav-tabs > li > a.s-lg-tab-drop {
+    border-radius: 0;
+    padding: 4px 6px 4px 3px;
+    border-left: 1px solid transparent;
+}
+
+#s-lg-tabs-container .nav-tabs > li > button.s-lg-tab-drop {
+    border-radius: 0;
+    padding: 4px 6px 0px 3px;
+    border-left: 1px solid transparent;
+    margin-right: 2px;
+}
+
+#s-lg-tabs-container .nav-tabs > li > a.s-lg-tab-drop:hover {
+    border-radius: 0;
+    border-left: 1px solid #bbb;
+    padding: 4px 6px 4px 3px;
+}
+
+#s-lg-tabs-container .nav-tabs > li > button.s-lg-tab-drop:hover {
+    border-radius: 0;
+    border-left: 1px solid #bbb;
+    padding: 4px 6px 0px 3px;
+}
+
+#s-lg-tabs-container .nav-tabs > li > a.s-lg-tab-top-link,
+#s-lg-tabs-container .nav-tabs > li > a.s-lg-tab-top-link:hover,
+#s-lg-tabs-container .nav-tabs > li > button.s-lg-tab-top-link,
+#s-lg-tabs-container .nav-tabs > li > button.s-lg-tab-top-link:hover {
+    border-radius: 0;
+    font-weight: bold;
+    padding: 4px 5px 4px 10px;
+}
+
+.nav-tabs > li > a.s-lg-tab-top-link,
+.nav-tabs > li > button.s-lg-tab-top-link {
+    margin-right: 0px;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-drop,
+#s-lg-tabs-container .nav-pills > li > button.s-lg-tab-drop {
+    border-radius: 0;
+    padding: 4px 8px 4px 8px;
+    border-left: 1px solid transparent;
+    position: absolute;
+    right: 0;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-drop:hover,
+#s-lg-tabs-container .nav-pills > li > button.s-lg-tab-drop:hover {
+    border-radius: 0;
+    border-left: 1px solid #bbb;
+    padding: 4px 8px 4px 8px;
+}
+
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link,
+#s-lg-tabs-container .nav-pills > li > a.s-lg-tab-top-link:hover,
+#s-lg-tabs-container .nav-pills > li > button.s-lg-tab-top-link,
+#s-lg-tabs-container .nav-pills > li > button.s-lg-tab-top-link:hover {
+    width: 100%;
+    float: left;
+    border-radius: 0;
+    font-weight: bold;
+    padding: 4px 15px 4px 15px;
+}
+
+.s-lib-box {
+            border-color: #cccccc;
+        border-width: 1px;
+    box-shadow: 0 8px 6px -6px #AAAAAA;
+    border-radius: 4px 4px 4px 4px;
+    background-color: #ffffff;
+}
+
+.s-lib-box-std .s-lib-box-title {
+            background-color: #ffffff;
+        background-image: none;
+        color: #000000;
+    border-bottom: 1px solid
+        #cccccc;
+}
+
+.s-lib-box .s-lib-box-title {
+            background-color: #ffffff;
+        background-image: none;
+        color: #000000;
+    border-bottom: 1px solid
+        #cccccc;
+    border-radius: 3px 3px 0px 0px;
+}
+
+.s-lib-box .s-lg-box-footer {
+    border-radius: 0px 0px 3px 3px;
+}
+
+/** !bs3/bootstrap_tab_box_css.twig **/
+</style><meta name="dc.type" content="research guide" />
+<meta name="dc.rights" content="Text is U.S. Government Work" />
+<link rel="dc.rights" title="Text is U.S. Government Work" href="http://www.loc.gov/text-us-governmentwork" />
+<link rel=”dc.relation.isPartOf href="https://guides.loc.gov/" title="Library of Congress Research Guides" />
+<meta name="dc.language" content="eng" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"
+  integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Roboto+Slab:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.loc.gov/libguide/css/libguide.css" />
+<style>
+  /* add custom styles */
+  iframe {
+    width: 1px;
+    min-width: 100%;
+  }
+
+  .slick-slide img {
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+  }
+
+  .s-lib-box .s-lib-box-title {
+    text-transform: none;
+  }
+
+  /* since we load fontawesome v5 - make sure system icon is not broken*/
+  i.s-lg-file-icon {
+    font-family: FontAwesome;
+  }
+
+  /* hide alert banner if its empty */
+  #loc-alert-banner:empty {
+    display: none;
+  }
+
+/* hide "Filter by Guide Owner" on search pages */
+  #s-lg-srch-cols #s-lg-facet-div-guide_owner_id {
+    display: none;
+  }
+</style>
+<script src="https://www.loc.gov/static/js/lib/iframeResizer.js"></script>
+<script>
+  $(document).ready(function () {
+    // iframeresizer
+    $('iframe').iFrameResize({ log: true });
+
+    // deep link tabs 
+    var url = window.location.href;
+    if (url.indexOf("#") > 0) {
+      var activeTab = url.substring(url.indexOf("#") + 1);
+      $('.nav[role="tablist"] a[href="#' + activeTab + '"]').tab('show');
+    }
+    $('a[role="tab"]').on("click", function () {
+      var newUrl;
+      const hash = $(this).attr("href");
+      newUrl = url.split("#")[0] + hash;
+      history.replaceState(null, null, newUrl);
+    });
+
+    // popover dismiss outside click or focus
+    $(document).on('click touchstart keydown keyup', function (e) {
+      $('[data-toggle="popover"],[data-original-title]').each(function () {
+        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+          (($(this).popover('hide').data('bs.popover') || {}).inState || {}).click = false
+        }
+      });
+    });
+  });
+
+  window.addEventListener('load', e => {
+    if ($('.slick-slider').length) {
+      $('.slick-slider').slick('slickSetOption', 'responsive', [
+        {
+          breakpoint: 800,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 2
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+            slidesToScroll: 1
+          }
+        }
+      ], true);
+    }
+  })
+</script><script>
+    var springStats = springStats || {};
+    springStats.saConfig = springStats.saConfig || {
+        site_id: 9874,
+        tracking_parameters: {"_st_guide_id":1121857,"_st_page_id":8182113,"_st_site_id":9874},
+        tracking_server_host: "libguides-proc.springyaws.com"
+    };
+</script>
+<script  src="https://static-assets-us.libguides.com/web/js/sa.min.js?3116"></script>
+<script>
+			springSpace.Common = springSpace.Common || { };
+			springSpace.Common.constant = {
+					PROCESSING: {
+						ACTION_DISPLAY_POLL: 159
+					}
+			};
+			springSpace.Common.baseURL = "https://guides.loc.gov/";
+			
+			handleScroll=function() {
+                if (false) {
+					var target_elt = "#s-lg-page-section-8182113";
+					jQuery("html, body").animate({ scrollTop: jQuery(target_elt).offset().top }, 750);
+					if (jQuery(this).scrollTop() > 220) {
+						jQuery("#s-lib-scroll-top").fadeIn(750);
+					}
+				}
+			}
+	   </script>
+        <script>
+            // Enable tooltips.
+            jQuery(function () {
+                try {
+                    springSpace.UI.initPopOvers(false);
+                    jQuery(".az-bs-tooltip").tooltip();
+                } catch (e) { }
+            });
+        jQuery(document).ready(function () {
+            springSpace.springTrack.trackPage({_st_type_id: '1',_st_group_id: '17524',_st_guide_id: '1121857',_st_page_id: '8182113'});
+        });
+            jQuery(document).ready(function() {
+                handleScroll();
+            });
+        </script></head><!-- SIDE NAV -->
+<body class="s-lg-guide-body">
+<a id="s-lg-public-skiplink" class="alert-info" href="#s-lg-guide-main">Skip to Main Content</a>
+
+<!-- BEGIN: Page Header -->
+<div class="loc-header-wrapper">
+    <!-- <div id="loc-alert-banner" class="alert alert-warning alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+    </div> -->
+    <header class="loc-header">
+        <div class="logo-container">
+            <a href="https://www.loc.gov/" class="logo-loc">
+                <span>Library of Congress</span>
+                <img src="https://cdn.loc.gov/libguide/images/logo-loc-padded.svg" alt="" />
+            </a>
+            <a href="/" class="logo-research-guides">
+                <span>Research Guides</span>
+                <img src="https://cdn.loc.gov/libguide/images/logo-research-guides.svg" alt="" />
+            </a>
+        </div>
+    </header>
+</div>
+<!-- END: Page Header -->
+<div id="s-lg-guide-header-search" class="container loc-lib-header-search">
+            
+<div id="s-lg-guide-search-box">
+    <form role="search" id="s-lg-guide-search-form" action="https://guides.loc.gov/srch.php" method="GET">
+        <div class="input-group input-group-sm">
+            <input 
+                type="text" 
+                id="s-lg-guide-search-terms" 
+                name="q" 
+                class="form-control"
+                maxlength="260" 
+                placeholder="Search this Guide">
+                
+            <label class="sr-only" for="s-lg-guide-search-terms">Search this Guide</label>
+
+                            <input type="hidden" name="guide_id" value="1121857">
+            
+            
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    Search
+                </button>
+            </span>
+        </div>
+    </form>
+</div>
+        </div>
+<!-- BEGIN: Guide Header -->
+<div id="s-lg-guide-header" class="container s-lib-header s-lib-side-borders">
+    <div id="s-lib-bc">
+        <ol id="s-lib-bc-list" class="breadcrumb"><li id="s-lib-bc-customer" class="breadcrumb-item"><a href="https://www.loc.gov/">Library of Congress</a></li><li id="s-lib-bc-site" class="breadcrumb-item"><a href="https://guides.loc.gov/">Research Guides</a></li><li id="s-lib-bc-group" class="breadcrumb-item"><a href="https://guides.loc.gov/performing-arts">Performing Arts</a></li><li id="s-lib-bc-guide" class="breadcrumb-item"><a href="https://guides.loc.gov/star-spangled-banner">The Star-Spangled Banner: A Guide to Resources</a></li><li id="s-lib-bc-page" class="active breadcrumb-item">Beginning Your Research</li></ol>
+    </div>
+    <div class="pull-right">
+        <!--div id="s-lg-guide-header-search">
+            
+<div id="s-lg-guide-search-box">
+    <form role="search" id="s-lg-guide-search-form" action="https://guides.loc.gov/srch.php" method="GET">
+        <div class="input-group input-group-sm">
+            <input 
+                type="text" 
+                id="s-lg-guide-search-terms" 
+                name="q" 
+                class="form-control"
+                maxlength="260" 
+                placeholder="Search this Guide">
+                
+            <label class="sr-only" for="s-lg-guide-search-terms">Search this Guide</label>
+
+                            <input type="hidden" name="guide_id" value="1121857">
+            
+            
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit">
+                    Search
+                </button>
+            </span>
+        </div>
+    </form>
+</div>
+        </div-->
+        
+    </div>
+    <div id="s-lg-guide-header-info">
+        <h1 id="s-lg-guide-name">The Star-Spangled Banner: A Guide to Resources</h1>
+        <div id="s-lg-guide-desc-container">
+            <span id="s-lg-guide-description"></span>
+        </div>
+    </div>
+</div>
+<!-- END: Guide Header -->
+<div id="s-lg-guide-tabs-title-bar" class="container s-lib-side-borders"></div>
+<div id="s-lg-side-nav-content" class="container s-lib-side-borders pad-top-med">
+    <div class="row">
+        <div class="col-md-3 s-lg-tabs-side pad-bottom-med">
+            <div id="s-lg-tabs-container">
+                <div id="s-lg-guide-tabs" role="navigation" aria-label="Guide Page Menu">
+                    <ul class="nav nav-pills nav-stacked split-button-nav"
+                        role="menu">
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/introduction" 
+            
+            
+           >
+            <span>Introduction</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/frequently-asked-questions" 
+            
+            
+           >
+            <span>Frequently Asked Questions</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="active">
+        <a title="" class="active" 
+           href="https://guides.loc.gov/star-spangled-banner/beginning-your-research" 
+            
+            
+           >
+            <span>Beginning Your Research</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/controversies" 
+            
+            
+           >
+            <span>Controversies</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/sheet-music" 
+            
+            
+           >
+            <span>Sheet Music</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/sound-recordings" 
+            
+            
+           >
+            <span>Sound Recordings</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/selected-videos" 
+            
+            
+           >
+            <span>Selected Videos</span>
+            
+        </a>
+        
+    </li>
+
+
+
+    <li class="">
+        <a title="" class="" 
+           href="https://guides.loc.gov/star-spangled-banner/using-the-library" 
+            
+            
+           >
+            <span>Using the Library of Congress</span>
+            
+        </a>
+        
+    </li>
+
+</ul>
+                    <div class="s-lg-row margin-top-med"><div id="s-lg-col-0"><div class="s-lg-col-boxes"><div id="s-lg-box-wrapper-30498902" class="s-lg-box-wrapper-30498902">
+
+
+    <div id="s-lg-box-19428377-container" class="s-lib-box-container">
+        <div id="s-lg-box-19428377" class="s-lib-box s-lib-box-std s-lib-floating-box">
+                        <div id="s-lg-box-collapse-19428377" >
+                <div class="s-lib-box-content s-lib-floating-box-content">
+                    <div id="s-lg-content-43192101" class="  clearfix">
+    <div class="ask-a-librarian-box">
+<h2 class="ask-a-librarian-title">Performing Arts<span class="sr-only">: </span><a href="https://ask.loc.gov/performing-arts" target="_blank" title="Ask a Librarian"><span class="sr-only">Ask a Librarian</span><span aria-hidden="true" class="ask-a-librarian-logo-container"><img alt="" loading="lazy" src="https://cdn.loc.gov/libguide/images/ask-a-librarian-logo.svg" /></span></a></h2>
+
+<p>Have a question? Need assistance? Use our <a href="https://ask.loc.gov/performing-arts" target="_blank"><strong>online form</strong></a> to ask a librarian for help.</p>
+</div>
+
+
+    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div></div></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="s-lg-tab-content">
+                <div id="s-lg-guide-main" class="tab-pane active">
+                     <h1 class="page-title">
+                     Beginning Your Research
+                     </h1>
+                     <div class="row s-lg-row"><div id="s-lg-col-1" class="col-md-12"><div class="s-lg-col-boxes"><div id="s-lg-box-wrapper-31587727" class="s-lg-box-wrapper-31587727">
+
+
+    <div id="s-lg-box-26877854-container" class="s-lib-box-container">
+        <div id="s-lg-box-26877854" class="s-lib-box s-lib-box-std s-lib-floating-box">
+                        <div id="s-lg-box-collapse-26877854" >
+                <div class="s-lib-box-content s-lib-floating-box-content">
+                    <div id="s-lg-content-62242741" class="  clearfix">
+    <p>Researching the history of the Star-Spangled Banner touches many disciplines including poetry, music, sociology, politics, and many more. Below are selected resources with which you can begin. You can find a wider variety of resources using the <a href="http://catalog.loc.gov" target="_blank">Library of Congress Online Catalog</a> using the subject heading &quot;<a href="https://catalog.loc.gov/vwebv/search?searchCode=SUBJ%2B&amp;searchArg=star-spangled+banner+song&amp;searchType=1&amp;recCount=25" target="_blank">Star-spangled banner (song)</a>.&quot;</p>
+
+
+    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div><div id="s-lg-box-wrapper-30618651" class="s-lg-box-wrapper-30618651">
+
+
+    <div id="s-lg-box-26053546-container" class="s-lib-box-container">
+        <div id="s-lg-box-26053546" class="s-lib-box s-lib-box-std">
+                            <h2 class="s-lib-box-title">
+                    Summary
+                                    </h2>
+                        <div id="s-lg-box-collapse-26053546" >
+                <div class="s-lib-box-content">
+                    <div id="s-lg-content-62379346" class="  clearfix">
+    <p>Below are three&nbsp;resources that will provide an overview of the history of the Star-Spangled Banner. The first, &quot;The Music of the Star-Spangled Banner from Ludgate Hill to Capitol Hill&quot; is a detailed history, the second, &quot;The Star-Spangled Banner (article)&quot; is more&nbsp;concise. The third, &quot;Printing the Star-Spangled Banner&quot; deals specifically with the song&#39;s early printing history.</p>
+
+
+    </div>
+
+    <div class="">
+        <ul id="s-lg-link-list-62527196"
+            class="s-lg-link-list s-lg-link-list-2">
+
+<li class="">
+    
+
+
+<div id="s-lg-content-60140541" class="">
+    <span>
+                    <a href="https://www.loc.gov/item/77017183/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;60140541&#039;,_st_inc_return: this});" >
+                The music of the Star-spangled banner from Ludgate Hill to Capitol Hill <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-60140541" class="s-lg-link-desc">
+            This study by William Lichtenwanger was reprinted from the July 1977 Quarterly Journal of the Library of Congress. It contains a comprehensive history of the song's creation and references to numerous primary source documents.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-60140830" class="">
+    <span>
+                    <a href="https://www.loc.gov/item/ihas.200000017/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;60140830&#039;,_st_inc_return: this});" >
+                The Star-Spangled Banner (article) <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-60140830" class="s-lg-link-desc">
+            This article contains a short history of the song with numerous links to digitized editions at the bottom of the page under "related items."
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-62383156" class="">
+    <span>
+                    <a href="https://blogs.loc.gov/music/2014/09/printing-the-star-spangled-banner/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;62383156&#039;,_st_inc_return: this});" >
+                Printing “The Star-Spangled Banner” (blog post) <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-62383156" class="s-lg-link-desc">
+            A short article by Library of Congress archivist Ray White for the Library's "In the Muse" music blog detailing the early printing history of the Star-Spangled Banner.
+        </div>
+    
+    </div>
+
+</li>
+
+        </ul>
+
+        
+    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div><div id="s-lg-box-wrapper-30618704" class="s-lg-box-wrapper-30618704">
+
+
+    <div id="s-lg-box-26053595-container" class="s-lib-box-container">
+        <div id="s-lg-box-26053595" class="s-lib-box s-lib-box-std">
+                            <h2 class="s-lib-box-title">
+                    Primary Sources
+                                    </h2>
+                        <div id="s-lg-box-collapse-26053595" >
+                <div class="s-lib-box-content">
+                    <div id="s-lg-content-62720692" class="  clearfix">
+    <p>The following digitized primary source materials come from the Library of Congress collections, the University of Maryland, and Congress.gov.</p>
+
+    </div>
+
+    <div class="">
+        <ul id="s-lg-link-list-64613103"
+            class="s-lg-link-list s-lg-link-list-2">
+
+<li class="">
+    
+
+
+<div id="s-lg-content-62243181" class="">
+    <span>
+                    <a href="https://www.loc.gov/item/ihas.100010457/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;62243181&#039;,_st_inc_return: this});" >
+                Defence of Fort M'Henry <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-62243181" class="s-lg-link-desc">
+            This is the first printing of Key's poem published as a broadside in Baltimore on September 17, 1814 days after Key completed the poem.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-61096059" class="">
+    <span>
+                    <a href="https://www.loc.gov/resource/ihas.100010479.0" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;61096059&#039;,_st_inc_return: this});" >
+                Facsimile of first newspaper printing of The Star-Spangled Banner <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-61096059" class="s-lg-link-desc">
+            Published in the "Baltimore Patriot and Evening Advertiser," Sept. 20, 1814.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-60140946" class="">
+    <span>
+                    <a href="https://www.loc.gov/item/2014563896/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;60140946&#039;,_st_inc_return: this});" >
+                First edition of the Star-Spangled Banner <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-60140946" class="s-lg-link-desc">
+            Printed and Sold at Carr's music store, 36 Baltimore Street, Baltimore: Printed and Sold at Carr's music store, 36 Baltimore Street, 1814.<br />
+A second copy of the first edition is in the Music Division, pasted into a binder's volume compiled by one Mary Thomas. Call number: M1.A15, vol. 290, part 2.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-61096118" class="">
+    <span>
+                    <a href="https://chroniclingamerica.loc.gov/lccn/sn84024736/1814-09-28/ed-1/seq-4/#date1=1814&amp;sort=relevance&amp;rows=20&amp;words=banner+Banner+spangled+star+star-spangled&amp;searchType=basic&amp;sequence=0&amp;index=0&amp;state=&amp;date2=1820&amp;proxtext=star+spangled+banner&amp;y=10&amp;x=10&amp;dateFilterType=yearRange&amp;page=1" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;61096118&#039;,_st_inc_return: this});" >
+                Reprint of The Star-Spangled Banner in a Richmond, VA newspaper <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-61096118" class="s-lg-link-desc">
+            Published in the "The Enquirer," Richmond, VA, Sept. 28, 1814.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-60140712" class="">
+    <span>
+                    <a href="https://www.loc.gov/item/ihas.100000019/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;60140712&#039;,_st_inc_return: this});" >
+                The Star-Spangled Banner (manuscript copy) by Francis Scott Key <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-60140712" class="s-lg-link-desc">
+            Item contains an autographed manuscript of "The star-spangled banner" in a red leather case. Also included is a portrait of Francis Scott Key, a copy of "The Star-Spangled Banner (Second session)", an advertisement for the song, a hand-written manuscript, and an article. Key's original manuscript is in the possession of the Maryland Historical Society.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-62353022" class="">
+    <span>
+                    <a href="https://collections.digitalmaryland.org/digital/collection/mhwe/id/21/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;62353022&#039;,_st_inc_return: this});" >
+                Francis Scott Key's original handwritten manuscript of "The Star-Spangled Banner" <i aria-hidden="true" class="fa fa-external-link-alt"></i><span class="screen-readers-only">External</span> <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-62353022" class="s-lg-link-desc">
+            This is Francis Scott Key's original manuscript of his poem first published as "Defence of Fort McHenry" and later as "The Star-Spangled Banner." It is in the possession of the Maryland Historical Society.
+        </div>
+    
+    </div>
+
+</li>
+
+
+
+
+<li class="">
+    
+
+
+<div id="s-lg-content-62353127" class="">
+    <span>
+                    <a href="https://www.visitthecapitol.gov/exhibitions/artifact/hr-14-act-make-star-spangled-banner-national-anthem-united-states-america-0" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;2&#039;,_st_content_id: &#039;62353127&#039;,_st_inc_return: this});" >
+                H.R. 14, An Act To make The Star-Spangled Banner the national anthem of the United States of America, April 21, 1930 <i aria-hidden="true" class="fa fa-external-link-alt"></i><span class="screen-readers-only">External</span> <i class="fa fa-fw fa-external-link " 
+    aria-hidden="true"
+           title="This link opens in a new window"
+   ></i><span class="sr-only">This link opens in a new window</span>             </a>
+        
+            </span>
+
+    
+    
+                <div id="s-lg-link-desc-62353127" class="s-lg-link-desc">
+            A link to: H.R. 14, An Act To make The Star-Spangled Banner the national anthem of the United States of America, April 21, 1930. <br />
+In April 1930 the House of Representatives passed a bill introduced by Representative John Linthicum of Maryland to make “The Star-Spangled Banner” the nation’s anthem. Despite critics who disliked the melody or felt the law unnecessary, the Senate passed the bill the following year, and President Herbert Hoover signed it into law on March 2, 1931.
+        </div>
+    
+    </div>
+
+</li>
+
+        </ul>
+
+        
+    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div><div id="s-lg-box-wrapper-31585635" class="s-lg-box-wrapper-31585635">
+
+
+    <div id="s-lg-box-26876232-container" class="s-lib-box-container">
+        <div id="s-lg-box-26876232" class="s-lib-box s-lib-box-std">
+                            <h2 class="s-lib-box-title">
+                    Digital Collections
+                                    </h2>
+                        <div id="s-lg-box-collapse-26876232" >
+                <div class="s-lib-box-content">
+                    <div id="s-lg-content-62720783" class="  clearfix">
+    <p>Search for &quot;star spangled banner&quot; in the following Library of Congress digital collections to view both primary sources and related materials about the United States national anthem.</p>
+
+    </div>
+
+    <div class="">
+        <ul id="s-lg-link-list-64607557"
+            class="s-lg-link-list s-lg-link-list-5">
+
+<li class="">
+    
+<div id="s-lg-content-62237364" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://www.loc.gov/collections/patriotic-melodies/about-this-collection/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62237364&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62237364" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt="Patriotic Melodies"
+                    src="https://www.loc.gov/static/collections/patriotic-melodies/155_155.jpg"
+                    class="pull-left s-lg-book-cover-img-1"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62237364" class="s-lg-book-title"
+              >
+            Patriotic Melodies
+        </span>
+
+                    <span id="s-lg-book-by-62237364" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62237364" class="s-lg-book-author">
+            Library of Congress
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+        
+        
+        
+                
+                            <div id="s-lg-book-desc-62237364" class="s-lg-book-desc">
+                Patriotic Melodies tells the stories behind many of the songs that have now become part of the American national heritage. A combination of hymns, national songs, music of the theater, radio and television, military themes, and poetry, all of this music demonstrates that while over history many things have changed, this expression of pride and hope remain a constant part of the American experience. This collection includes information about the Star-Spangled Banner.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62237392" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://www.loc.gov/collections/songs-of-america/about-this-collection/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62237392&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62237392" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt="The Library of Congress Celebrates the Songs of America"
+                    src="https://www.loc.gov/static/collections/songs-of-america/155_155.jpg"
+                    class="pull-left s-lg-book-cover-img-1"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62237392" class="s-lg-book-title"
+              >
+            The Library of Congress Celebrates the Songs of America
+        </span>
+
+                    <span id="s-lg-book-by-62237392" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62237392" class="s-lg-book-author">
+            The Library of Congress
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+        
+        
+        
+                
+                            <div id="s-lg-book-desc-62237392" class="s-lg-book-desc">
+                The Songs of America presentation allows you to explore American history as documented in the work of some of our country's greatest composers, poets, scholars, and performers. From popular and traditional songs, to poetic art songs and sacred music, the relationship of song to historical events from the nation's founding to the present is highlighted through more than 80,000 online items. This collection includes information about the Star-Spangled Banner.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62242238" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://chroniclingamerica.loc.gov/" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62242238&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62242238" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt="Chronicling America: Digital Newspaper Database"
+                    src="https://www.loc.gov/static/collections/chronicling-america/155_155.jpg"
+                    class="pull-left s-lg-book-cover-img-1"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62242238" class="s-lg-book-title"
+              >
+            Chronicling America: Digital Newspaper Database
+        </span>
+
+                    <span id="s-lg-book-by-62242238" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62242238" class="s-lg-book-author">
+            National Endowment for the Humanities and the Library of Congress
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1777-1963
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62242238" class="s-lg-book-desc">
+                Search America's historic newspaper pages from 1777-1963 or use the U.S. Newspaper Directory to find information about American newspapers published between 1690-present. Chronicling America is sponsored jointly by the National Endowment for the Humanities and the Library of Congress. This resource includes a wealth of information about the Star-Spangled Banner.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+        </ul>
+
+        
+    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div><div id="s-lg-box-wrapper-30830328" class="s-lg-box-wrapper-30830328">
+
+
+    <div id="s-lg-box-26231311-container" class="s-lib-box-container">
+        <div id="s-lg-box-26231311" class="s-lib-box s-lib-box-std">
+                            <h2 class="s-lib-box-title">
+                    Books from the Library of Congress Catalog
+                                    </h2>
+                        <div id="s-lg-box-collapse-26231311" >
+                <div class="s-lib-box-content">
+                    <div id="s-lg-content-62245853" class="  clearfix">
+    <p>The following titles link to fuller bibliographic information in the <a href="https://catalog.loc.gov" target="_blank">Library of Congress Online Catalog</a>. Links to additional online content are included when available.</p>
+
+    </div>
+
+    <div class="">
+        <ul id="s-lg-link-list-64751218"
+            class="s-lg-link-list s-lg-link-list-5">
+
+<li class="">
+    
+<div id="s-lg-content-62383557" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/41007397" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62383557&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62383557" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//s3.amazonaws.com/libapps/apps/common/images/gc-md.gif"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62383557" class="s-lg-book-title"
+              >
+            Early American sheet music: its lure and its lore, 1768-1889.
+        </span>
+
+                    <span id="s-lg-book-by-62383557" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62383557" class="s-lg-book-author">
+            Harry Dichter and Elliott Shapiro
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML112 .D53
+            </div>
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1941
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62383557" class="s-lg-book-desc">
+                Important resource for bibliographic information concerning the many publications of the words and music of the Star-Spangled Banner. Includes a directory of early American music publishers as well as information about lithographers and artists working in the music publishing industry.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62367007" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/76603542" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62367007&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62367007" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//s3.amazonaws.com/libapps/apps/common/images/gc-md.gif"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62367007" class="s-lg-book-title"
+              >
+            History of the Star-spangled banner from 1814 to the present
+        </span>
+
+                    <span id="s-lg-book-by-62367007" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62367007" class="s-lg-book-author">
+            George J. Svejda
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML3561.S8 S9
+            </div>
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1969
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62367007" class="s-lg-book-desc">
+                A well-documented history of the Star-Spangled Banner produced by the Fort McHenry National Monument and Historic Shrine, Baltimore, Maryland. Includes appendices with facsimiles of historical documents as well as an extensive bibliography.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62245576" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/51010500" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62245576&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62245576" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//s3.amazonaws.com/libapps/apps/common/images/gc-md.gif"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62245576" class="s-lg-book-title"
+              >
+            National anthems and how they came to be written
+        </span>
+
+                    <span id="s-lg-book-by-62245576" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62245576" class="s-lg-book-author">
+            Eloise R. Griffith
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML3545 .G7
+            </div>
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1950
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62245576" class="s-lg-book-desc">
+                A short book inspired by the coalition of countries that fought together against North Korea in the Korean war. The book includes the stories of national anthems of the United States, Korea, England, Australia, Canada, France, and the Netherlands. In the section on the Star-Spangled Banner, Griffith misidentifies Dr. William Beanes as Dr. Barnes and retells the "traditional" story of the song, some of the details of which have been disproven.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62132946" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/unk84151736" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62132946&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62132946" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//s3.amazonaws.com/libapps/apps/common/images/gc-md.gif"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62132946" class="s-lg-book-title"
+              >
+            Report on "The Star-spangled banner," "Hail Columbia," "America," "Yankee Doodle"
+        </span>
+
+                    <span id="s-lg-book-by-62132946" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62132946" class="s-lg-book-author">
+            Oscar George Theodore Sonneck
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML3561.S76
+            </div>
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1909
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62132946" class="s-lg-book-desc">
+                A report requested by the Librarian of Congress that brings together the various versions of the songs listed in the title, along with an analysis of the existing literature on each subject.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62366558" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/2014002572" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62366558&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62366558" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//syndetics.com/index.aspx?isbn=9781421415185/LC.GIF&amp;client=springshare"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62366558" class="s-lg-book-title"
+              >
+            Star-Spangled Banner
+        </span>
+
+                    <span id="s-lg-book-by-62366558" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62366558" class="s-lg-book-author">
+            Marc Ferris
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML3561.S8 F47 2014
+            </div>
+        
+                    <div class="s-lg-book-prop-isbn">
+                ISBN: 9781421415185
+            </div>
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 2014-09-13
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62366558" class="s-lg-book-desc">
+                The first comprehensive history of America's controversial national anthem and how it evolved from an English barroom ballad into a patriotic hit.  Nearly every American knows The Star-Spangled Banner, the national anthem of the United States of America. Yet many people dislike the song, contend that it glorifies militarism, and question its suitability as the musical embodiment of nationhood. Even professional vocalists have trouble singing the multi-octave melody and remembering the words. So why in 1931 did Congress designate it as the official national anthem, more than a century after Francis Scott Key put pen to paper?  Filled with fascinating, little-known facts drawn from a variety of primary sources, Star-Spangled Banner provides the first narrative history of this controversial song, which turns 200 years old in 2014. Marc Ferris's lively account, which traces the evolution of the song's instant popularity as well as its use and abuse by Americans of different political stripes, also explains the changing rituals surrounding the song, including the practice of standing--with hats removed and hand held over the heart--during public performances.  This entertaining book will appeal to patriots of all persuasions, along with sports fans, musicians, veterans, history buffs, and anyone who has ever struggled to hit the high notes in the land of the free and the home of the brave.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62353926" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/2007050482" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62353926&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62353926" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//syndetics.com/index.aspx?isbn=9780060885625/LC.GIF&amp;client=springshare"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62353926" class="s-lg-book-title"
+              >
+            The Star-Spangled Banner: the making of an American icon
+        </span>
+
+                    <span id="s-lg-book-by-62353926" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62353926" class="s-lg-book-author">
+            Jeffrey Brodie; Kathleen Kendrick; Lonn Taylor
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: E356.B2 T393 2008
+            </div>
+        
+                    <div class="s-lg-book-prop-isbn">
+                ISBN: 9780060885625
+            </div>
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 2008-06-24
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62353926" class="s-lg-book-desc">
+                More than just the tale of one flag and one song, The Star-Spangled Banner is the story of how Americans--often in times of crisis--have expressed their patriotism and defined their identity through the "broad stripes and bright stars" of our preeminent national symbol, a tradition that still thrives today. The original flag that inspired Francis Scott Key "by the dawn's early light" has been cared for by the Smithsonian since 1907. The dramatic story of this flag--and of the Smithsonian's effort to save it for posterity--are told here in this lavishly illustrated book that also explores the broader meaning of the flag in American life.<br />
+This resource is primarily about the Smithsonian Museum's efforts to restore the actual flag that flew over Fort McHenry in September 1814 rather than a history of the song.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62353826" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/70187216" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62353826&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62353826" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//s3.amazonaws.com/libapps/apps/common/images/gc-md.gif"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62353826" class="s-lg-book-title"
+              >
+            Star-spangled books: books, sheet music, newspapers, manuscripts, and persons associated with the Star-spangled banner.
+        </span>
+
+                    <span id="s-lg-book-by-62353826" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62353826" class="s-lg-book-author">
+            P. W. Filby and Edward G. Howard
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML3561.S8 F54
+            </div>
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1972
+            </div>
+        
+                
+                
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-60579970" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/35035354" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;60579970&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-60579970" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//s3.amazonaws.com/libapps/apps/common/images/gc-md.gif"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-60579970" class="s-lg-book-title"
+              >
+            The Star spangled banner : words and music issued between 1814-1864 : an annotated bibliographical list with notices of the different versions, texts, variants, musical arrangements, and notes on music publishers in the United States
+        </span>
+
+                    <span id="s-lg-book-by-60579970" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-60579970" class="s-lg-book-author">
+            Joseph Muller
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: ML128.S6 M8
+            </div>
+        
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 1935
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-60579970" class="s-lg-book-desc">
+                Based chiefly on materials collected by Joseph Muller and acquired by the Library of Congress in 1935. Includes a short history of the publishing activities of the Carr family (p. 39-46). This is a valuable resource for identifying early printed editions of the Star-Spangled Banner.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+
+
+
+<li class="">
+    
+<div id="s-lg-content-62365706" class="s-lg-book clearfix">
+    <div class="s-lg-book-props">
+
+                            <a href="https://lccn.loc.gov/2013039997" target="_blank" onclick="return springSpace.springTrack.trackLink({link: this,_st_type_id: &#039;3&#039;,_st_content_id: &#039;62365706&#039;,_st_inc_return: this});">
+        
+        <span id="s-lg-book-cover-62365706" class="s-lg-book-cover">
+                                        
+                
+                <img loading="lazy"
+                    alt=""
+                    src="//syndetics.com/index.aspx?isbn=9781137278289/LC.GIF&amp;client=springshare"
+                    class="pull-left s-lg-book-cover-img-0"
+                     />
+                    </span>
+
+        <span id="s-lg-book-title-62365706" class="s-lg-book-title"
+              >
+            What So Proudly We Hailed: Francis Scott Key, a life.
+        </span>
+
+                    <span id="s-lg-book-by-62365706" class="s-lg-book-by">
+                by
+            </span>
+        
+        <span id="s-lg-book-author-62365706" class="s-lg-book-author">
+            Marc Leepson
+        </span>
+
+                    </a>
+        
+                
+                            
+        
+        
+                    <div class="s-lg-book-prop-callno">
+                Call Number: PS2168 .L44 2014
+            </div>
+        
+                    <div class="s-lg-book-prop-isbn">
+                ISBN: 9781137278289
+            </div>
+        
+                    <div class="s-lg-book-prop-pubdate">
+                Published/Created: 2014-06-24
+            </div>
+        
+                
+                            <div id="s-lg-book-desc-62365706" class="s-lg-book-desc">
+                What So Proudly We Hailed is the first full-length biography of Francis Scott Key in more than 75 years. In this fascinating look at early America, historian Marc Leepson explores the life and legacy of Francis Scott Key. Standing alongside Betsy Ross, Thomas Paine, Patrick Henry, Paul Revere, and John Hancock in history, Key made his mark as an American icon by one single and unforgettable act, writing "The Star-Spangled Banner."    Among other things, Leepson reveals:  * How the young Washington lawyer found himself in Baltimore Harbor on the night of September 13-14, 2014  * The mysterious circumstances surrounding how the poem he wrote, first titled "The Defense of Ft. M'Henry," morphed into the National Anthem  * Key's role in forming the American Colonization Society, and his decades-long fervent support for that controversial endeavor that sent free blacks to Africa  * His adamant opposition to slave trafficking and his willingness to represent slaves and freed men and women for free in Washington's courts  * Key's role as a confidant of President Andrew Jackson and his work in Jackson's "kitchen cabinet"  * Key's controversial actions as U.S. Attorney during the first race riot in Washington, D.C., in 1835.      Publishing to coincide with the 200th anniversary of "The Star Spangled Banner" in 2014,What So Proudly We Hailed reveals unexplored details of the life of an American patriot whose legacy has been largely unknown until now.
+            </div>
+        
+    </div>
+</div>
+</li>
+
+        </ul>
+
+        
+    </div>
+
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div></div></div></div>
+                </div>
+            </div>
+            <ul id="s-lg-page-prevnext" class="pager s-lib-hide">
+    <li class="previous">
+        <a class="page-link" href="https://guides.loc.gov/star-spangled-banner/frequently-asked-questions">&lt;&lt; <strong>Previous:</strong> Frequently Asked Questions</a>
+    </li>
+    <li class="next">
+        <a class="page-link" href="https://guides.loc.gov/star-spangled-banner/controversies"><strong>Next:</strong> Controversies &gt;&gt;</a>
+    </li>
+</ul>
+
+
+        </div>
+    </div>
+</div>
+<!-- BEGIN: Page Footer -->
+<div id="s-lib-footer-public"
+     class="s-lib-footer footer container  s-lib-side-borders">
+    <div id="s-lg-guide-header-meta" class="pad-top-sm pad-left-med clearfix">
+        <ul id="s-lg-guide-header-attributes" class="">
+            <li id="s-lg-guide-header-updated" class="s-lg-h-separator">
+                <span class="s-lg-guide-label">Last Updated:</span> <span class="s-lg-text-greyout">Jul 7, 2025 3:53 PM</span>            </li>
+            <li id="s-lg-guide-header-url" class="s-lg-h-separator">
+                <span class="s-lg-guide-label">URL:</span> <span class="s-lg-text-greyout">https://guides.loc.gov/star-spangled-banner</span>
+            </li>
+            <li id="s-lg-guide-print-url">
+                <a href="javascript: window.print();"><i class="fa fa-print" aria-hidden="true" title="Print Page"></i> Print Page</a>
+            </li>
+        </ul>
+        <div id="s-lib-footer-login-link" class="pull-right pad-right-med">
+            <a href="https://loc.libapps.com/libapps/login.php?site_id=9874&target64=L2xpYmd1aWRlcy9hZG1pbl9jLnBocD9nPTExMjE4NTcmcD04MTgyMTEz">Login to LibApps</a>        </div>
+    </div>
+    <div class="pad-bottom-sm clearfix">
+        <div id="s-lib-footer-support-link" class="pull-right pad-right-med">
+                    </div>
+        <div id="s-lg-guide-header-subjects" class="pad-top-sm pad-left-med pad-right-med pull-left">
+            <span class="s-lg-guide-label">Subjects: </span><span class="s-lg-small bold"><ul class="ul-link-list"><li><a href="https://guides.loc.gov/sb.php?subject_id=159909" aria-label="American History Subject">American History</a></li><li><a href="https://guides.loc.gov/sb.php?subject_id=173339" aria-label="American Popular Culture Subject">American Popular Culture</a></li><li><a href="https://guides.loc.gov/sb.php?subject_id=159910" aria-label="Early American History Subject">Early American History</a></li><li><a href="https://guides.loc.gov/sb.php?subject_id=152248" aria-label="Music and Performing Arts Subject">Music and Performing Arts</a></li><li><a href="https://guides.loc.gov/sb.php?subject_id=162830" aria-label="Primary Documents in American History Subject">Primary Documents in American History</a></li></ul></span>
+        </div>
+        <!--div id="s-lg-guide-header-tags" class="pad-top-sm pad-left-med">
+            <span class="s-lg-guide-label">Tags: </span><span class="s-lg-small bold"><ul class="ul-link-list"><li><a href="https://guides.loc.gov/srch.php?tag=American+music&default_lg=1" aria-label="American music Tag">American music</a></li><li><a href="https://guides.loc.gov/srch.php?tag=Francis+Scott+Key&default_lg=1" aria-label="Francis Scott Key Tag">Francis Scott Key</a></li><li><a href="https://guides.loc.gov/srch.php?tag=National+Anthem&default_lg=1" aria-label="National Anthem Tag">National Anthem</a></li><li><a href="https://guides.loc.gov/srch.php?tag=Patriotic+Music&default_lg=1" aria-label="Patriotic Music Tag">Patriotic Music</a></li><li><a href="https://guides.loc.gov/srch.php?tag=Star+Spangled+Banner&default_lg=1" aria-label="Star Spangled Banner Tag">Star Spangled Banner</a></li></ul></span>
+        </div-->
+    </div>
+</div>
+<!-- END: Page Footer -->
+			<div id="s-lib-scroll-top" class="lib-scroll-top">
+				<a href="javascript:void(0);" onclick="jQuery('html, body').animate({scrollTop: 0}, 750);" title="Back to Top" aria-label="Back to Top"
+				aria-hidden="true">
+					<!--span class="fa-stack fa-lg">
+					  <i class="fa fa-square-o fa-stack-2x"></i>
+					  <i class="fa fa-angle-double-up fa-stack-1x" style="position:relative; bottom:2px;"></i>
+					</span-->
+                                        <i class="fa fa-arrow-up"></i>&nbsp;<span>Back to top</span>
+				</a>
+			</div><div id="s-lib-alert" title="">
+                            <div id="s-lib-alert-content"></div>
+                       </div>
+                <!-- BEGIN: Custom Footer -->
+                
+<div class="loc-libguides-footer-wrapper">
+<div class="container loc-libguides-footer-container">
+<div class="loc-libguides-footer">
+<div class="loc-libguides-footer-left">
+Hosted by Springshare
+</div>
+<div class="loc-libguides-footer-center">
+<a href="https://www.loc.gov/legal/" target="_blank">Library of Congress Legal</a>
+<a href="https://springshare.com/privacy.html" target="_blank">SpringShare Privacy Policy</a>
+</div>
+<div class="loc-libguides-footer-right">
+<!-- login link -->
+</div>
+</div>
+</div>
+</div>
+</div>
+
+		<!-- END: Custom Footer -->
+<!-- BEGIN: Analytics code --><script src="//assets.adobedtm.com/dac62e20b491e735c6b56e64c39134d8ee93f9cf/satelliteLib-6b47f831c184878d7338d4683ecf773a17973bb9.js"></script>
+        <script type="text/javascript">_satellite.pageBottom();</script><!-- END: Analytics code --></body></html>

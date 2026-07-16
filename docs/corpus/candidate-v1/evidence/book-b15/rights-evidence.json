@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b15",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b15/rights-01.bin",
+      "sha256": "bd97225cea12573a4613fa4097c52c0b105ab14996ed95ec494e93ef7c67a86a",
+      "source_url": "https://en.wikisource.org/wiki/The_Chemical_History_of_a_Candle"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b15/rights-02.bin",
+      "sha256": "c3ca017473754eb2cbc2007d8e92c713bd0e9ac4f46df165197e58f3768af76d",
+      "source_url": "https://en.wikisource.org/wiki/Index%3AThe_chemical_history_of_a_candle.djvu"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b15/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b15/source.txt",
+    "sha256": "3846b39d67923b2163ddd889b37c3452ef27c073b1dbb0fda592df6d03a7e601",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=The%20Chemical%20History%20of%20a%20Candle"
+  }
+}

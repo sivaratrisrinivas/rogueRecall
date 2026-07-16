@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b12",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b12/rights-01.bin",
+      "sha256": "0a1044f5b351c5c7461eedc01d94ec895317f6ae11ace9e770a9cc377afb01f9",
+      "source_url": "https://en.wikisource.org/wiki/On_Liberty"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b12/rights-02.bin",
+      "sha256": "b796208813814a1030c834184fb2c721899a580cf4708f3e803a06c86dc8c89c",
+      "source_url": "https://en.wikisource.org/wiki/Index%3AOn_Liberty_%284th_Edition%29.djvu"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b12/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b12/source.txt",
+    "sha256": "ed1632999e5a315fb82617989f4d0f1705b2e60bdc582b568299abbda032f19a",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=On%20Liberty%2FChapter%201"
+  }
+}

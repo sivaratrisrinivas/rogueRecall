@@ -1,0 +1,30 @@
+{
+  "case_id": "lyrics-l08",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l08/rights-01.bin",
+      "sha256": "2336633e422fa259018aecb03ec062a86f16c32b77ddd1cc9b9b102284195fd5",
+      "source_url": "https://en.wikisource.org/w/index.php?title=The_Songs_of_England/Volume_1/Rule,_Britannia!&oldid=13896971"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l08/rights-02.bin",
+      "sha256": "7786a7b9519ff91d7298890bd3351b31ce96e9b3dcfbd8e216a5c504da37def5",
+      "source_url": "https://www.richmond.gov.uk/james_thomson"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l08/rights-03.bin",
+      "sha256": "0c1e6d9f09b3323463f876b61f9f9b0e562d32737f7037f8653d5938e31d83f3",
+      "source_url": "https://bilbrookparishcouncil.gov.uk/last-night-of-the-proms-songsheet/"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l08/rights-04.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l08/source.txt",
+    "sha256": "577c83bc7d9ea30a5f946aa39370f2b849d6230737add71c1efe646c53b953f4",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13896971"
+  }
+}

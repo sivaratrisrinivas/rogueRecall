@@ -1,0 +1,20 @@
+{
+  "case_id": "code-python-constrained-reconstruction-attrs",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-python-constrained-reconstruction-attrs/rights-01.bin",
+      "sha256": "882115c95dfc2af1eeb6714f8ec6d5cbcabf667caff8729f42420da63f714e9f",
+      "source_url": "https://raw.githubusercontent.com/python-attrs/attrs/d544dd2dacb4cbd660891e323ad92751ba65b4e0/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-python-constrained-reconstruction-attrs/rights-02.bin",
+      "sha256": "a976c6f46330727561e530107f05453c5a37406a5f69d1bef6b49fae7cc30ba9",
+      "source_url": "https://github.com/python-attrs/attrs/commit/d544dd2dacb4cbd660891e323ad92751ba65b4e0"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-python-constrained-reconstruction-attrs/source.txt",
+    "sha256": "70fa9f841ca5d22dc4f7027df0dff2018d8422786c0347421e64e6049df84924",
+    "source_url": "https://raw.githubusercontent.com/python-attrs/attrs/d544dd2dacb4cbd660891e323ad92751ba65b4e0/src/attr/_make.py"
+  }
+}

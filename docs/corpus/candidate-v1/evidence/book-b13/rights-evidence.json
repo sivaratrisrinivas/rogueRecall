@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b13",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b13/rights-01.bin",
+      "sha256": "f6378ad6ad008c66a9dc2ee0499df1324e008fb614ccade4def32a9b8c3ba57f",
+      "source_url": "https://en.wikisource.org/wiki/Walden_%281854%29_Thoreau"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b13/rights-02.bin",
+      "sha256": "0f17099e5dbd9cbe65c7650ee866db06cd71b8efc9c16270378f5cf939c4aa89",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Walden,_or,_Life_in_the_Woods&oldid=13738792"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b13/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b13/source.txt",
+    "sha256": "fca43ae2f09a0c6a9d05240501b74ce5e38e3c3a2a12adb2864e6c5f5b20168b",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=6776364"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l04",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l04/rights-01.bin",
+      "sha256": "f19368dbc859aa0834411cfc06ac0b0dea3da35762690240b94b388d9192083e",
+      "source_url": "https://en.wikisource.org/w/index.php?title=The_Poetical_Works_of_Robert_Burns/Auld_Lang_Syne&oldid=14280507"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l04/rights-02.bin",
+      "sha256": "95d084a2a7790ab3682c99eee9f65abd7c2c23926c1bd1c9596649bba24cbcb4",
+      "source_url": "https://www.loc.gov/item/2023850903/?fo=json"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l04/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l04/source.txt",
+    "sha256": "36eeb14725c7724d0c5f38480b7c0657a0e57f588d0b17c198f424e6dcfdd9d7",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=14280507"
+  }
+}

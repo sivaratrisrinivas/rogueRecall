@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b01",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b01/rights-01.bin",
+      "sha256": "db67aaaff6dce2a64a299df27ac74e498678ec79178036afaedd444e0fd3b845",
+      "source_url": "https://en.wikisource.org/wiki/Frankenstein%2C_or_the_Modern_Prometheus_%28First_Edition%2C_1818%29"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b01/rights-02.bin",
+      "sha256": "4982668f0839ba1d1ce023355a8c7c93e86f06f4970ba1b7f7e5c13b8a785fc7",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Index:Frankenstein,_or_the_Modern_Prometheus_(First_Edition,_1818)_Vol_1.djvu&oldid=11213368"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b01/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b01/source.txt",
+    "sha256": "68869aac496ded8b7c4e97f69b91842a23e0f36831994a6e5801de9d315fa93b",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15513333"
+  }
+}

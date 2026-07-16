@@ -1,0 +1,20 @@
+{
+  "case_id": "lyrics-l11",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l11/rights-01.bin",
+      "sha256": "7909e28e23dafa8c471a9ccceeac0f0471b407cbf11e0a146bb4f20eb018d48b",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/Twinkle,_Twinkle,_Little_Star&oldid=13106413"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l11/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l11/source.txt",
+    "sha256": "3c46696d0bad1c7fcc9843c4d4c33e7a0eaa0677f700b2f55b0576aee544577f",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13106413"
+  }
+}

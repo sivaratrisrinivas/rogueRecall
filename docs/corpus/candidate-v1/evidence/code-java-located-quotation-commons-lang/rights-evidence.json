@@ -1,0 +1,20 @@
+{
+  "case_id": "code-java-located-quotation-commons-lang",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-located-quotation-commons-lang/rights-01.bin",
+      "sha256": "b1d2870f1a00e4d7f56576e5f0870cba109e041f8af66866cf5b499478e654e7",
+      "source_url": "https://raw.githubusercontent.com/apache/commons-lang/9f57c08e749b7b027f3efad1e2124b6d2343eac7/LICENSE.txt"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-located-quotation-commons-lang/rights-02.bin",
+      "sha256": "7c56f5fc7e26fa45789213a2b7046e2f05bbbf26ed50e619f2f1c21c2d0b4bfa",
+      "source_url": "https://github.com/apache/commons-lang/commit/9f57c08e749b7b027f3efad1e2124b6d2343eac7"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-java-located-quotation-commons-lang/source.txt",
+    "sha256": "6fecc827c145117d6ed025f198ea0c67dc5314e45a372bc8b2e327d48c53c964",
+    "source_url": "https://raw.githubusercontent.com/apache/commons-lang/9f57c08e749b7b027f3efad1e2124b6d2343eac7/src/main/java/org/apache/commons/lang3/StringUtils.java"
+  }
+}

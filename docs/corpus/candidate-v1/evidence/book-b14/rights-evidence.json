@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b14",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b14/rights-01.bin",
+      "sha256": "8118d8df1fb9fc5996125d437112123185bf2e0a483c1623d970d603cbcdc62d",
+      "source_url": "https://en.wikisource.org/wiki/On_the_Origin_of_Species_%281859%29"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b14/rights-02.bin",
+      "sha256": "21df90f3c6bd043c7dd9c4ddbd8d46f3f0b16f7fc3d2d69432fc174b12390a17",
+      "source_url": "https://en.wikisource.org/wiki/On_the_Origin_of_Species"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b14/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b14/source.txt",
+    "sha256": "c902a3723b1cde240dde2c041ae8430d626f799897c3906777ea3a098e185388",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=9427103"
+  }
+}

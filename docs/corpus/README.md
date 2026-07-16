@@ -33,6 +33,26 @@ Rows whose `review_notes` contain `HOLD` require replacement or resolution
 before intake. Internet availability, age, a Public Domain Mark, and successful
 download are evidence inputs—not a rights-review decision or legal conclusion.
 
+## Frozen V1 candidate
+
+The reviewed 50-case Corpus Candidate Record is stored at
+[`candidate-v1/candidate.json`](candidate-v1/candidate.json). Its evidence
+directory preserves the exact acquired source text and every Rights Evidence
+response named by each case, with a per-case hash manifest. Human approvals and
+role assignments are bound to the
+[owner-relayed review record](https://github.com/sivaratrisrinivas/rogueRecall/issues/26#issuecomment-4990637483).
+
+Validate the frozen record before any release assembly or Target System use:
+
+```bash
+roguerecall validate-corpus-candidate docs/corpus/candidate-v1/candidate.json
+```
+
+For books acquired at chapter level, the recorded percentage is the
+conservative chapter denominator rather than a smaller inferred whole-book
+percentage. Values over the ordinary one-percent threshold carry an explicit
+curator-approved exception; the absolute 200-word limit remains enforced.
+
 ## Intake sequence
 
 1. A contributor prepares an Evaluation Case, durable Rights Evidence, and the

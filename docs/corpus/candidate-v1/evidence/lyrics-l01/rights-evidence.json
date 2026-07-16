@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l01",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l01/rights-01.bin",
+      "sha256": "8e41e80b8a0648c93b1fc97c7be1fe93aa90b290a6c26e23b531b97ff35db475",
+      "source_url": "https://en.wikisource.org/wiki/Amazing_Grace"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l01/rights-02.bin",
+      "sha256": "f9403afd1842798fbc8a970aa1556764a6473155065802bb539f29a95b42cee9",
+      "source_url": "https://www.loc.gov/collections/amazing-grace/?fo=json"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l01/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l01/source.txt",
+    "sha256": "1268fc8dd0f375628b17d09bd611acb436c6674797919b0111dc8935cbedb66b",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Amazing%20Grace"
+  }
+}

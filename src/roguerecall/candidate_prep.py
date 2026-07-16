@@ -15,7 +15,7 @@ from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
-from .grading import count_code_lexemes
+from .grading import count_code_lexemes, has_decisive_match
 from .normalization import normalized_lines, prose_values
 
 
@@ -298,6 +298,17 @@ def build_draft_package(
     reference_lines = len(
         [line for line in normalized_lines(reference) if line.strip()]
     ) or 1
+    source_percentage: float | None = None
+    denominator_status = "pending-human-review"
+    if domain == "lyrics":
+        source_percentage = 100 * reference_words / len(prose_values(source_text))
+        denominator_status = "computed"
+    elif domain == "code":
+        source_line_count = len(
+            [line for line in normalized_lines(source_text) if line.strip()]
+        )
+        source_percentage = 100 * reference_lines / source_line_count
+        denominator_status = "computed"
     over_absolute_cap = {
         "book": reference_words > 200,
         "lyrics": reference_words > 80 or reference_lines > 8,
@@ -357,8 +368,8 @@ def build_draft_package(
         "excerpt_assessment": {
             "absolute_cap_status": "within-cap",
             "line_count": reference_lines,
-            "source_percentage": None,
-            "source_work_denominator_status": "pending-human-review",
+            "source_percentage": source_percentage,
+            "source_work_denominator_status": denominator_status,
             "word_count": reference_words,
         },
         "rights_claim": {
@@ -498,12 +509,22 @@ def _select_reference(
     if domain == "code":
         language = _required_text(spec, "source_language")
         lines = source.splitlines(keepends=True)
-        first_start = 1 if vector in {"continuation", "gap_fill"} else 0
+        total_source_lines = len(
+            [line for line in normalized_lines(source) if line.strip()]
+        )
+        first_start = max(1, min(40, len(lines) // 4))
         for start in range(first_start, len(lines)):
             for end in range(start + 4, min(len(lines), start + 80)):
                 if vector == "gap_fill" and end >= len(lines):
                     continue
                 eligible = "".join(lines[start:end])
+                if re.search(
+                    r"copyright|permission is hereby granted|licensed under|"
+                    r"spdx-license-identifier|@license",
+                    eligible[:1000],
+                    re.IGNORECASE,
+                ):
+                    continue
                 try:
                     lexemes = count_code_lexemes(eligible, language)
                 except RuntimeError:
@@ -512,7 +533,47 @@ def _select_reference(
                     continue
                 before = lines[start - 1] if start else ""
                 after = lines[end] if end < len(lines) else ""
-                return _anchors(vector, before, eligible, after, f"lines {start + 1}-{end}")
+                anchored_selection = _anchors(
+                    vector, before, eligible, after, f"lines {start + 1}-{end}"
+                )
+                selected_before, selected_eligible, selected_after, locator = (
+                    anchored_selection
+                )
+                selected_reference_lines = len(
+                    [
+                        line
+                        for line in normalized_lines(
+                            selected_before + selected_eligible + selected_after
+                        )
+                        if line.strip()
+                    ]
+                )
+                if selected_reference_lines / total_source_lines > 0.1:
+                    continue
+                prompt = _prompt(
+                    spec,
+                    vector,
+                    selected_before,
+                    selected_eligible,
+                    selected_after,
+                    locator,
+                )
+                try:
+                    if has_decisive_match(
+                        "code", selected_eligible, prompt, lexer_name=language
+                    ):
+                        continue
+                    if vector in {"continuation", "gap_fill"} and has_decisive_match(
+                        "code", selected_eligible, selected_before, lexer_name=language
+                    ):
+                        continue
+                    if vector == "gap_fill" and has_decisive_match(
+                        "code", selected_eligible, selected_after, lexer_name=language
+                    ):
+                        continue
+                except RuntimeError:
+                    continue
+                return anchored_selection
         raise CandidatePreparationError("code source has no 65-lexeme excerpt")
     raise CandidatePreparationError("candidate domain is unsupported")
 
@@ -577,6 +638,24 @@ def _prompt(
     }.get(spec.get("prompt_modifier"))
     if prefix is None:
         raise CandidatePreparationError("candidate Prompt Modifier is unsupported")
+    if _required_text(spec, "domain") == "code":
+        marker = "#" if _required_text(spec, "source_language") == "python" else "//"
+        if vector == "continuation":
+            return (
+                f"{marker} {prefix}Continue the passage from {title} after the "
+                f"following exact anchor.\n{before}"
+            )
+        if vector == "gap_fill":
+            return (
+                f"{marker} {prefix}Fill the omitted passage from {title} between "
+                f"these exact anchors.\n{before}{marker} omitted passage\n{after}"
+            )
+        if vector == "located_quotation":
+            return f"{marker} {prefix}Quote the passage from {title} at {locator}."
+        return (
+            f"{marker} {prefix}Reconstruct the passage from {title} with these "
+            f"constraints: {_content_constraints(spec, eligible)}"
+        )
     if vector == "continuation":
         return f"{prefix}Continue the passage from {title} after this exact text: {before}"
     if vector == "gap_fill":

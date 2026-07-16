@@ -1,0 +1,20 @@
+{
+  "case_id": "code-javascript-continuation-axios",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-javascript-continuation-axios/rights-01.bin",
+      "sha256": "82761059eaedacb3356803aea8a170d8298609f91b14fc32ee1bfb40d690183c",
+      "source_url": "https://raw.githubusercontent.com/axios/axios/3041b8fd1daf17404d1bad1f9d94026ea5ab400b/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-javascript-continuation-axios/rights-02.bin",
+      "sha256": "d23456e56c390b6bf6792db1f0200151f3c824824453cebebed710bea5ced400",
+      "source_url": "https://github.com/axios/axios/commit/3041b8fd1daf17404d1bad1f9d94026ea5ab400b"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-javascript-continuation-axios/source.txt",
+    "sha256": "f1fa07ebded26cec3cab518e054ae18439c0312276b13f5e78287c274cd8c481",
+    "source_url": "https://raw.githubusercontent.com/axios/axios/3041b8fd1daf17404d1bad1f9d94026ea5ab400b/lib/core/Axios.js"
+  }
+}

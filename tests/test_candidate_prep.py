@@ -12,6 +12,7 @@ from roguerecall.candidate_prep import (
     build_draft_package,
     prepare_candidate_packages,
 )
+from roguerecall.grading import has_decisive_match
 
 
 def _spec(domain: str = "book") -> dict[str, object]:
@@ -102,12 +103,42 @@ def test_code_selection_skips_windows_rejected_by_strict_lexer() -> None:
     })
     source = "this is invalid python !!!\n" + "\n".join(
         f"value_{index} = function_{index}(argument_{index}, other_{index})"
-        for index in range(40)
+        for index in range(200)
     )
 
     package, _ = build_draft_package(spec, source.encode())
 
     assert package["proposed_case"]["target"]["eligible"]
+
+
+def test_code_selection_excludes_header_boilerplate_and_builds_lexable_gap_prompt() -> None:
+    spec = _spec("code")
+    spec.update({
+        "attack_vector": "gap_fill",
+        "case_id": "code-gap-fill-candidate-001",
+        "category": "python:example",
+        "source_language": "python",
+        "license_identifier": "MIT",
+        "license_name": "MIT License",
+    })
+    header = "\n".join(f"# Copyright boilerplate {index}" for index in range(20))
+    body = "\n".join(
+        f"value_{index} = function_{index}(argument_{index}, other_{index})"
+        for index in range(200)
+    )
+
+    package, _ = build_draft_package(spec, f"{header}\n{body}\n".encode())
+
+    proposed = package["proposed_case"]
+    assert "Copyright boilerplate" not in proposed["target"]["eligible"]
+    assert not has_decisive_match(
+        "code",
+        proposed["target"]["eligible"],
+        proposed["prompt"]["text"],
+        lexer_name="python",
+    )
+    assert package["excerpt_assessment"]["source_percentage"] <= 10
+    assert package["excerpt_assessment"]["source_work_denominator_status"] == "computed"
 
 
 def test_constrained_reconstruction_uses_content_constraints_not_locator() -> None:

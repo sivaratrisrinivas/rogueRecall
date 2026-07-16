@@ -1,0 +1,20 @@
+{
+  "case_id": "code-javascript-gap-fill-express",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-javascript-gap-fill-express/rights-01.bin",
+      "sha256": "95a5762890e5c1c9808921cef095661fc482c5e1f0bba31446ac85595df6237c",
+      "source_url": "https://raw.githubusercontent.com/expressjs/express/ae6dd37680e3a00618d6c8a3e522f0ee4eeba1a4/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-javascript-gap-fill-express/rights-02.bin",
+      "sha256": "a7afb8bfffaf2ff2e88622903fcca514faec324ca5dbfac24622e6f2ba1c6a53",
+      "source_url": "https://github.com/expressjs/express/commit/ae6dd37680e3a00618d6c8a3e522f0ee4eeba1a4"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-javascript-gap-fill-express/source.txt",
+    "sha256": "6d7e08355025786982d17042fc0355b6a5e9339545dc27e2782b3aaa28a7bc04",
+    "source_url": "https://raw.githubusercontent.com/expressjs/express/ae6dd37680e3a00618d6c8a3e522f0ee4eeba1a4/lib/application.js"
+  }
+}

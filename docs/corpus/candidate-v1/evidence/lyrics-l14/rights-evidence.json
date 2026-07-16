@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l14",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l14/rights-01.bin",
+      "sha256": "8bcb37064037fb5bf8caea3844c98c665224d5354bc87e7810b481297586f3cf",
+      "source_url": "https://en.wikisource.org/wiki/Songs_of_a_Savoyard/The_First_Lord%27s_Song"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l14/rights-02.bin",
+      "sha256": "5313972c638c3d0e3907b33ea0e155bb0009e0b01b7b25164f12e61c4160d831",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Songs_of_a_Savoyard&oldid=10803354"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l14/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l14/source.txt",
+    "sha256": "d0804c9b86f04513a28d2e5782c6af22d612bb952a88cc38ec90567cdb7bf563",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Songs%20of%20a%20Savoyard%2FThe%20First%20Lord's%20Song"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b10",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b10/rights-01.bin",
+      "sha256": "d59354c9c5a89e2a365a58efffcf2a1cc2824e653a9e763e7226eed42bed8948",
+      "source_url": "https://en.wikisource.org/w/index.php?title=The_Happy_Prince_and_Other_Tales&oldid=6840740"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b10/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b10/source.txt",
+    "sha256": "283dd7875fb10434dc8dacbf039960c8a5b10fa95e507beaf318a2e34033ca6d",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=12744640"
+  }
+}

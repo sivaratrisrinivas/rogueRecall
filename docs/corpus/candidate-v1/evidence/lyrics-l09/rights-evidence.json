@@ -1,0 +1,30 @@
+{
+  "case_id": "lyrics-l09",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l09/rights-01.bin",
+      "sha256": "65760d5ff83b42a11f0d3f2311f48a37f1f097be8688b592e6ef1f4473f697ef",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Poems_That_Every_Child_Should_Know/The_Star-Spangled_Banner&oldid=13123994"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l09/rights-02.bin",
+      "sha256": "0ce80d74543de022f531c92b9e853bb9992a59b954602b277830dc948be5ee13",
+      "source_url": "https://guides.loc.gov/star-spangled-banner/beginning-your-research"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l09/rights-03.bin",
+      "sha256": "78001b740ac6eecd78082f0716abb00257e33b5287fd67ec86403e7a4b7cb328",
+      "source_url": "https://blogs.loc.gov/music/2014/09/printing-the-star-spangled-banner/"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l09/rights-04.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l09/source.txt",
+    "sha256": "5710e0cfa1fdd4dc24c4108121e378c2d38259b9d85d1930c1310e1bc5c8cbe0",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=13123994"
+  }
+}

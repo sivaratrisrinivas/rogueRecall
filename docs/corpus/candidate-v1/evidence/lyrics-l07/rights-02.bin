@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Citizen DJ / The National Jukebox: Classical Music</title>
+  <meta name="description" content="Citizen DJ invites the public to make music using free-to-use audio and video collections. By embedding these materials in hip hop music, listeners can discover items in the library's vast collections that they likely would never have known existed." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  
+  <meta property="og:image" content="https://citizen-dj.labs.loc.gov/img/citizen_dj_banner.jpg" />
+  <meta name="image_src" content="https://citizen-dj.labs.loc.gov/img/citizen_dj_banner.jpg" />
+  
+
+  <script src="/js/lib/redirect.js"></script>
+  <script src="//assets.adobedtm.com/dac62e20b491e735c6b56e64c39134d8ee93f9cf/satelliteLib-6b47f831c184878d7338d4683ecf773a17973bb9.js" async></script>
+
+  
+    <link rel="stylesheet" href="/css/remix.css" />
+  
+
+  
+</head>
+<body>
+
+
+<div class="wrapper remix loc-jukebox-classical">
+
+  <header>
+  <h1><a href="/">Citizen DJ</a></h1>
+  <nav>
+    <ul>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/guide/">Copyright &amp; ethics guide</a></li>
+      <li><a href="/feedback/">Feedback</a></li>
+    </ul>
+  </nav>
+</header>
+
+  
+
+
+
+
+
+
+<div class="collection-header">
+  <nav>
+    <ul>
+      <li class="selected-collection">
+        <h2>Collection:</h2>
+        <button class="tab submenu-link" aria-haspopup="true" aria-expanded="false" aria-controls="collection-select">
+          <span>The National Jukebox: Classical Music</span>
+          <span class="arrow">▼</span>
+        </button>
+        <ul id="collection-select" class="submenu">
+          
+            
+            <li><a href="/loc-edison/remix/" >Inventing Entertainment</a></li>
+            
+          
+            
+            <li><a href="/loc-variety-stage/remix/" >Variety Stage Sound Recordings and Motion Pictures</a></li>
+            
+          
+            
+            <li><a href="/loc-joe-smith/remix/" >The Joe Smith Collection</a></li>
+            
+          
+            
+            <li><a href="/loc-fma/remix/" >Free Music Archive</a></li>
+            
+          
+            
+            <li><a href="/loc-musicbox/remix/" >MusicBox Project</a></li>
+            
+          
+            
+            <li><a href="/loc-tony-schwartz/remix/" >Tony Schwartz Collection</a></li>
+            
+          
+            
+            <li><a href="/loc-american-english-dialect-recordings/remix/" >American English Dialect Recordings</a></li>
+            
+          
+            
+            <li><a href="/loc-national-screening-room/remix/" >The National Screening Room</a></li>
+            
+          
+            
+            <li><a href="/loc-jukebox-blues/remix/" >The National Jukebox: Blues</a></li>
+            
+          
+            
+            <li><a href="/loc-jukebox-jazz/remix/" >The National Jukebox: Jazz</a></li>
+            
+          
+            
+            <li><a href="/loc-jukebox-folk-songs/remix/" >The National Jukebox: Folk Music</a></li>
+            
+          
+            
+            <li><a href="/loc-jukebox-opera/remix/" >The National Jukebox: Opera</a></li>
+            
+          
+            
+            <li><a href="/loc-jukebox-musical-theater/remix/" >The National Jukebox: Musical Theater</a></li>
+            
+          
+            
+          
+            
+            <li><a href="/loc-jukebox-classical/remix/" class="active">The National Jukebox: Classical Music</a></li>
+            
+          
+            
+          
+            
+            <li><a href="/loc-jukebox-popular/remix/" >The National Jukebox: Popular Music</a></li>
+            
+          
+        </ul>
+      </li>
+      <li class="collection-links">
+        <a href="/loc-jukebox-classical/explore/" class="button">Explore</a>
+        <a href="/loc-jukebox-classical/remix/" class="button active">Remix</a>
+        <a href="/loc-jukebox-classical/use/" class="button">Browse &amp; download</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+
+  <main id="sequencer">
+
+    <nav aria-label="Sequence controls" class="sequence-controls-nav">
+      <ul class="controls">
+        <li><button class="toggle-play inverted">Play</button></li>
+        <li class="slider-item"><label for="tempo">BPM:</label> <input id="tempo" type="range" min="60" max="180" value="120" class="slider bpm-input inverted" /> <span class="bpm-text value-text ">120</span></li>
+        <li><button class="download-pattern inverted" title="Download the current track loop as .wav file">Download pattern</button></li>
+        <li><button class="record-audio inverted" title="Record audio until you press stop">Record</button></li>
+        <li><button class="share-pattern inverted">Share</button></li>
+        <li>
+          <button class="fav-button inverted" title="Add this pattern to favorites" data-on="Unsave pattern">Save pattern</button>
+          <button class="fav-count-button inverted" title="show favorites">0</button>
+        </li>
+      </ul>
+    </nav>
+
+    <h2 class="visually-hidden">Beat sequence</h2>
+
+    <div class="sequence">
+      <div id="collection-rack" class="rack">
+        <h3>Choose an item to sample:</h3>
+        <ul class="controls rack-controls">
+          <li>
+            <select id="select-item" class="select-item"><option value="-1">Loading...</option></select>
+          </li>
+          <li><button class="randomize-collection small">Shuffle item</button></li>
+          <li><button class="prev-collection small">Prev pattern</button></li>
+          <li><button class="next-collection small">Next pattern</button></li>
+          <li><a href="#sources" class="scroll-to button small">Item details</a></li>
+        </ul>
+        <div class="loading"><p>Loading...</p></div>
+      </div>
+      <div id="drum-rack" class="rack">
+        <h3>Choose your drum pattern:</h3>
+        <ul class="controls rack-controls">
+          <li>
+            <select id="select-pattern" class="select-pattern"><option value="-1">Loading...</option></select>
+          </li>
+          <li><button class="randomize-drum small">Shuffle drums</button></li>
+          <li><button class="prev-drum small">Prev pattern</button></li>
+          <li><button class="next-drum small">Next pattern</button></li>
+          <li class="has-label">
+            <label for="select-drum">drum machine:</label>
+            <select id="select-drum" class="select-drum"><option value="-1">Loading...</option></select>
+          </li>
+        </ul>
+        <div class="loading"><p>Loading...</p></div>
+      </div>
+      <form id="add-drum-form" class="add-drum-form">
+        <label for="select-new-drum">Add a drum track: </label>
+        <select id="select-new-drum"></select>
+        <button type="submit" class="small">Add</button>
+      </form>
+    </div>
+
+    <div class="loading active">Loading sounds and beats...</div>
+
+    <div class="container">
+
+      <hr />
+
+      <h2><a id="sources" name="sources"></a>Where do these sounds come from and how can I use them?</h2>
+
+      <div class="sources">
+        <dt>Part of collection:</dt>
+        <dd><a href="https://www.loc.gov/collections/national-jukebox/about-this-collection/" target="_blank">The National Jukebox: Classical Music</a></dd>
+        <div id="item-meta" role="region" aria-live="polite"></div>
+        <dt>How can it be used?</dt>
+        <dd>Under the Music Modernization Act, this item entered public domain on January 1, 2022, when all recordings published prior to 1923 entered the public domain and became free to use and reuse. You can copy, modify, distribute and perform the works, even for commercial purposes, all without asking permission. These selections are presented as part of the record of the past. They are historical recordings which reflect the language, attitudes, perspectives, and beliefs of different times. The Library of Congress does not endorse the views expressed in these recordings, which may contain content offensive to users. The Library of Congress asks that artists approach the materials in this collection with respect for the culture and sensibilities of the people whose lives, ideas, and creativity are documented here. Artists are also reminded that privacy and publicity rights may pertain to certain uses of this material. Attribution is recommended but not required.</dd>
+        <dd>Also see this <a href="/guide/">detailed guide</a> covering the copyright and ethical considerations of digital sampling of audio and video materials.</dd>
+        
+          <dt>Why is this free to use?</dt>
+          <dd>Under the Music Modernization Act, items in this collection that were published prior to 1923 entered public domain on January 1, 2022, and became free to use and reuse.</dd>
+        
+        <a id="access-options" name="access-options"></a>
+        <div id="item-access"></div>
+        <div class="source">
+          <dt>Drum machine sounds</dt>
+          <dd>All drum machine sounds were generated from drumkits provided by <a href="http://slackermedia.info/downloads/">Slackermedia</a> Multimedia Sprint v2 and were made available under a <a href="https://creativecommons.org/licenses/by-sa/3.0/us/">Creative Commons Attribution-ShareAlike 3.0 license</a>. The audio files that I derived from the drumkits can be <a href="https://github.com/LibraryOfCongress/citizen-dj/tree/master/audio/drum_machines">downloaded from Github</a> and is available under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Attribution-ShareAlike 4.0 International</a>, which means you can (1) copy and redistribute the files in any medium or format, and (2) remix, transform, and build upon the material for any purpose, even commercially as long as you give appropriate credit and distribute under the same license.</dd>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer>
+  <p>A project by <a href="https://brianfoo.com">Brian Foo</a> as part of the 2020 <a href="https://labs.loc.gov/about/opportunities/innovator-in-residence-program">Innovator in Residence Program</a> at the <a href="https://www.loc.gov/">Library of Congress</a>.<br />
+  Citizen DJ Logo is a derivative work based on <a href="https://www.loc.gov/item/92517367/" target="_blank"><em>Keep your teeth clean</em></a>, Federal Art Project, between 1936 and 1938</p>
+</footer>
+
+</div>
+
+<div id="modal-track-settings" class="dialog-wrapper">
+  <div role="dialog" class="dialog" aria-labelledby="modal-track-settings-label" aria-modal="true"></div>
+</div>
+
+<div id="modal-favs" class="dialog-wrapper">
+  <div role="dialog" class="dialog" aria-labelledby="modal-favs-label" aria-modal="true">
+    <h2 id="modal-favs-label">Your saved patterns</h2>
+    <ul id="favs-list" class="favs-list"></ul>
+    <div class="dialog-form-actions">
+      <button class="dialog-close-button">Close</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="templates">
+  <!-- dialog template -->
+  <div id="settings-template" class="template">
+    <h2 id="modal-track-settings-label">
+      Track settings for {{ title }} (starting at <span class="track-time-{{ uid }}">{{ sourceStartFormatted }}</span>)
+    </h2>
+    <div class="dialog-form dialog-form-{{ trackType }}">
+      <div class="input-row">
+        <label for="track-gain">Volume:</label>
+        <input id="track-gain" type="range" min="-16" max="10" value="{{ gain }}" step="0.1" class="slider track-input gain-input" data-property="gain" data-target="#gain-text" />
+        <span id="gain-text" class="value-text">{{ gain }}</span>
+      </div>
+      <div class="input-row">
+        <label for="track-start">Clip start:</label>
+        <input id="track-start" type="range" min="0" max="{{ duration }}" step="0.001" value="{{ clipStart }}" class="slider track-input start-input" data-property="clipStart" data-target="#start-text" />
+        <span id="start-text" class="value-text">{{ clipStart }}</span>
+      </div>
+      <div class="input-row">
+        <label for="track-duration">Clip duration:</label>
+        <input id="track-duration" type="range" min="0" max="{{ duration }}" step="0.001" value="{{ clipDur }}" class="slider track-input duration-input" data-property="clipDur" data-target="#duration-text" />
+        <span id="duration-text" class="value-text">{{ clipDur }}</span>
+      </div>
+      <div class="waveform-row">
+        <p>Current clip is highlighted below. Use sliders above to adjust.</p>
+        <div class="waveform-wrapper">
+          <img class="waveform" alt="A waveform that represents the current clip being played" />
+          <div class="clip-window clip-window-left"></div>
+          <div class="clip-window clip-window-right"></div>
+        </div>
+        <button class="download-track-audio small" data-id="{{ id }}">Download this clip</button>
+        <a href="{{ phraseDownloadUrl }}" download class="button small" target="_blank">Download full excerpt</a>
+      </div>
+      <!-- <div class="input-row">
+        <label for="track-reverb">Reverb:</label>
+        <input id="track-reverb" type="range" min="0" max="1" value="{{ reverb }}" step="0.01" class="slider track-input reverb-input" data-property="reverb" data-target="#reverb-text" />
+        <span id="reverb-text" class="value-text">{{ reverb }}</span>
+      </div>
+      <div class="input-row">
+        <label for="track-pitchShift">Pitch shift:</label>
+        <input id="track-pitchShift" type="range" min="-24" max="24" value="{{ pitchShift }}" step="1" class="slider track-input pitchshift-input" data-property="pitchShift" data-target="#pitchShift-text" />
+        <span id="pitchShift-text" class="value-text">{{ pitchShift }}</span>
+      </div> -->
+    </div>
+    <div class="dialog-form-actions">
+      <button class="dialog-close-button">Close</button>
+    </div>
+  </div>
+  <!-- track template -->
+  <div id="track-template" class="template">
+    <div class="track track-{{ trackType }}">
+      <div class="track-info">
+        <h3>{{ typeLabel }} {{ sequence }}: <a href="#sources" class="scroll-to">{{ title }}</a> <span class="track-time-start">(starting at <span class="track-time-{{ uid }}">{{ sourceStartFormatted }}</span>)</span></h3>
+        <a href="#play" class="play-track-audio" data-id="{{ id }}"><img src="../../img/icon_play.svg" alt="Play icon" title="Play this clip" /></a>
+      </div>
+      <div class="track-controls">
+        <div class="beats">
+          <div class="beat"><input type="checkbox" id="{{ uid }}-0" value="0" /><label for="{{ uid }}-0"><span>Beat 1 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-1" value="1" /><label for="{{ uid }}-1"><span>Beat 2 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-2" value="2" /><label for="{{ uid }}-2"><span>Beat 3 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-3" value="3" /><label for="{{ uid }}-3"><span>Beat 4 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-4" value="4" /><label for="{{ uid }}-4"><span>Beat 5 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-5" value="5" /><label for="{{ uid }}-5"><span>Beat 6 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-6" value="6" /><label for="{{ uid }}-6"><span>Beat 7 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-7" value="7" /><label for="{{ uid }}-7"><span>Beat 8 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-8" value="8" /><label for="{{ uid }}-8"><span>Beat 9 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-9" value="9" /><label for="{{ uid }}-9"><span>Beat 10 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-10" value="10" /><label for="{{ uid }}-10"><span>Beat 11 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-11" value="11" /><label for="{{ uid }}-11"><span>Beat 12 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-12" value="12" /><label for="{{ uid }}-12"><span>Beat 13 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-13" value="13" /><label for="{{ uid }}-13"><span>Beat 14 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-14" value="14" /><label for="{{ uid }}-14"><span>Beat 15 of 16 in this row</span></label></div>
+          <div class="beat"><input type="checkbox" id="{{ uid }}-15" value="15" /><label for="{{ uid }}-15"><span>Beat 16 of 16 in this row</span></label></div>
+        </div>
+        <div class="modifiers">
+          <button class="svg-button download-button scroll-to" title="download options" aria-label="download options" href="#access-options">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" viewBox="0 0 100 125" x="0px" y="0px"><title>download options</title><path d="M23.912,46.567l6.829-6.829c0.658-0.658,1.734-0.658,2.392,0L43.48,50.085V7.991c0-0.93,0.761-1.692,1.692-1.692h9.657  c0.93,0,1.692,0.761,1.692,1.692v42.094l10.347-10.347c0.658-0.658,1.734-0.658,2.392,0l6.829,6.829  c0.658,0.658,0.658,1.734,0,2.392L51.283,73.765c-0.351,0.351-0.821,0.509-1.283,0.485c-0.462,0.024-0.932-0.134-1.283-0.485  L23.912,48.96C23.254,48.302,23.254,47.225,23.912,46.567z M94.288,92.206V53.148c0,0,0.003-0.528-0.459-0.961  c-0.358-0.336-0.867-0.336-0.867-0.336h-8.989c0,0-0.38,0.001-0.786,0.367c-0.42,0.379-0.42,0.866-0.42,0.866V82.18H17.233V53.148  c0,0,0.003-0.528-0.459-0.961c-0.358-0.336-0.867-0.336-0.867-0.336H6.919c0,0-0.38,0.001-0.786,0.367  c-0.42,0.379-0.42,0.866-0.42,0.866v39.148c0,0.807,0.661,1.468,1.468,1.468h85.613C93.615,93.701,94.288,93.028,94.288,92.206z"/></svg>
+          </button>
+          <button class="svg-button settings-button" title="track settings" aria-label="track settings">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon" viewBox="0 0 100 125" x="0px" y="0px"><title>track settings</title><path d="M53,47.46V18H47V47.46a10,10,0,0,0,0,19.08V82h6V66.54a10,10,0,0,0,0-19.08ZM50,61a4,4,0,1,1,4-4A4,4,0,0,1,50,61Z"/><path d="M26,32.46V18H20V32.46a10,10,0,0,0,0,19.08V82h6V51.54a10,10,0,0,0,0-19.08ZM23,46a4,4,0,1,1,4-4A4,4,0,0,1,23,46Z"/><path d="M80,32.46V18H74V32.46a10,10,0,0,0,0,19.08V82h6V51.54a10,10,0,0,0,0-19.08ZM77,46a4,4,0,1,1,4-4A4,4,0,0,1,77,46Z"/></svg>
+          </button>
+          <button class="solo-button">solo</button>
+          <button class="mute-button">mute</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<a href="" download="output.wav" class="record-download-link visually-hidden">Download recording</a>
+
+<script src="/js/vendor/jquery-3.4.1.min.js"></script>
+<script src="/js/vendor/underscore-1.9.1.min.js"></script>
+<script>
+  _.templateSettings = {
+    interpolate: /\{\{(.+?)\}\}/g
+  };
+</script>
+<script src="/js/vendor/tone-13.8.25.min.js"></script>
+<script src="/js/vendor/RecordRTC.min.js"></script>
+<script src="/js/lib/util.js"></script>
+<script src="/js/lib/collections.js"></script>
+<script src="/js/lib/drums.js"></script>
+<script src="/js/lib/favorites.js"></script>
+<script src="/js/lib/track.js"></script>
+<script src="/js/lib/sequencer.js"></script>
+<script src="/js/lib/recorder.js"></script>
+<script>
+  var CONFIG = {
+    'baseUrl': '',
+    'assetUrl': 'https://s3.amazonaws.com/citizen-dj-assets.labs.loc.gov',
+    'uid': 'loc-jukebox-classical',
+    'provider': 'loc.gov',
+    'localItems': '',
+    'credit': 'Library of Congress, National Jukebox.'
+  };
+</script>
+<script src="/js/ui.js"></script>
+<script src="/js/remix.js"></script>
+
+<!-- <script src="/js/lib/preview.js"></script> -->
+<!-- <script src="//cdn.loop11.com/embed.js" type="text/javascript" async="async"></script> -->
+
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"81516e3562ff44848ad88943aeb48656","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+

@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b06",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b06/rights-01.bin",
+      "sha256": "c00d536eb85097da59f29c8952f3b6354e10f5cd20dd70c1c7f0abfe24dd1768",
+      "source_url": "https://en.wikisource.org/wiki/Through_the_Looking_Glass_%28And_What_Alice_Found_There%29"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b06/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b06/source.txt",
+    "sha256": "d593806347b6371973f967613e3518a84dc6dbfe832e8f1c26bf0e524a23cc51",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Through%20the%20Looking-Glass%2C%20and%20What%20Alice%20Found%20There%2FChapter%20I"
+  }
+}

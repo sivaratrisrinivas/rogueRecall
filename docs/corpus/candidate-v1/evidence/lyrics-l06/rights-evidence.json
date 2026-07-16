@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l06",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l06/rights-01.bin",
+      "sha256": "778e945d50f8fd64b5a9a1d416607a41683d239344571176358dfbdcd3a54cc3",
+      "source_url": "https://en.wikisource.org/wiki/The_Minstrel_Boy"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l06/rights-02.bin",
+      "sha256": "df91626c01e5db2c67b45ad970a0adde8c1ec961ae1f8fb6ddace90c13f324f3",
+      "source_url": "https://www.loc.gov/item/jukebox-128452/?fo=json"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l06/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l06/source.txt",
+    "sha256": "506a4dc6bee5d86b48f04f7f79dd6886807674c6f873115c9d1cb8a0220e7acd",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Queen%20Mary%27s%20lamentation%20(1824)%2FThe%20Minstrel%20Boy"
+  }
+}

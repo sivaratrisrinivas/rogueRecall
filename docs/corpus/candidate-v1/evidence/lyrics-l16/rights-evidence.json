@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l16",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l16/rights-01.bin",
+      "sha256": "908b2433b4627580a9e84e38fd64ee8ca6b38116671c740dc7f16060741ca227",
+      "source_url": "https://en.wikisource.org/w/index.php?title=One_Hundred_English_Folksongs/Barbara_Ellen&oldid=15584625"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l16/rights-02.bin",
+      "sha256": "4f85eefc31d469b1694d3b399f1f62a18fff674ad46ef3fe91cb9cd62216653d",
+      "source_url": "https://en.wikisource.org/wiki/File%3AOne_Hundred_English_Folksongs_%281916%29.djvu"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l16/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l16/source.txt",
+    "sha256": "5eb8847b8ed767f1400afa298f086f3c8c6c84dfec7aad3a7b21169bebe225fe",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=15584625"
+  }
+}

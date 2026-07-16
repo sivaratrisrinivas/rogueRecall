@@ -1,0 +1,758 @@
+
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+    <title>James Thomson - London Borough of Richmond upon Thames</title>
+
+    
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="" />
+    <meta name="description" content="Richmond Local Studies Collection local history note on James Thomson.                                                                                                                                                                                                                                                                                                                                                                                                                                              " />
+    <meta property="og:title" content="James Thomson - London Borough of Richmond upon Thames" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Richmond Local Studies Collection local history note on James Thomson.                                                                                                                                                                                                                                                                                                                                                                                                                                              " />
+    <meta property="og:url" content="/services/libraries/branch_libraries/local_studies_collection/local_history_notes/james_thomson" />
+    <meta property="og:image" content="https://www.richmond.gov.uk/lbr400x400.jpg" />
+    <meta property="og:site_name" content="London Borough of Richmond upon Thames" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@LBRUT" />
+    <meta name="twitter:title" content="Richmond Local Studies Collection local history note on James Thomson.                                                                                                                                                                                                                                                                                                                                                                                                                                              " />
+    <meta name="twitter:description" content="Richmond Local Studies Collection local history note on James Thomson.                                                                                                                                                                                                                                                                                                                                                                                                                                              " />
+    <meta name="twitter:image" content="https://www.richmond.gov.uk/lbr400x400.jpg" />
+    <link rel="icon" sizes="192x192" href="//www.richmond.gov.uk/lbr192x192.png" />
+    <link rel="apple-touch-icon" href="//www.richmond.gov.uk/lbr180x180.png" />
+
+    <link rel="stylesheet" href="/Assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/Assets/css/localfonts.css">
+    <!--[if lt IE 9]>
+     <link href="//www2.richmond.gov.uk/assets/css/nonresp.1.3.css" rel="stylesheet">
+    <![endif]-->
+    <link rel="stylesheet" media="print" href="/Assets/css/print.css" />
+
+
+   
+        <link rel="stylesheet" href="/Assets/css/lbrmain25.css?v=6" />
+    
+  
+  
+
+
+
+
+
+    
+
+
+
+
+
+    
+
+
+<script id="civicCC" src="https://cc.cdn.civiccomputing.com/9/cookieControl-9.x.min.js"></script>
+
+<script>
+    function deleteCookie(name, domain, path) {
+
+        if (path === undefined) {
+            path = '/';
+        }
+        document.cookie = name + '=; Path=' + path + '; Domain=' + domain + '; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+
+
+
+
+
+    var config = {
+        accessibility: {
+            highlightFocus: true
+        },
+        iabCMP: true,
+        apiKey: '6cedc0f0f25c226daa9a9451645297c05efbc80a',
+        product: 'PRO_MULTISITE',
+        initialState: "open",
+        rejectButton: true,
+        toggleType: "slider",
+        layout: "popup",
+        text: {
+            iabCMP: {
+                panelTitle: "This site uses cookies.",
+                panelIntro1: "Cookies are files saved on your phone, tablet or computer when you visit a website.",
+                panelIntro2: "Some cookies on this website are essential, but you can choose whether to accept cookies for analytics (content performance) or to set your advertising preferences.",
+                panelIntro3: "",
+
+                aboutIab: "Advertising services adhere to the ",
+                vendors: "Third party vendors"
+            }
+        },
+        statement: {
+            description: 'For more information visit our',
+            name: 'Privacy Notice',
+            url: 'https://www.richmond.gov.uk/data_protection',
+            updated: '01/12/2022'
+        },
+        branding: {
+            removeAbout: true
+
+        },
+        necessaryCookies: ['UMB*', 'OpenIdConnect*', 'ARRAffinity'],
+        onLoad: function () {
+
+            // event listeners for changes to iab consent
+            var tcfCallback = function (tcData, success) {
+                if (success) {
+
+
+                    if (tcData.eventStatus === "useractioncomplete" && tcData.purpose.consents['8']) {
+
+
+                        //Initiate SiteImprove Analytics
+                        (function () {
+                            var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+                            sz.src = '//siteimproveanalytics.com/js/siteanalyze_373895.js';
+                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+                        })();
+
+
+                    }
+                    else {
+
+
+                        // Delete SiteImprove cookies
+                        deleteCookie("nmstat", ".www.richmond.gov.uk");
+                        deleteCookie("nmstat", ".richmond.gov.uk");
+
+                    }
+
+                }
+            };
+
+            // callback executed each time consent string changes
+            __tcfapi('addEventListener', 2, tcfCallback);
+
+        },
+        position: 'LEFT',
+        theme: 'LIGHT'
+    };
+
+    CookieControl.load(config);
+
+
+
+
+</script>
+
+  
+
+        <!--webchat-->
+        <script>
+            "use strict";(function(){const o=[],r=[];let c=null;window.Connect={init:(...e)=>(c=new Promise((n,t)=>{o.push({resolve:n,reject:t,args:e})}),c),on:(...e)=>{r.push(e)}},window.__onConnectHostReady__=function(e){if(delete window.__onConnectHostReady__,window.Connect=e,o&&o.length)for(const n of o)e.init(...n.args).then(n.resolve).catch(n.reject);for(const n of r)e.on(n)};function i(){try{let e=this.response;if(typeof e=="string"&&(e=JSON.parse(e)),e.url){const n=document.querySelectorAll("script")[0],t=document.createElement("script");t.async=!0,t.src=`${e.url}?t=${Date.now()}`,n.parentNode?.insertBefore(t,n)}}catch{}}const s=new XMLHttpRequest;s.addEventListener("load",i),s.open("GET","https://webassist.onconverse.app/api/v1/loader",!0),s.responseType="json",s.send()})();
+        </script>
+ 
+    <script async src="//ads.counciladvertising.net/code/audienceplacement/media/public"></script>
+    
+</head>
+<body>
+   
+    <div><a href="#maincontent" class="skiplink sr-only sr-only-focusable" tabindex="1">Skip to main content</a></div>
+    <header>
+        <div class="container">
+            <div class="d-md-flex justify-content-between toprow">
+                <div><a class="navbar-brand" href="/">Richmond.gov.uk</a></div>
+                <div class="show-small"><a href="/account"><img src="/Assets/img/OIP.jpg" alt="My Account" /></a></div>
+                <div class="site-wide-search lb-search-form-holder">
+                    <form role="search" class="navbar-form lb-search-form-group-inpage" action="/search_results">
+                        <div class="form-group">
+                            <label class="sr-only" for="lb-search-input-inpage">Search term</label>
+                            <span role="status" aria-live="polite" class="ui-helper-hidden-accessible"></span>
+                            <input id="lb-search-input-inpage" type="text" class="form-control input-header lb-search-input-inpage ui-autocomplete-input" placeholder="Search this site" name="qt2" autocomplete="off">
+                            <button type="submit" class="btn" aria-label="Search"></button>
+                            <input type="hidden" name="ct" value="">
+                        </div>
+                    </form>
+                    <div id="search-results-holder" class="lb-search-results-inpage-holder">
+                        <div class="lb-search-results-inpage">
+                            <div id="lb-search-results-inpage-inner" class="lb-search-results-inpage-inner">
+
+                                <ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="ui-id-1x" tabindex="0" style="display: none;"></ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <nav class="row d-md-flex" role="navigation" aria-label="Main">
+
+                <div class="mr-md-auto"><a href="/services" class="lb-active">Services</a></div>
+
+
+                    <div class="top-link"><a href="/news">News</a></div>
+                    <div class="top-link"><a href="/council">The Council</a></div>
+
+                <div class="move-small top-link">
+                    <a href="/account"><img src="/Assets/img/OIP.jpg" alt="">My Account</a>
+                </div>
+
+
+            </nav>
+        </div>
+    </header>
+
+
+
+    <main>
+        
+
+
+        <div class="jumbotron">
+
+                <div class="container">
+                    <div class="row">
+                        <ol class="breadcrumb">
+                                        <li class="toptrail"><strong><a href="/">Home</a></strong></li>
+                                        <li><a href="/services">Services</a> </li>
+                                        <li><a href="/services/libraries">Libraries</a> </li>
+                                        <li><a href="/services/libraries/branch_libraries">Our libraries</a> </li>
+                                        <li><a href="/services/libraries/branch_libraries/local_studies_collection">Local Studies Library</a> </li>
+                                        <li class="bottomTrail"><a href="/services/libraries/branch_libraries/local_studies_collection/local_history_notes">Local history notes</a> </li>
+                        </ol>
+                    </div>
+                </div>
+
+
+
+
+                <!-- START - BLOCK GRID -->
+
+<!-- START - DEFAULT -->
+
+
+
+
+
+  
+<!-- START - ITEMS -->
+<div class="layout-items d-flex flex-column gap-0" >
+                <!-- START - ITEM -->
+
+
+<div class="layout-item py-3" data-bgimage="" style="" data-block-alias="layout84">
+   
+        
+
+
+
+
+    
+
+
+
+
+<!-- START - AREAS -->
+<div class="areas grid container" data-areas="primary g-col-12 g-col-md-8 primary g-col-12 g-col-md-4 " data-ContentUdi="umb://element/40b08916578b4f6bb056c658e0487142" data-Content="Umbraco.Cms.Web.Common.PublishedModels.Layout84" data-GridColumns="">
+
+
+
+
+<!-- START - AREA -->
+<div class="area-6 primary g-col-12 g-col-md-8 ">
+   
+
+    
+
+
+
+
+  
+<!-- START - ITEMS -->
+<div class="feature-items d-flex flex-column gap-3" >
+                <!-- START - ITEM -->
+
+
+
+
+
+    <section class="feature-item featureRichTextEditor" style="">
+        <div class="feature__body">
+
+            
+
+<h1>James Thomson</h1>
+        </div>
+    </section>
+
+
+                <!-- END - ITEM -->
+</div>
+<!-- END - ITEMS -->
+
+
+
+   
+</div>
+<!-- END - AREA -->
+
+
+
+
+
+<!-- START - AREA -->
+<div class="area-6 primary g-col-12 g-col-md-4 ">
+   
+
+    
+
+
+   
+</div>
+<!-- END - AREA -->
+
+</div>
+
+<!-- END - AREAS -->
+
+
+   
+   
+</div>
+
+                <!-- END - ITEM -->
+</div>
+<!-- END - ITEMS -->
+
+<!-- END - DEFAULT -->
+                <!-- END - BLOCK GRID -->
+
+        </div>
+        <!-- START - BLOCK GRID -->
+
+<!-- START - DEFAULT -->
+
+
+
+
+
+  
+<!-- START - ITEMS -->
+<div class="layout-items d-flex flex-column gap-0" >
+                <!-- START - ITEM -->
+
+
+<div class="layout-item py-3" data-bgimage="" style="" data-block-alias="layout84">
+   
+        
+
+
+
+
+    
+
+
+
+
+<!-- START - AREAS -->
+<div class="areas grid container" data-areas="primary g-col-12 g-col-md-8 primary g-col-12 g-col-md-4 " data-ContentUdi="umb://element/2ed84fcb94c9440085444fca24a70fdb" data-Content="Umbraco.Cms.Web.Common.PublishedModels.Layout84" data-GridColumns="">
+
+
+
+
+<!-- START - AREA -->
+<div class="area-6 primary g-col-12 g-col-md-8 ">
+   
+
+    
+
+
+
+
+  
+<!-- START - ITEMS -->
+<div class="feature-items d-flex flex-column gap-3" >
+                <!-- START - ITEM -->
+
+
+
+
+
+    <section class="feature-item featureRichTextEditor" style="">
+        <div class="feature__body">
+
+            
+
+<p class="leftAligned">Local history note on James Thomson.</p><p class="leftAligned">The poet of <strong>The Seasons</strong> was born in Ednam in Roxburghshire, Scotland, the son of Thomas Thomson, a preacher. Shortly after his birth the family moved to Southdean where James attended the parish school, later continuing his education at Jedburgh Grammar School.</p><p class="leftAligned">In 1715 Thomson entered Edinburgh University. During his period in the city he joined a literary club called the &quot;The Grotesques&quot;. By this time he had written a considerable quantity of verse and three of his pieces accepted for inclusion in the <strong>Edinburgh Miscellany</strong> of 1720.</p><p class="leftAligned">He came to London in 1725. After a number of short-lived positions, he was appointed tutor to Thomas Hamilton (afterwards the 7th Earl of Haddington), the son of Charles, Lord Binning. He lived at his employer&#8217;s residence in East Barnet. It was during his time there that he began to combine some previously composed fragments into the poem <strong>Winter</strong>, the first of the four which would form <strong>The Seasons.</strong></p><p class="leftAligned">Realising the necessity of contact with patrons and booksellers, Thomson moved from East Barnet back into the metropolis, where he managed to gain introductions to such celebrities as John Gay, Pope and Arbuthnot.</p><p class="leftAligned">In May 1726, under the auspices of the bookseller John Millan, <strong>Winter</strong> was published and it was very favourably received. <strong>Summer</strong> appeared in 1727 and <strong>Spring</strong> in the following year. The final poem of the cycle, <strong>Autumn</strong>, did not appear in print until its inclusion in the first complete edition of <strong>The Seasons</strong> in 1730.</p><p class="leftAligned">In 1730, Thomson was appointed tutor and companion to Charles Richard Talbot, the son of the future Lord Chancellor, Charles Talbot. After travelling around Europe on the customary &quot;Grand Tour&quot;, pupil and tutor returned to England in 1731. After the young Talbot&#8217;s early death in 1733, his father secured for Thomson the sinecure office of Secretary of Briefs, which carried an income of &#163;300 per annum.</p><p class="leftAligned">It was in May 1736 that Thomson moved from his apartment in Lancaster Court, London to a cottage in Kew Foot Lane, Richmond. He lived in this house till 1739, when he moved to another larger cottage in the same road. Here he stayed for the rest of his life, taking great delight in long walks in the area and employing his nephews Thomas and Gilbert Thomson to tend his garden.</p><p class="leftAligned">On the death of Talbot senior in February 1737, Thomson was deprived of his sinecure and, although the office was kept open for some time, he neglected to re-apply for it. In 1738, however, he was introduced to Frederick, Prince of Wales, who, on learning of the poet&#8217;s reduced circumstances, granted him a pension of &#163;100 per annum which continued until 1747. In 1744, Thomson&#8217;s friend and patron, George Lyttelton obtained for him another sinecure office, Surveyor General of the Leeward Islands. The last years of his life were therefore passed in comparative prosperity. In a letter written in 1748 to William Paterson (then overseas, acting as Thomson&#8217;s Deputy in the office of Surveyor General) he writes:-</p><p class="leftAligned">&quot;You must know that I have enlarged my rural domain much to the same dimensions you have done yours. The two fields next to me from the first of which I have walled - no, no - paled in about as much as my garden consisted of before, so that the walk runs around the hedge, where you may figure me walking any time of the day and sometimes under night.&quot;</p><p class="leftAligned">In August 1740, an entertainment called <strong>The Masque of Alfred</strong> was first performed at a fete given by the Prince of Wales in the garden of Cliveden House in Buckinghamshire. Thomson had collaborated with David Mallett on the text of this work and Thomas Arne composed the music. It was in this piece that the song <strong>Rule Britannia</strong>, of which Thomson is generally supposed to have been the author, was heard in public for the first time.</p><p class="leftAligned">From 1730 to 1744, Thomson was engaged in revising <strong>The Seasons</strong> and the revised edition was published in 1744. The final corrections made by the poet before his death were added two years later.</p><p class="leftAligned">Among the poet&#8217;s visitors at Richmond was George Lyttelton who managed to obtained a key to Richmond Park for Thomson.</p><p class="leftAligned">Early in August 1748, Thomson caught a chill after taking a boat-trip from Hammersmith to Kew. He did not fully recover from this illness and died on 27 August. He was buried near the font in Richmond Parish Church and in 1792 the Earl of Buchan erected a brass tablet inside the church to his memory.</p><p class="leftAligned">After Thomson&#8217;s death, his cottage was sold to his friend George Ross who enlarged and improved it and giving it the name &quot;Rossdale Cottage&quot;. Over the years the name was altered slightly to &quot;Rosedale Cottage&quot;. In 1786 the property came into the possession of Mrs. Frances Boscowen (widow of the Admiral) who preserved there a number of items formerly associated with the poet. On her death on 1805 the 6th Earl of Shaftesbury bought the house. The Dowager Countess of Shaftesbury died there in 1865 and three years later it was purchased for the Richmond Infirmary. The House is now incorporated into the buildings of the former Richmond Royal Hospital.</p><p class="leftAligned">In 1851, a board (which has been renewed and repaired on a number of occasions since) was erected in the grounds of Pembroke Lodge in Richmond Park.</p><p class="leftAligned">It bears the following commemorative lines written by John Heneage Jesse:</p><p class="leftAligned">&quot;Ye who from London&#8217;s smoke and turmoil fly,<br>To seek a purer air and brighter sky,<br>Think of the Bard who dwelt in yonder dell<br>Who sang so sweetly what he loved so well,<br>Think, as ye gaze on there luxuriant bowers<br>Here Thomson loved the sunshine and the flowers.<br>He who could paint in all their varied forms,<br>April&#8217;s young blooms.<br>December&#8217;s dreary storms,<br>By you fair stream, which calmly glides along<br>Pure as his life, and lovely as his song,<br>There oft he roved, In yonder churchyard lies<br>All of the deathless Bard that ever dies,<br>For here his gentle spirit lingers still<br>In yon sweet vale &#8211; on this enchanted hill;<br>Flinging a holier int&#8217;rest o&#8217;er the grove,<br>Stirring the heart to poetry and love,<br>Bidding us prize the favourite scenes he trod,<br>And view in Nature&#8217;s beauties, Nature&#8217;s God.&quot;</p><p class="leftAligned">Some other works of Thomson&#8217;s not mentioned above:</p><div class="lb-list-block-2"><ul><li><strong>Sophonisba</strong>, Thomson&#8217;s first drama, produced at Drury Lane in February 1730</li><li><strong>Liberty</strong>, a long political poem, first published in five separate parts between 1734 and 1736</li><li><strong>Tancred and Sigismunda</strong>, drama produced in 1745</li><li><strong>The Castle of Indolence</strong>, poem published in 1748</li></ul></div> <p class="leftAligned"><img src="/media/6350/james_thomson-2.jpg" width="150" height="195" alt=""> <span class="caption" style="width:142px">James Thomson. Illustration.</span></p>
+        </div>
+    </section>
+
+
+                <!-- END - ITEM -->
+</div>
+<!-- END - ITEMS -->
+
+
+
+   
+</div>
+<!-- END - AREA -->
+
+
+
+
+
+<!-- START - AREA -->
+<div class="area-6 primary g-col-12 g-col-md-4 ">
+   
+
+    
+
+
+   
+</div>
+<!-- END - AREA -->
+
+</div>
+
+<!-- END - AREAS -->
+
+
+   
+   
+</div>
+
+                <!-- END - ITEM -->
+</div>
+<!-- END - ITEMS -->
+
+<!-- END - DEFAULT -->
+        <!-- END - BLOCK GRID -->
+        <div class="container lbr2020">
+            <div class="row backtowrap">
+                    <div class="col-12 col-lg-6"><p>Up to: <a href="/services/libraries/branch_libraries/local_studies_collection/local_history_notes"> Local history notes</a></p></div>
+                        <div class="col-12 col-lg-6 updateddate">
+                            <p>
+                                Updated: 05 June 2026
+                            </p>
+                        </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+<!--Grid page for testing-->
+
+
+
+    </main>
+    
+<style>
+    #feedback-area {
+        background-color: #e9f2fb;
+        border-top: #065 5px solid;
+        font-size: inherit;
+    }
+
+        #feedback-area h2 {
+            padding-top: 1rem;
+            margin-top: 1rem;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #065;
+        }
+
+        #feedback-area button.btn.btn-primary, #feedback-area button.btn.btn-default, #feedback-area button.btn.btn-cancel {
+            color: #fff;
+            background-color: #2C3E50;
+            border-color: #2C3E50;
+            min-width: 7rem;
+            min-height: 3.5rem;
+            margin-bottom: 1rem;
+            border-radius: 0;
+            font-size: medium;
+            transition: 0.3s;
+        }
+
+        #feedback-area button.btn.btn-cancel {
+            background-color: #990000;
+        }
+
+        #feedback-area button.btn.btn-default:hover, #feedback-area button.btn.btn-primary:hover {
+            background-color: #517816;
+            border-color: #040d16;
+        }
+
+        #feedback-area button.btn.btn-cancel:hover {
+            background-color: #4d0000;
+        }
+
+
+        #feedback-area button.btn.btn-default:active, #feedback-area button.btn.btn-default:focus-visible, #feedback-area button.btn.btn-primary:active, #feedback-area button.btn.btn-primary:focus-visible {
+            border-color: inherit;
+            outline: 3px solid #ffc107;
+        }
+
+   
+    .page-feedback {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap; 
+        gap: 4rem; 
+    }
+
+      
+        .page-feedback > h2 {
+            margin: 0;
+            line-height: 1.3;
+            margin-bottom: 2rem;
+        }
+
+   
+    .page-feedback-initial {
+        margin-top: 3rem;
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+   
+    .page-feedback-form, .page-feedback-confirmation, .page-feedback-error {
+        flex-basis: 100%;
+    }
+
+   
+
+    .page-feedback-warning {
+        font-size: smaller;
+        color: #330000;
+        font-weight: 700;
+    }
+
+    .page-feedback-counter {
+        color: #333;
+    }
+
+    #feedback-area .report-problem h2 {
+        border: 0;
+        padding-top: 2.5rem;
+        padding-bottom: 2rem;
+    }
+
+   
+
+    .confirmation {
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+        padding: 3rem 0;
+    }
+
+    .confirmation-icon {
+        flex: 0 0 auto; 
+        line-height: 0; 
+        flex-shrink: 0;
+        width: 4rem;
+        height: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .confirmation-icon svg {
+            display: block;
+        }
+
+    .confirmation-message {
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #065;
+        margin: 0;
+        line-height: 1.2;
+    }
+
+</style>
+
+<section id="feedback-area">
+    <div class="container-fluid">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="page-feedback" data-page-feedback>
+                        <h2>Is this page useful?</h2>
+                        <div class="page-feedback-initial" data-page-feedback-initial>
+                            <button type="button" class="btn btn-primary" data-page-feedback-yes>Yes</button>
+                            <button type="button" class="btn btn-default" data-page-feedback-no>No</button>
+                        </div>
+
+                        <div class="page-feedback-form" data-page-feedback-form style="display:none;">
+
+                            <form id="page-feedback-form" method="post" action="/umbraco/surface/FeedbackSurface/Submit">
+                                <input name="__RequestVerificationToken" type="hidden" value="CfDJ8JMQVI7mhZlGkk2FQ3LeDQh45kvJcNehdyVdhLKbPXUINE-BWCo18Kedw2gcyfMUugtpR31_gaCGpC1qsPruNSXQDwRCcJyjLyaZ3dtOSPlxl59vFvIz_Sgj95dwHNnDAnyIvKUUf6rA397lYrY8G-c" />
+                                <input type="hidden" name="Rating" id="page-feedback-rating" />
+                                <input type="hidden" name="PageUrl" value="https://www.richmond.gov.uk/james_thomson" />
+                                <input type="hidden" name="PageTitle" value="James Thomson" />
+                                <input type="hidden" name="Referrer" value="" />
+                                <input type="hidden" name="Timestamp" value="1784184949" />
+
+                                <div style="position:absolute;left:-9999px;" aria-hidden="true">
+                                    <label for="page-feedback-website">Leave this blank</label>
+                                    <input type="text" id="page-feedback-website" name="Website" tabindex="-1" autocomplete="off" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="page-feedback-text">Please tell us what was wrong with this page (optional)</label>
+                                    <p>We cannnot respond to individual feedback, but we will use your comments to improve the page.</p>
+                                    <textarea id="page-feedback-text" name="FeedbackText" class="form-control" rows="4"></textarea>
+                                    <div class="page-feedback-counter">
+                                        <span data-page-feedback-count>0</span>/250 characters
+                                    </div>
+                                    <div class="page-feedback-warning" data-page-feedback-warning style="display:none;">
+                                        Feedback must be 250 characters or fewer.
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary" data-page-feedback-submit>Submit</button>
+                                <button type="button" class="btn btn-cancel">Cancel</button>
+                            </form>
+                        </div>
+
+                        <div class="page-feedback-confirmation" data-page-feedback-confirmation style="display:none;">
+                            <div class="confirmation">
+                                <div class="confirmation-icon" aria-hidden="true">
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="16" cy="16" r="15" stroke="#00703C" stroke-width="2" />
+                                        <path d="M9 16L14 21L23 12" stroke="#00703C" stroke-width="2" stroke-linecap="square" />
+                                    </svg>
+                                </div>
+                                <p class="confirmation-message" data-page-feedback-confirmation-message>Thank you for your feedback</p>
+                            </div>
+                            <div data-page-feedback-confirmation-details style="display:none;">
+                                <p>Your comments will help improve this page.</p>
+                            </div>
+                        </div>
+                        <div class="page-feedback-error alert alert-danger" data-page-feedback-error style="display:none;">
+                            <span data-page-feedback-error-message>Feedback could not be submitted. Try again.</span>
+                            <button type="button" class="btn btn-link" data-page-feedback-retry>Try again</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="report-problem">
+                        <h2><a id="problemlink" href="https://richmond-self.achieveservice.com/service/Report_a_problem_with_this_page?route=website&page=">Report a problem with this page</a></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="/scripts/feedback.js"></script>
+
+
+
+
+
+
+
+
+    <div class="govdelivery">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <p>
+                        <img src="/Assets/img/news-email.png" alt="">
+                            <span><strong>Stay up to date!</strong> Make sure you <a href="https://public.govdelivery.com/accounts/UKLBR/subscriber/new">subscribe to our email</a> updates.</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <style>footer a {
+        text-decoration:underline;
+        }
+        </style>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 contact-part">
+                   <h2>Contact us</h2>
+                    <ul><li><a href="/telephone_numbers">Telephone</a></li><li><a href="https://richmond-self.achieveservice.com/service/Make_an_enquiry">Online enquiry</a></li></ul>
+                </div>
+                <div class="col-sm-7 lb-lline">
+                    <div class="col-sm-12 col-xs-12 lb-tline">
+                        <p>
+                            <strong>Address</strong>: Civic Centre, 44 York Street, Twickenham, TW1 3BZ<br>
+                                <span><strong>Opening hours</strong>: Monday to Friday: 9am to 5pm</span>
+
+                        </p>
+                    </div>
+                </div>
+                <div class="col-sm-2 col-xs-12 lb-lline">
+                    <div class="col-sm-12">
+                        <p>
+                            <a href="/council_offices_map?uniquepoint=1">View map</a>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <ul>
+                        <li class="footnote"><a href="/help">About this site</a></li>
+                        <li class="footnote"><a href="/help/web_accessibility">Accessibility</a></li>
+                        <li class="footnote"><a href="/jobs">Jobs</a></li>
+                        <li class="footnote"><a href="/data_protection">Privacy</a></li>
+                        <li class="footnote"><a id="feedbacklink" href="https://richmond-self.achieveservice.com/service/Tell_us_what_you_think_of_our_website?route=website&amp;page=">Website feedback</a></li>
+                        
+
+                    </ul>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 lb-copy">
+                    <p>&copy; London Borough of Richmond upon Thames</p>
+                </div>
+                <div class="col-sm-4 lb-logo-foot">
+                    <img src="/Assets/img/richmond-logo.png" alt="London Borough of Richmond upon Thames">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+
+    <script src="/Assets/scripts/jquery-3.6.0.min.js"></script>
+    <script src="/Assets/scripts/popper.min.js"></script>
+    <script src="/Assets/scripts/bootstrap/bootstrap.min.js"></script>  
+    <script src="/Assets/scripts/jquery-ui.js"></script>
+    <script src="/scripts/core.js?c=20260316"></script>
+    <script src="/Assets/scripts/aria.accordion.min.js"></script>
+    
+
+
+    
+
+
+   
+
+
+    <!-- GovDelivery Subscription Overlay -->
+    <script src="https://content.govdelivery.com/overlay/js/10641.js"></script>
+    <!-- End GovDelivery Overlay -->
+
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "case_id": "code-c-continuation-cjson",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-c-continuation-cjson/rights-01.bin",
+      "sha256": "a36dda207c36db5818729c54e7ad4e8b0c6fba847491ba64f372c1a2037b6d5c",
+      "source_url": "https://raw.githubusercontent.com/DaveGamble/cJSON/fb16e5cf358798aabb049655975cde8427101056/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-c-continuation-cjson/rights-02.bin",
+      "sha256": "6a2872e0af94bc146ea2d31a4949608c142be3eeaec051a97d873c89e14fd19d",
+      "source_url": "https://github.com/DaveGamble/cJSON/commit/fb16e5cf358798aabb049655975cde8427101056"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-c-continuation-cjson/source.txt",
+    "sha256": "607e756460fa0de37d20a7a9181f2de29c97bfb7ce5a0e6c2f548243836cd852",
+    "source_url": "https://raw.githubusercontent.com/DaveGamble/cJSON/fb16e5cf358798aabb049655975cde8427101056/cJSON.c"
+  }
+}

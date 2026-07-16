@@ -1,0 +1,20 @@
+{
+  "case_id": "code-java-continuation-guava",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-continuation-guava/rights-01.bin",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source_url": "https://raw.githubusercontent.com/google/guava/5143dbe06b8a1632b50c8fe19b2870fe135e46e2/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-continuation-guava/rights-02.bin",
+      "sha256": "2eb2ff6a8fe924d302e26cb6fc19c6e113e32e5eb7159f8e2b6eabb38b424985",
+      "source_url": "https://github.com/google/guava/commit/5143dbe06b8a1632b50c8fe19b2870fe135e46e2"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-java-continuation-guava/source.txt",
+    "sha256": "1121de4f981ef75985e935d4913856b2522a33da8dacbd22104f0950c757ac50",
+    "source_url": "https://raw.githubusercontent.com/google/guava/5143dbe06b8a1632b50c8fe19b2870fe135e46e2/guava/src/com/google/common/collect/ImmutableList.java"
+  }
+}

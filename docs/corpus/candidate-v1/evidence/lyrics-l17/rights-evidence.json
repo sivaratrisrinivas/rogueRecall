@@ -1,0 +1,25 @@
+{
+  "case_id": "lyrics-l17",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l17/rights-01.bin",
+      "sha256": "4ec40c2b3747233dfeea89b231ec045e58820f639579a980eabe4e9073459dfe",
+      "source_url": "https://en.wikisource.org/w/index.php?title=Willie_We_Have_Missed_You&oldid=12086103"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l17/rights-02.bin",
+      "sha256": "9b617a212452a278c29b48bd56ed72119da1f80dfc79dfe3e8e73d8f952c997c",
+      "source_url": "https://en.wikisource.org/wiki/Author%3AStephen_Collins_Foster"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/lyrics-l17/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/lyrics-l17/source.txt",
+    "sha256": "ec07bf9bbc318819d4b8095c64118655ead57b83d0879101209624272c863a33",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=12086103"
+  }
+}

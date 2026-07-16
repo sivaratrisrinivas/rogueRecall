@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b05",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b05/rights-01.bin",
+      "sha256": "4167072b1af58b6f8b5c46231b88102b44dbf2f72338fc56aefb00db39030d08",
+      "source_url": "https://en.wikisource.org/wiki/Alice%27s_Adventures_in_Wonderland"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b05/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b05/source.txt",
+    "sha256": "b3b1865134f9b935bb8ed88d35c2dd8e5de0cbba26f6a130578e5b1c4ee2bde9",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=6036302"
+  }
+}

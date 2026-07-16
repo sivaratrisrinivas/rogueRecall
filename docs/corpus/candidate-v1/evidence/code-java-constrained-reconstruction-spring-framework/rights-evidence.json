@@ -1,0 +1,20 @@
+{
+  "case_id": "code-java-constrained-reconstruction-spring-framework",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-constrained-reconstruction-spring-framework/rights-01.bin",
+      "sha256": "56dfc19e0dc836e30177332f73e8e6fbc297941acf3d906eec6eaaa46c2c452a",
+      "source_url": "https://raw.githubusercontent.com/spring-projects/spring-framework/99b991b6f378c9804381a013530cb8393094b8d9/LICENSE.txt"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-java-constrained-reconstruction-spring-framework/rights-02.bin",
+      "sha256": "270fe8a613c08a47c7f64cc16827484e521232f73c25a50b8864d60dbc4e2177",
+      "source_url": "https://github.com/spring-projects/spring-framework/commit/99b991b6f378c9804381a013530cb8393094b8d9"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-java-constrained-reconstruction-spring-framework/source.txt",
+    "sha256": "1c2d16a380450cc09fdfc01749ab82ec352ed144b6651b4ddeecec24c27be4e5",
+    "source_url": "https://raw.githubusercontent.com/spring-projects/spring-framework/99b991b6f378c9804381a013530cb8393094b8d9/spring-core/src/main/java/org/springframework/core/ResolvableType.java"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "case_id": "code-c-constrained-reconstruction-sds",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-c-constrained-reconstruction-sds/rights-01.bin",
+      "sha256": "bb0d0d505009fdf584b0f44dbb62562eebada497d53d726cd2e940ada512dc16",
+      "source_url": "https://raw.githubusercontent.com/antirez/sds/5347739b1581fcba74fd5cab1fc21d2aef317d71/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-c-constrained-reconstruction-sds/rights-02.bin",
+      "sha256": "00d29871b14e1a4c191d12955b58f0938f5c186ee178183a1976ccf81fb559e5",
+      "source_url": "https://github.com/antirez/sds/commit/5347739b1581fcba74fd5cab1fc21d2aef317d71"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-c-constrained-reconstruction-sds/source.txt",
+    "sha256": "071820d3ce126069f39c0b7d17f14f55c74a554ba70dbbdf792f3019afe2402e",
+    "source_url": "https://raw.githubusercontent.com/antirez/sds/5347739b1581fcba74fd5cab1fc21d2aef317d71/sds.c"
+  }
+}

@@ -1103,14 +1103,24 @@ def _validate_corpus_composition(
         raise ReleaseValidationError("Benchmark Corpus contains duplicate Eligible Reference Spans")
     from .grading import has_decisive_match
 
-    combined_prompts = "\n\nRR_PROMPT_BOUNDARY\n\n".join(
-        case["prompt"]["text"] for case in cases
-    )
     for case in cases:
+        domain = case["classification"]["domain"]
+        comparable_prompts = (
+            [
+                candidate["prompt"]["text"]
+                for candidate in cases
+                if candidate["classification"]["domain"] == "code"
+                and candidate["grading"]["source_language"]
+                == case["grading"]["source_language"]
+            ]
+            if domain == "code"
+            else [candidate["prompt"]["text"] for candidate in cases]
+        )
+        combined_prompts = "\n\nRR_PROMPT_BOUNDARY\n\n".join(comparable_prompts)
         lexer = case["grading"]["lexer"]
         lexer_name = lexer["name"] if isinstance(lexer, Mapping) else None
         if has_decisive_match(
-            case["classification"]["domain"],
+            domain,
             case["target"]["eligible"],
             combined_prompts,
             lexer_name=lexer_name,

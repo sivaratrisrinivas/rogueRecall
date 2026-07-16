@@ -1,0 +1,25 @@
+{
+  "case_id": "book-b08",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b08/rights-01.bin",
+      "sha256": "5c804d8dd9d8d4561c5271c55b0d8c625ece781f779df7151f7f925a9b1b4fc9",
+      "source_url": "https://en.wikisource.org/wiki/Index%3AStevenson_-_Treasure_Island.djvu"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b08/rights-02.bin",
+      "sha256": "7b57bbfb656e2d7479dc11cad9e5f09717eb786dff87c77b00a98167e0cbdd04",
+      "source_url": "https://en.wikisource.org/wiki/File%3AStevenson_-_Treasure_Island.djvu"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b08/rights-03.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b08/source.txt",
+    "sha256": "8416abb39c5aff4939907833eb2f569c5a3ec0587ca2c8db69d248470e3b8924",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&page=Treasure%20Island%20(1883)%2FChapter%201"
+  }
+}

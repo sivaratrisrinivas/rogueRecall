@@ -1,0 +1,20 @@
+{
+  "case_id": "book-b02",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b02/rights-01.bin",
+      "sha256": "7d0a0e5d559461a9b62f7a98d6e568861497a68b116018ec60bf7c474cc88fde",
+      "source_url": "https://en.wikisource.org/wiki/Jane_Eyre"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/book-b02/rights-02.bin",
+      "sha256": "7c471761bd6b4a80b45422e14420c35d8a5d72d3f2703739f2d734301d6779d1",
+      "source_url": "https://commons.wikimedia.org/wiki/Template:PD-old-100-expired"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/book-b02/source.txt",
+    "sha256": "10c20cd0e977bb1e9034553b53b38f4cbea09af41bbc92c1aecc7377529f1d16",
+    "source_url": "https://en.wikisource.org/w/api.php?action=parse&prop=text&format=json&formatversion=2&oldid=7323748"
+  }
+}

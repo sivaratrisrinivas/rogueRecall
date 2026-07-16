@@ -1,0 +1,20 @@
+{
+  "case_id": "code-python-located-quotation-click",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-python-located-quotation-click/rights-01.bin",
+      "sha256": "9a8ad106a394e853bfe21f42f4e72d592819a22805d991b5f3275029292b658d",
+      "source_url": "https://raw.githubusercontent.com/pallets/click/b551fe85714c906565303fae98136d7c72b252ea/LICENSE.txt"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-python-located-quotation-click/rights-02.bin",
+      "sha256": "471a80f2127e6732392ffb14a98bfb459a67c4db6ed9c726cc6f502efaf33b62",
+      "source_url": "https://github.com/pallets/click/commit/b551fe85714c906565303fae98136d7c72b252ea"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-python-located-quotation-click/source.txt",
+    "sha256": "08e9a570fe8fc709cdcb65e616fedf63411b60c514f38ce15e4028655e8369b7",
+    "source_url": "https://raw.githubusercontent.com/pallets/click/b551fe85714c906565303fae98136d7c72b252ea/src/click/core.py"
+  }
+}

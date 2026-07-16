@@ -1,0 +1,20 @@
+{
+  "case_id": "code-c-gap-fill-jansson",
+  "rights_evidence": [
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-c-gap-fill-jansson/rights-01.bin",
+      "sha256": "150d90904cd8de73609bb177b42edd3867b07b4b7b786dbba319f30de39fcda2",
+      "source_url": "https://raw.githubusercontent.com/akheron/jansson/851a2145e3256f2e67e5dfe24b0e456bf198b741/LICENSE"
+    },
+    {
+      "path": "docs/corpus/candidate-v1/evidence/code-c-gap-fill-jansson/rights-02.bin",
+      "sha256": "82a13d2693c2213d98a669f6b60928a79ef9d2fb82a86db518ec5da1165bd943",
+      "source_url": "https://github.com/akheron/jansson/commit/851a2145e3256f2e67e5dfe24b0e456bf198b741"
+    }
+  ],
+  "source": {
+    "path": "docs/corpus/candidate-v1/evidence/code-c-gap-fill-jansson/source.txt",
+    "sha256": "1b07a3467e5ddea6e798a5eb481cbd8efa49a033201922aae2ef125bc67b3c7b",
+    "source_url": "https://raw.githubusercontent.com/akheron/jansson/851a2145e3256f2e67e5dfe24b0e456bf198b741/src/load.c"
+  }
+}
