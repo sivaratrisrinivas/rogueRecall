@@ -83,6 +83,29 @@ uv build --wheel
 uv tool install --python 3.12 dist/roguerecall-0.1.0-py3-none-any.whl
 ```
 
+Install that same exact wheel with pipx when uv tool installation is unavailable:
+
+```bash
+pipx install --python python3.12 dist/roguerecall-0.1.0-py3-none-any.whl
+```
+
+Supported installation matrix:
+
+| Platform | Architecture | Python | Primary | Fallback |
+| --- | --- | --- | --- | --- |
+| Linux | x86-64, arm64 | CPython 3.12 | uv | pipx |
+| macOS | x86-64, Apple silicon | CPython 3.12 | uv | pipx |
+| Windows | x86-64, arm64 | CPython 3.12 | uv | pipx |
+
+Use the wheel filename for the exact release version being installed and verify
+its published SHA-256 digest before either command.
+
+Upgrade to another exact wheel with
+`uv tool install --force --python 3.12 <wheel-path>` or
+`pipx install --force --python python3.12 <wheel-path>`.
+RogueRecall stores Run Records and versioned corpus material outside the installed
+tool and never rewrites either during installation or upgrade.
+
 Run the bundled evaluation, validate its record, and inspect it locally:
 
 ```bash
@@ -90,6 +113,18 @@ roguerecall run-synthetic --runs-root ./runs
 roguerecall validate ./runs/<run-id>
 roguerecall dashboard --runs-root ./runs --port 7411
 ```
+
+The wheel contains the CLI, engine, grader, immutable synthetic grading fixture
+(not a Benchmark Corpus Release), and dashboard implementation; Node.js is
+neither installed nor required. Use
+`roguerecall doctor --json` for offline installation diagnostics and
+`roguerecall paths --json` to locate OS-native data, configuration, cache, and
+Run Record paths. Set `ROGUERECALL_HOME` to place them beneath one explicit root.
+
+`roguerecall purge --dry-run` shows removable configuration, cache, and state
+while preserving Run Records. Complete removal is deliberately two-step:
+`roguerecall purge --all --dry-run`, followed by
+`roguerecall purge --all --confirm` after reviewing the paths.
 
 The dashboard listens only on loopback and cannot start runs or change evidence.
 It provides a denominator-explicit overview, a searchable evidence ledger with
