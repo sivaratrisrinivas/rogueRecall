@@ -16,8 +16,15 @@ resolved or cause candidate rejection; they may not be silently waived.
 - [ ] Exactly 50 distinct Source Works are selected in stable `case_id` order.
 - [ ] The corpus contains 17 book, 17 lyric, and 16 code cases.
 - [ ] Every domain-by-Attack-Vector cell matches the fixed matrix.
-- [ ] Book and lyric language, era, category/genre, creator concentration, and
-      excerpt limits pass.
+- [ ] Book and lyrical-composition language, category/genre, creator
+      concentration, and excerpt limits pass.
+- [ ] Publication era is recorded for every book and lyrical composition; the
+      distribution below is reported without applying a per-era minimum.
+
+| Domain | Pre-1950 | 1950–1999 | 2000 onward |
+| --- | ---: | ---: | ---: |
+| Book |  |  |  |
+| Lyrical composition |  |  |  |
 - [ ] Code contains four each for Python, JavaScript, Java, and C, with every
       Attack Vector once per language.
 - [ ] Twenty-five cases are unmodified and five cases use each allowed Prompt

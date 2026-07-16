@@ -1014,18 +1014,9 @@ def _validate_corpus_composition(
         )
 
     for domain in ("book", "lyrics"):
-        eras: Counter[str] = Counter()
         for case in cases:
-            if case["classification"]["domain"] != domain:
-                continue
-            try:
-                year = int(case["source_work"]["publication_date"][:4])
-            except (TypeError, ValueError) as error:
-                raise ReleaseValidationError("Source Work publication date is invalid") from error
-            era = "pre_1950" if year < 1950 else "1950_1999" if year < 2000 else "2000_onward"
-            eras[era] += 1
-        if eras != Counter({"pre_1950": 5, "1950_1999": 6, "2000_onward": 6}):
-            raise ReleaseValidationError(f"Benchmark Corpus {domain} era allocation is invalid")
+            if case["classification"]["domain"] == domain:
+                _source_work_era(case)
         if any(
             case["grading"]["source_language"] != "en"
             for case in cases
@@ -1350,9 +1341,8 @@ def _validate_selection_slot(
     if not isinstance(value, Mapping) or set(value) != fields:
         raise ReleaseValidationError("Selection Slot fields are invalid")
     classification = case["classification"]
-    year = int(case["source_work"]["publication_date"][:4])
-    expected_era = None if classification["domain"] == "code" else (
-        "pre_1950" if year < 1950 else "1950_1999" if year < 2000 else "2000_onward"
+    expected_era = (
+        None if classification["domain"] == "code" else _source_work_era(case)
     )
     modifiers = classification["prompt_modifiers"]
     expected_modifier = modifiers[0] if modifiers else None
@@ -1375,6 +1365,14 @@ def _validate_selection_slot(
     if dict(value) != expected:
         raise ReleaseValidationError("Selection Slot criteria do not match the candidate")
     return expected
+
+
+def _source_work_era(case: Mapping[str, Any]) -> str:
+    try:
+        year = int(case["source_work"]["publication_date"][:4])
+    except (TypeError, ValueError) as error:
+        raise ReleaseValidationError("Source Work publication date is invalid") from error
+    return "pre_1950" if year < 1950 else "1950_1999" if year < 2000 else "2000_onward"
 
 
 def _validate_candidate_exclusions(

@@ -1,7 +1,10 @@
 # Benchmark Corpus source research for issue #26
 
 Status: Internet-source feasibility research, 2026-07-16. This is not legal
-advice and does not record any human approval.
+advice and does not record any human approval. The recommendation to treat the
+fixed literary-era allocation as a release blocker was superseded by
+[ADR-0001](../adr/0001-record-literary-eras-without-v1-quotas.md); the source
+and rights findings remain applicable.
 
 ## Conclusion
 
@@ -121,10 +124,9 @@ Corpus Candidate Records and evidence snapshots; it cannot mark these fields acc
 
 ## Release recommendation
 
-Do not commit a purported default 50-case release yet. A credible preparatory
+Do not commit a purported default 50-case release until its human evidence
+package is complete. ADR-0001 removes fixed literary-era counts from V1, so
+1950–1999 availability is no longer a release blocker. A credible preparatory
 change may add an **unaccepted intake manifest** and acquisition tooling, but
-must not populate reviewer names, attestations, or approvals. Issue #26 becomes
-implementable only after (at minimum) six eligible 1950–1999 English book works,
-six eligible 1950–1999 English lyric works, the remaining era pools, and the
-human evidence package are supplied. The 1950–1999 lyric set is the clearest
-current source blocker.
+must not fabricate reviewer names, attestations, or approvals. Issue #26 still
+requires 50 rights-cleared Source Works and the complete human evidence package.

@@ -318,6 +318,71 @@ def test_assembly_fails_closed_and_never_publishes_a_partial_release(tmp_path: P
         )
 
 
+def test_release_accepts_any_recorded_literary_era_distribution(tmp_path: Path) -> None:
+    cases = _cases()
+    for case in cases:
+        if case["classification"]["domain"] in {"book", "lyrics"}:
+            case["source_work"]["publication_date"] = "2001-01-01"
+
+    manifest = assemble_release(
+        tmp_path / "modern-literary-corpus",
+        version="1.0.0",
+        cases=cases,
+        composition=_composition(cases),
+        artifacts={},
+        notice_bundle=_notices(),
+        approvals=[
+            {
+                "identity": "Release Curator",
+                "role": "release_curator",
+                "reference": "approval-1",
+            },
+            {
+                "identity": "Rights Reviewer",
+                "role": "rights_reviewer",
+                "reference": "approval-2",
+            },
+        ],
+        contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
+        released_at=NOW,
+        release_channel="github:test/repository",
+        signer=generate_release_identity("release-2026"),
+    )
+
+    assert len(manifest["cases"]) == 50
+
+
+def test_release_requires_a_reportable_literary_publication_date(tmp_path: Path) -> None:
+    cases = _cases()
+    cases[0]["source_work"]["publication_date"] = "unknown"
+
+    with pytest.raises(ReleaseValidationError, match="publication date"):
+        assemble_release(
+            tmp_path / "invalid-publication-date",
+            version="1.0.0",
+            cases=cases,
+            composition=_composition(cases),
+            artifacts={},
+            notice_bundle=_notices(),
+            approvals=[
+                {
+                    "identity": "Release Curator",
+                    "role": "release_curator",
+                    "reference": "approval-1",
+                },
+                {
+                    "identity": "Rights Reviewer",
+                    "role": "rights_reviewer",
+                    "reference": "approval-2",
+                },
+            ],
+            contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
+            released_at=NOW,
+            release_channel="github:test/repository",
+            signer=generate_release_identity("release-2026"),
+        )
+
+
 def test_registry_is_append_only_and_enforces_lifecycle_transitions(tmp_path: Path) -> None:
     release_path, signer, manifest = _assemble(tmp_path)
     trust = TrustStore.from_identities([signer.public_identity()])
