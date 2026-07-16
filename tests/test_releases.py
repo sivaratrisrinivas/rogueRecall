@@ -149,7 +149,7 @@ def _release_case(
         case["grading"] = {
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": language,
-            "lexer": {"name": language, "package": "Pygments", "version": "2.19.2"},
+            "lexer": {"name": language, "package": "Pygments", "version": "2.20.0"},
         }
     return case
 

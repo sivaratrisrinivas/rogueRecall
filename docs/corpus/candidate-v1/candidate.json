@@ -1873,7 +1873,7 @@
         "lexer": {
           "name": "c",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "c"
@@ -1968,7 +1968,7 @@
         "lexer": {
           "name": "c",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "c"
@@ -2063,7 +2063,7 @@
         "lexer": {
           "name": "c",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "c"
@@ -2158,7 +2158,7 @@
         "lexer": {
           "name": "c",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "c"
@@ -2253,7 +2253,7 @@
         "lexer": {
           "name": "java",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "java"
@@ -2348,7 +2348,7 @@
         "lexer": {
           "name": "java",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "java"
@@ -2443,7 +2443,7 @@
         "lexer": {
           "name": "java",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "java"
@@ -2538,7 +2538,7 @@
         "lexer": {
           "name": "java",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "java"
@@ -2631,7 +2631,7 @@
         "lexer": {
           "name": "javascript",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "javascript"
@@ -2724,7 +2724,7 @@
         "lexer": {
           "name": "javascript",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "javascript"
@@ -2817,7 +2817,7 @@
         "lexer": {
           "name": "javascript",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "javascript"
@@ -2910,7 +2910,7 @@
         "lexer": {
           "name": "javascript",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "javascript"
@@ -3003,7 +3003,7 @@
         "lexer": {
           "name": "python",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "python"
@@ -3096,7 +3096,7 @@
         "lexer": {
           "name": "python",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "python"
@@ -3189,7 +3189,7 @@
         "lexer": {
           "name": "python",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "python"
@@ -3282,7 +3282,7 @@
         "lexer": {
           "name": "python",
           "package": "Pygments",
-          "version": "2.19.2"
+          "version": "2.20.0"
         },
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": "python"
@@ -7263,7 +7263,7 @@
             "lexer": {
               "name": "c",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "c"
@@ -7376,7 +7376,7 @@
             "lexer": {
               "name": "c",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "c"
@@ -7489,7 +7489,7 @@
             "lexer": {
               "name": "c",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "c"
@@ -7602,7 +7602,7 @@
             "lexer": {
               "name": "c",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "c"
@@ -7715,7 +7715,7 @@
             "lexer": {
               "name": "java",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "java"
@@ -7828,7 +7828,7 @@
             "lexer": {
               "name": "java",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "java"
@@ -7941,7 +7941,7 @@
             "lexer": {
               "name": "java",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "java"
@@ -8054,7 +8054,7 @@
             "lexer": {
               "name": "java",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "java"
@@ -8165,7 +8165,7 @@
             "lexer": {
               "name": "javascript",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "javascript"
@@ -8276,7 +8276,7 @@
             "lexer": {
               "name": "javascript",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "javascript"
@@ -8387,7 +8387,7 @@
             "lexer": {
               "name": "javascript",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "javascript"
@@ -8498,7 +8498,7 @@
             "lexer": {
               "name": "javascript",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "javascript"
@@ -8609,7 +8609,7 @@
             "lexer": {
               "name": "python",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "python"
@@ -8720,7 +8720,7 @@
             "lexer": {
               "name": "python",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "python"
@@ -8831,7 +8831,7 @@
             "lexer": {
               "name": "python",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "python"
@@ -8942,7 +8942,7 @@
             "lexer": {
               "name": "python",
               "package": "Pygments",
-              "version": "2.19.2"
+              "version": "2.20.0"
             },
             "rule_version": "code-contiguous-lexemes-1.0.0",
             "source_language": "python"

@@ -12,12 +12,8 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any, Callable, Iterable, Mapping, Sequence
 
-from cryptography.exceptions import InvalidSignature
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric.ed25519 import (
-    Ed25519PrivateKey,
-    Ed25519PublicKey,
-)
+from nacl.exceptions import BadSignatureError
+from nacl.signing import SigningKey, VerifyKey
 
 from .cases import EvaluationCaseValidationError, validate_evaluation_case
 from .records import canonical_json, sha256_bytes
@@ -56,22 +52,15 @@ class ReleaseIdentity:
     """Protected Ed25519 signing identity used by release automation."""
 
     key_id: str
-    _private_key: Ed25519PrivateKey
+    _private_key: SigningKey
 
     def private_key_bytes(self) -> bytes:
         """Serialize the raw private key for protected configuration storage."""
 
-        return self._private_key.private_bytes(
-            encoding=serialization.Encoding.Raw,
-            format=serialization.PrivateFormat.Raw,
-            encryption_algorithm=serialization.NoEncryption(),
-        )
+        return bytes(self._private_key)
 
     def public_identity(self) -> dict[str, str]:
-        public_key = self._private_key.public_key().public_bytes(
-            encoding=serialization.Encoding.Raw,
-            format=serialization.PublicFormat.Raw,
-        )
+        public_key = bytes(self._private_key.verify_key)
         return {
             "algorithm": "Ed25519",
             "key_id": self.key_id,
@@ -79,7 +68,7 @@ class ReleaseIdentity:
         }
 
     def sign(self, value: Mapping[str, Any]) -> dict[str, str]:
-        signature = self._private_key.sign(canonical_json(value))
+        signature = self._private_key.sign(canonical_json(value)).signature
         return {
             "algorithm": "Ed25519",
             "key_id": self.key_id,
@@ -92,7 +81,7 @@ def generate_release_identity(key_id: str) -> ReleaseIdentity:
 
     if not isinstance(key_id, str) or not _KEY_ID.fullmatch(key_id):
         raise ReleaseValidationError("release key_id is invalid")
-    return ReleaseIdentity(key_id, Ed25519PrivateKey.generate())
+    return ReleaseIdentity(key_id, SigningKey.generate())
 
 
 def load_release_identity(key_id: str, private_key: bytes) -> ReleaseIdentity:
@@ -101,7 +90,7 @@ def load_release_identity(key_id: str, private_key: bytes) -> ReleaseIdentity:
     if not isinstance(key_id, str) or not _KEY_ID.fullmatch(key_id):
         raise ReleaseValidationError("release key_id is invalid")
     try:
-        loaded = Ed25519PrivateKey.from_private_bytes(private_key)
+        loaded = SigningKey(private_key)
     except (TypeError, ValueError) as error:
         raise ReleaseValidationError("configured release private key is invalid") from error
     return ReleaseIdentity(key_id, loaded)
@@ -196,7 +185,7 @@ class TrustStore:
     """Offline trust keys plus append-only rotation and revocation records."""
 
     def __init__(self) -> None:
-        self._keys: dict[str, Ed25519PublicKey] = {}
+        self._keys: dict[str, VerifyKey] = {}
         self._revoked: set[str] = set()
         self._rotation_records: list[dict[str, Any]] = []
         self._revocation_records: list[dict[str, Any]] = []
@@ -234,8 +223,8 @@ class TrustStore:
             raise ReleaseValidationError("signature value is missing")
         try:
             raw_signature = base64.b64decode(encoded, validate=True)
-            self._keys[key_id].verify(raw_signature, canonical_json(value))
-        except (ValueError, InvalidSignature) as error:
+            self._keys[key_id].verify(canonical_json(value), raw_signature)
+        except (ValueError, BadSignatureError) as error:
             raise ReleaseValidationError("signature verification failed") from error
 
     def apply_rotation(self, record: Mapping[str, Any]) -> None:
@@ -286,14 +275,12 @@ class TrustStore:
         encoded = identity.get("public_key")
         try:
             raw = base64.b64decode(encoded, validate=True) if isinstance(encoded, str) else b""
-            key = Ed25519PublicKey.from_public_bytes(raw)
+            key = VerifyKey(raw)
         except ValueError as error:
             raise ReleaseValidationError("public trust key is invalid") from error
         existing = self._keys.get(key_id)
         if existing is not None:
-            existing_raw = existing.public_bytes(
-                serialization.Encoding.Raw, serialization.PublicFormat.Raw
-            )
+            existing_raw = bytes(existing)
             if existing_raw != raw:
                 raise ReleaseValidationError("key_id cannot be reused for another key")
         self._keys[key_id] = key

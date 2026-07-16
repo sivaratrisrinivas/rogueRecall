@@ -21,7 +21,7 @@
   ],
   "grader_validation": {
     "set_version": "1.0.0",
-    "artifact": {"path": "grader-validation.json", "sha256": "33b18734f50e7cf42033ba3a77d1bd7b519944be9417bc574adeede944ea4619"},
+    "artifact": {"path": "grader-validation.json", "sha256": "0b0be9493bb5362d7b27b453bc1a01947f0fc63745f8a64528bd1ae08e1db6dc"},
     "overall": {"true_positive": 12, "true_negative": 897, "false_positive": 0, "false_negative": 0, "sample_count": 909, "sensitivity": 1.0, "false_positive_upper_95": 0.0033341531534265556},
     "domains": {
       "book": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286},
@@ -30,16 +30,16 @@
     }
   },
   "adapter_conformance": [
-    {"adapter_id": "openai-responses-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "e01c18c7d9fc00d8c426aab93bfd228cfc27ad67ea43b408b0809ef3d36765dc"}},
-    {"adapter_id": "anthropic-messages-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "e01c18c7d9fc00d8c426aab93bfd228cfc27ad67ea43b408b0809ef3d36765dc"}},
-    {"adapter_id": "openai-compatible-chat-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "e01c18c7d9fc00d8c426aab93bfd228cfc27ad67ea43b408b0809ef3d36765dc"}}
+    {"adapter_id": "openai-responses-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "b20681347eef9f4f10ee9e73127beffd836c00fd339a7bdb5fd98805b96fe7b0"}},
+    {"adapter_id": "anthropic-messages-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "b20681347eef9f4f10ee9e73127beffd836c00fd339a7bdb5fd98805b96fe7b0"}},
+    {"adapter_id": "openai-compatible-chat-v1", "contract_version": "1.0.0", "outcome": "passed", "artifact": {"path": "adapter-conformance.json", "sha256": "b20681347eef9f4f10ee9e73127beffd836c00fd339a7bdb5fd98805b96fe7b0"}}
   ],
-  "corpus_candidate_record_evidence": {"case_count": 50, "outcome": "passed", "artifact": {"path": "corpus-validation.json", "sha256": "2ba6a436c8a5e9588606176895ad5665cb2933dbd561e6f1a224e2cd66268ebd"}},
+  "corpus_candidate_record_evidence": {"case_count": 50, "outcome": "passed", "artifact": {"path": "corpus-validation.json", "sha256": "dcfb1d77aca48ce772ec777f238b358ca83800ba978529ec4a81c3bfbdd87348"}},
   "gates": [
-    {"id": "deterministic-grading", "category": "correctness", "outcome": "passed", "contract": "grading 1.0.0", "environment": "linux-x86-64", "inputs": ["frozen Grader Validation Set 1.0.0"], "artifacts": [{"path": "grader-validation.json", "sha256": "33b18734f50e7cf42033ba3a77d1bd7b519944be9417bc574adeede944ea4619"}], "exception_id": null},
+    {"id": "deterministic-grading", "category": "correctness", "outcome": "passed", "contract": "grading 1.0.0", "environment": "linux-x86-64", "inputs": ["frozen Grader Validation Set 1.0.0"], "artifacts": [{"path": "grader-validation.json", "sha256": "0b0be9493bb5362d7b27b453bc1a01947f0fc63745f8a64528bd1ae08e1db6dc"}], "exception_id": null},
     {"id": "run-record-integrity", "category": "traceability", "outcome": "passed", "contract": "run_record 1.0.0", "environment": "linux-x86-64", "inputs": ["completion, amendment, comparison, export fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},
-    {"id": "adapter-contracts", "category": "provider", "outcome": "passed", "contract": "target_adapter 1.0.0", "environment": "linux-x86-64", "inputs": ["three recorded adapter suites"], "artifacts": [{"path": "adapter-conformance.json", "sha256": "e01c18c7d9fc00d8c426aab93bfd228cfc27ad67ea43b408b0809ef3d36765dc"}], "exception_id": null},
-    {"id": "corpus-candidate-record", "category": "corpus", "outcome": "passed", "contract": "corpus_candidate 1.0.0", "environment": "linux-x86-64", "inputs": ["Corpus Candidate Record candidate.json and 174 local evidence files"], "artifacts": [{"path": "corpus-validation.json", "sha256": "2ba6a436c8a5e9588606176895ad5665cb2933dbd561e6f1a224e2cd66268ebd"}], "exception_id": null},
+    {"id": "adapter-contracts", "category": "provider", "outcome": "passed", "contract": "target_adapter 1.0.0", "environment": "linux-x86-64", "inputs": ["three recorded adapter suites"], "artifacts": [{"path": "adapter-conformance.json", "sha256": "b20681347eef9f4f10ee9e73127beffd836c00fd339a7bdb5fd98805b96fe7b0"}], "exception_id": null},
+    {"id": "corpus-candidate-record", "category": "corpus", "outcome": "passed", "contract": "corpus_candidate 1.0.0", "environment": "linux-x86-64", "inputs": ["Corpus Candidate Record candidate.json and 174 local evidence files"], "artifacts": [{"path": "corpus-validation.json", "sha256": "dcfb1d77aca48ce772ec777f238b358ca83800ba978529ec4a81c3bfbdd87348"}], "exception_id": null},
     {"id": "security", "category": "security", "outcome": "passed", "contract": "security gates 1.0.0", "environment": "linux-x86-64", "inputs": ["secret, endpoint, loopback, dependency, and integrity fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},
     {"id": "five-minute-target-condition", "category": "performance", "outcome": "excepted", "contract": "V1 five-minute condition", "environment": "linux-x86-64", "inputs": ["50 cases, warm connections, no retries or throttling"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": "PERF-2026-01"},
     {"id": "wcag-2.2-aa", "category": "accessibility", "outcome": "passed", "contract": "WCAG 2.2 AA", "environment": "supported-browser-matrix", "inputs": ["dashboard semantic and responsive fixtures"], "artifacts": [{"path": "gate-evidence.json", "sha256": "6e4703d8158ea242698d381d714dfb561494035ed5f19dfeac5aba903e9272db"}], "exception_id": null},

@@ -397,7 +397,7 @@ def _validate_grading(grading: dict[str, Any], domain: str, eligible: str) -> No
         expected_lexer = {
             "name": SUPPORTED_LEXERS[grading["source_language"]],
             "package": "Pygments",
-            "version": "2.19.2",
+            "version": "2.20.0",
         }
         if grading["lexer"] != expected_lexer:
             raise EvaluationCaseValidationError("code lexer identity is not pinned")

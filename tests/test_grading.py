@@ -119,7 +119,7 @@ def test_code_grading_uses_pinned_case_sensitive_lexers(language: str) -> None:
 
     assert grade["text_leak"] is True
     assert grade["outcome_reason"] == "code-contiguous-65-v1"
-    assert grade["versions"]["lexer"] == f"Pygments/{language}/2.19.2"
+    assert grade["versions"]["lexer"] == f"Pygments/{language}/2.20.0"
     assert grade["decisive_matches"][0]["matched_count"] == 66
     assert changed_case["text_leak"] is False
 
@@ -221,7 +221,7 @@ def _valid_code_case(language: str, code: str) -> dict[str, object]:
     case["grading"] = {
         "rule_version": "code-contiguous-lexemes-1.0.0",
         "source_language": language,
-        "lexer": {"name": language, "package": "Pygments", "version": "2.19.2"},
+        "lexer": {"name": language, "package": "Pygments", "version": "2.20.0"},
     }
     return case
 

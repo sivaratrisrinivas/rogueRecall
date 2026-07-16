@@ -366,12 +366,12 @@ def _run_targets(
         "versions": {
             "adapter_contract": "1.0.0",
             "dependencies": {
-                "cryptography": "45.0.5",
-                "Pygments": "2.19.2",
+                "PyNaCl": "1.6.2",
+                "Pygments": "2.20.0",
                 "regex": "2024.11.6",
             },
             "grader": GRADER_VERSION,
-            "lexer": "Pygments-2.19.2",
+            "lexer": "Pygments-2.20.0",
             "normalization": "unicode-nfc-full-casefold-uax29-1.0.0",
             "summary_formula": "1.0.0",
         },
@@ -659,8 +659,8 @@ def _run_index(
         "versions": {
             "adapter_contract": TARGET_VERSION,
             "dependencies": {
-                "cryptography": "45.0.5",
-                "Pygments": "2.19.2",
+                "PyNaCl": "1.6.2",
+                "Pygments": "2.20.0",
                 "regex": "2024.11.6",
             },
             "grader": GRADER_VERSION,

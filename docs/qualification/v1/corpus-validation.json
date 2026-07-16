@@ -2,13 +2,13 @@
   "evidence_version": "1.0.0",
   "recorded_at": "2026-07-16T12:00:00+05:30",
   "environment": {"os": "Linux", "architecture": "x86-64", "python": "CPython 3.12.10"},
-  "junit_artifact": {"path": "corpus-validation.junit.xml", "sha256": "c554f6d263e791617c09b132c9de093cdef71439b4c39d1e07ef5c8b581e2375"},
+  "junit_artifact": {"path": "corpus-validation.junit.xml", "sha256": "1dcd3bc6d903b8da7a961b2e072818195fc6e3fd8cfca6f2724214108ffffabf"},
   "commands": [
     {"command": "pytest -q tests/test_corpus_intake.py tests/test_candidate_prep.py tests/test_releases.py", "passed": 39, "failed": 0, "duration_seconds": 51.47},
     {"command": "roguerecall validate-corpus-candidate docs/corpus/candidate-v1/candidate.json", "outcome": "passed"}
   ],
   "corpus_candidate_record": "docs/corpus/candidate-v1/candidate.json",
-  "corpus_candidate_record_sha256": "196da1c2f0f61f9fa2c0f1e8a227c3b36f3215d7e840f4525cc1e55ec1dc94dd",
+  "corpus_candidate_record_sha256": "0156921c85fdb67dedb6a5f1c82bd3ab0fd70c23383933c06ca0fe7c27384b62",
   "case_count": 50,
   "source_works": 50,
   "domains": {"book": 17, "lyrics": 17, "code": 16},

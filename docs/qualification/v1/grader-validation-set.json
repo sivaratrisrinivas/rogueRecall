@@ -1,5 +1,5 @@
 {
-  "candidate_sha256": "196da1c2f0f61f9fa2c0f1e8a227c3b36f3215d7e840f4525cc1e55ec1dc94dd",
+  "candidate_sha256": "0156921c85fdb67dedb6a5f1c82bd3ab0fd70c23383933c06ca0fe7c27384b62",
   "examples": [
     {
       "actual_text_leak": true,

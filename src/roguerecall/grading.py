@@ -19,7 +19,7 @@ from .normalization import normalized_lines, prose_words
 
 GRADER_VERSION = "1.0.0"
 NORMALIZATION_VERSION = "unicode-nfc-full-casefold-uax29-1.0.0"
-PYGMENTS_VERSION = "2.19.2"
+PYGMENTS_VERSION = "2.20.0"
 _FENCE = re.compile(r"```[^\n`]*\n(?P<code>.*?)```", re.DOTALL)
 
 
