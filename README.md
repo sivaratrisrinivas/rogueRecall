@@ -190,13 +190,37 @@ pins, and permanent reasoned audit overrides remain part of the immutable Run
 Record. `run_targets` remains the separate interface for a non-release
 Evaluation Case Set and cannot attach Benchmark Corpus Release identity.
 
+### V1 qualification evidence
+
+RogueRecall includes a fail-closed validator for versioned qualification
+reports and their local evidence artifacts:
+
+```bash
+roguerecall validate-qualification docs/qualification/v1/qualification.json
+```
+
+The validator checks the exact source revision and contract versions, artifact
+SHA-256 hashes, overall and per-domain grader confusion matrices, all three
+adapter contracts, the 50-case Corpus Candidate Record, required gate
+categories, and exception ownership and expiry. Correctness, traceability,
+provider, corpus, security, accessibility, packaging, and documentation gates
+cannot be waived; only an explicit performance exception is accepted.
+
+The checked-in V1 bundle records the qualification work completed in the local
+Linux x86-64 environment. It is not a claim that issue #29 is fully qualified:
+primary cross-platform and supported-browser run reports, scanner outputs, the
+reproducible frozen Grader Validation Set with per-case results, and final
+corpus signing evidence still need to be attached before closing that issue.
+The current provider-dependent five-minute condition is an owned, expiring
+performance exception rather than a measured pass.
+
 ### Benchmark Corpus release workflow
 
 RogueRecall does not yet ship its default public Benchmark Corpus Release.
-[Issue #26](https://github.com/sivaratrisrinivas/rogueRecall/issues/26) remains
-open until 50 rights-cleared Source Works have complete Contributor
-Attestations, durable Rights Evidence, independent reviews, and release-curator
-approval. The intake validator and human review templates are documented in
+[Issue #26](https://github.com/sivaratrisrinivas/rogueRecall/issues/26) produced
+the frozen, human-reviewed 50-case Corpus Candidate Record. A signed Benchmark
+Corpus Release remains a downstream publication operation. The intake
+validator and human review templates are documented in
 [docs/corpus](docs/corpus/README.md).
 
 V1 records and reports the publication eras selected for books and lyrical
