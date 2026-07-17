@@ -383,12 +383,15 @@ def _validate_rights(rights: dict[str, Any], domain: str, reference: str) -> Non
 
 
 def _validate_grading(grading: dict[str, Any], domain: str, eligible: str) -> None:
-    expected_rule = {
-        "book": "book-contiguous-words-1.0.0",
-        "lyrics": "lyrics-contiguous-lines-1.0.0",
-        "code": "code-contiguous-lexemes-1.0.0",
+    expected_rules = {
+        "book": {"book-contiguous-words-1.0.0"},
+        "lyrics": {"lyrics-contiguous-lines-1.0.0"},
+        "code": {
+            "code-contiguous-lexemes-1.0.0",
+            "code-contiguous-lexemes-1.0.1",
+        },
     }[domain]
-    if grading["rule_version"] != expected_rule:
+    if grading["rule_version"] not in expected_rules:
         raise EvaluationCaseValidationError("grading rule is incompatible with domain")
     _text(grading, "source_language")
     if domain == "code":

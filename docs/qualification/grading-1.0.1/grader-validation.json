@@ -1,0 +1,19 @@
+{
+  "set_version": "1.0.1",
+  "grader_version": "1.0.1",
+  "rule_versions": {
+    "book": "book-contiguous-words-1.0.0",
+    "lyrics": "lyrics-contiguous-lines-1.0.0",
+    "code": "code-contiguous-lexemes-1.0.1"
+  },
+  "command": "python scripts/generate_grader_validation.py && pytest -q tests/test_qualification_evidence.py",
+  "per_example_artifact": {"path": "grader-validation-set.json", "sha256": "c03d49b8cd0a9fd2907573af30d1cb0c5a4c59fd165f92d52dc7ed37de16abe0"},
+  "construction": "Locked deterministic threshold, normalization, prompt-echo, source-identification, boilerplate, response lexer-error barrier, strict authored lexer-error, and adversarial-fragment conformance strata. The negative strata are fixtures, not an independently sampled operational population; confidence bounds therefore describe only this frozen set.",
+  "overall": {"true_positive": 12, "true_negative": 897, "false_positive": 0, "false_negative": 0, "sample_count": 909, "sensitivity": 1.0, "false_positive_upper_95": 0.0033341531534265556},
+  "domains": {
+    "book": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286},
+    "lyrics": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286},
+    "code": {"true_positive": 4, "true_negative": 299, "false_positive": 0, "false_negative": 0, "sample_count": 303, "sensitivity": 1.0, "false_positive_upper_95": 0.009969146792899286}
+  },
+  "limitations": ["No true false-positive rate of zero is claimed.", "The confidence bounds do not generalize beyond the declared deterministic fixture population."]
+}

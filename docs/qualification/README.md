@@ -20,3 +20,9 @@ The frozen grader evidence deliberately distinguishes deterministic conformance
 fixtures from independently sampled operational data. Its confidence bounds
 describe the named fixture population only and do not claim a true
 false-positive rate of zero.
+
+Grader Validation Set `1.0.1` qualifies
+`code-contiguous-lexemes-1.0.1` response lexer-error barriers while retaining
+the V1 book and lyrical-composition rules. It does not rewrite the frozen V1
+Corpus Candidate Record; a future Evaluation Case Set must explicitly select
+the new code rule and will have a distinct fingerprint.

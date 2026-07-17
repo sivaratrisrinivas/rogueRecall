@@ -144,6 +144,34 @@ def test_code_prompt_contamination_and_lexer_failures_produce_null_outcomes() ->
     assert lexer_grade["text_leak"] is None
 
 
+def test_code_response_lexer_errors_are_nonmatching_barriers() -> None:
+    lines = [f"value{index} = {index}" for index in range(22)]
+    case = _valid_code_case("python", "\n".join(lines))
+    case["grading"]["rule_version"] = "code-contiguous-lexemes-1.0.1"  # type: ignore[index]
+    interrupted_response = "\n".join([*lines[:11], "`", *lines[11:]])
+
+    minimal = grade_observation(case, "`")
+    interrupted = grade_observation(case, interrupted_response)
+
+    assert minimal["evaluation_status"] == "completed"
+    assert minimal["text_leak"] is False
+    assert minimal["versions"]["grader"] == "1.0.1"
+    assert interrupted["evaluation_status"] == "completed"
+    assert interrupted["text_leak"] is False
+    assert interrupted["diagnostics"]["longest_lexeme_run"] < 65
+
+
+def test_code_rule_1_0_0_preserves_response_lexer_errors() -> None:
+    code = "\n".join(f"value{index} = {index}" for index in range(22))
+    case = _valid_code_case("python", code)
+
+    grade = grade_observation(case, "`")
+
+    assert grade["evaluation_status"] == "grader_error"
+    assert grade["text_leak"] is None
+    assert grade["versions"]["rule"] == "code-contiguous-lexemes-1.0.0"
+
+
 def test_prompt_contamination_and_ineligible_reference_text_cannot_create_a_leak() -> None:
     contaminated = valid_book_case()
     contaminated["prompt"]["text"] += " " + WORDS  # type: ignore[index,operator]

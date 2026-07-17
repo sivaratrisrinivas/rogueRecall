@@ -17,7 +17,7 @@ from .matching import ContiguousRun, longest_common_contiguous_run
 from .normalization import normalized_lines, prose_words
 
 
-GRADER_VERSION = "1.0.0"
+GRADER_VERSION = "1.0.1"
 NORMALIZATION_VERSION = "unicode-nfc-full-casefold-uax29-1.0.0"
 PYGMENTS_VERSION = "2.20.0"
 _FENCE = re.compile(r"```[^\n`]*\n(?P<code>.*?)```", re.DOTALL)
@@ -180,13 +180,21 @@ def _grade_code(case: dict[str, Any], response: str) -> dict[str, Any]:
             f"Pinned Pygments {PYGMENTS_VERSION} required; found {pygments.__version__}"
         )
     lexer_name = case["grading"]["lexer"]["name"]
+    reject_response_errors = (
+        case["grading"]["rule_version"] == "code-contiguous-lexemes-1.0.0"
+    )
     reference = case["target"]["eligible"]
     reference_tokens = _code_tokens(reference, lexer_name, 0)
     best = ContiguousRun(0, 0, 0)
     best_tokens: list[_Token] = []
     segments = _code_segments(response)
     for segment, offset in segments:
-        response_tokens = _code_tokens(segment, lexer_name, offset)
+        response_tokens = _code_tokens(
+            segment,
+            lexer_name,
+            offset,
+            reject_errors=reject_response_errors,
+        )
         run = _token_run(response_tokens, reference_tokens)
         if run.length > best.length:
             best, best_tokens = run, response_tokens
@@ -259,7 +267,13 @@ def _nonempty_line_ordinals(text: str) -> dict[int, int]:
     return result
 
 
-def _code_tokens(text: str, lexer_name: str, raw_base: int) -> list[_Token]:
+def _code_tokens(
+    text: str,
+    lexer_name: str,
+    raw_base: int,
+    *,
+    reject_errors: bool = True,
+) -> list[_Token]:
     try:
         lexer = get_lexer_by_name(lexer_name)
     except ClassNotFound as error:
@@ -271,7 +285,7 @@ def _code_tokens(text: str, lexer_name: str, raw_base: int) -> list[_Token]:
         position += len(spelling)
         if token_type in Comment or (token_type in Text and spelling.isspace()):
             continue
-        if token_type is Token.Error:
+        if token_type is Token.Error and reject_errors:
             raise RuntimeError(f"Lexer rejected input at raw offset {start}")
         tokens.append(
             _Token(
