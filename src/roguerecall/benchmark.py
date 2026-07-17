@@ -60,6 +60,7 @@ def run_benchmark(
             "case_set": {
                 "case_count": len(cases),
                 "fingerprint": corpus["fingerprint"],
+                "era_distribution": corpus["era_distribution"],
                 "version": corpus["version"],
             },
             "complete": all(

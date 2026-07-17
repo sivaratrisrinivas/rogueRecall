@@ -171,7 +171,7 @@ optional custom CA bundle may be declared. Each target receives a model lookup
 and public response-shape probe before corpus timing. RogueRecall—not an SDK—owns
 the bounded three-attempt retry policy and preserves every physical attempt.
 
-### Run an Evaluation Case Set through an OpenAI-compatible gateway
+### Run the Benchmark Corpus through an OpenAI-compatible gateway
 
 This operator workflow uses BluesMinds as an example. The same adapter works
 with another HTTPS gateway that implements OpenAI-compatible model lookup and
@@ -192,24 +192,6 @@ variable named by the manifest and never writes its value into the Run Record:
 export BLUESMINDS_API_KEY
 test -n "$BLUESMINDS_API_KEY" && echo "credential available"
 ```
-
-Prepare a standalone, non-release Evaluation Case Set. It contains only its
-schema version and authored Evaluation Cases:
-
-```json
-{
-  "schema_version": "1.0.0",
-  "cases": [
-    {"identity": {"case_id": "example-case", "revision": 1}}
-  ]
-}
-```
-
-The abbreviated case above illustrates only the container; every case must
-satisfy the complete Evaluation Case contract. `benchmark` rejects a Corpus
-Candidate Record because candidates cannot be executed before release
-assembly. Signed Benchmark Corpus Release orchestration remains available
-through the Python release interface rather than this first-run command.
 
 Create `.local/bluesminds-target.json`. The base URL deliberately omits `/v1`;
 the adapter appends its versioned endpoint paths:

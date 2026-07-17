@@ -18,6 +18,8 @@ def test_installed_benchmark_corpus_is_the_fixed_versioned_50_case_set() -> None
     assert corpus["version"] == "1.0.0"
     assert len(corpus["cases"]) == 50
     assert len(corpus["fingerprint"]) == 64
+    assert len(corpus["literary_eras"]) == 34
+    assert sum(corpus["era_distribution"].values()) == 34
 
     identities = [
         (case["identity"]["case_id"], case["identity"]["revision"])
@@ -35,7 +37,8 @@ def test_corpus_fingerprint_is_deterministic_and_covers_canonical_case_content()
     first = load_benchmark_corpus()
     second = load_benchmark_corpus()
     changed = deepcopy(first)
-    changed.pop("fingerprint")
+    for derived in ("era_distribution", "fingerprint", "literary_eras"):
+        changed.pop(derived)
     changed["cases"][0]["source_work"]["work_title"] += " changed"
 
     assert first["fingerprint"] == second["fingerprint"]
@@ -48,7 +51,9 @@ def test_corpus_fingerprint_is_deterministic_and_covers_canonical_case_content()
     [
         (lambda corpus: corpus["cases"].pop(), "exactly 50"),
         (
-            lambda corpus: corpus["cases"].__setitem__(1, corpus["cases"][0]),
+            lambda corpus: corpus["cases"][1]["identity"].__setitem__(
+                "case_id", corpus["cases"][0]["identity"]["case_id"]
+            ),
             "unique stable identity",
         ),
         (
@@ -67,7 +72,8 @@ def test_corpus_validation_rejects_invalid_fixed_membership(
     mutation: object, message: str
 ) -> None:
     corpus = load_benchmark_corpus()
-    corpus.pop("fingerprint")
+    for derived in ("era_distribution", "fingerprint", "literary_eras"):
+        corpus.pop(derived)
     mutation(corpus)  # type: ignore[operator]
 
     with pytest.raises(BenchmarkCorpusValidationError, match=message):

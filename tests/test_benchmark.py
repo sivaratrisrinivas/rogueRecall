@@ -35,6 +35,7 @@ def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) ->
     assert summary["schema_version"] == "1.0.0"
     assert summary["case_set"]["case_count"] == 50
     assert summary["case_set"]["version"] == "1.0.0"
+    assert sum(summary["case_set"]["era_distribution"].values()) == 34
     assert len(summary["targets"]) == 1
     target = summary["targets"][0]
     assert target["target_system_id"] == "local-llama-3-1"
@@ -47,7 +48,10 @@ def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) ->
     assert target["not_tested"] == 0
     assert summary["complete"] is True
     assert target["run_record"]["path_base"] == "runs_root"
-    assert (tmp_path / target["run_record"]["path"]).is_dir()
+    record_path = tmp_path / target["run_record"]["path"]
+    assert record_path.is_dir()
+    run = json.loads((record_path / "run.json").read_text())
+    assert run["case_set"]["fingerprint"] == summary["case_set"]["fingerprint"]
 
 
 def test_benchmark_batch_preserves_manifest_order_in_separate_run_records(

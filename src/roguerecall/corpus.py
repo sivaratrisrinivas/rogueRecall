@@ -62,26 +62,25 @@ def validate_benchmark_corpus(
             "Benchmark Corpus requires exactly 50 Evaluation Cases"
         )
 
-    raw_identities = []
+    case_ids = []
     for case in raw_cases:
         if isinstance(case, Mapping):
             identity = case.get("identity")
             if isinstance(identity, Mapping):
-                raw_identities.append(
-                    (identity.get("case_id"), identity.get("revision"))
-                )
-    if len(raw_identities) == 50 and len(raw_identities) != len(set(raw_identities)):
+                case_ids.append(identity.get("case_id"))
+    if len(case_ids) == 50 and len(case_ids) != len(set(case_ids)):
         raise BenchmarkCorpusValidationError(
             "Benchmark Corpus cases require unique stable identity"
         )
 
+    validated_cases = []
     try:
         for case in raw_cases:
             if not isinstance(case, Mapping):
                 raise BenchmarkCorpusValidationError(
                     "Benchmark Corpus cases must be objects"
                 )
-            validate_evaluation_case(case)
+            validated_cases.append(validate_evaluation_case(case))
     except EvaluationCaseValidationError as error:
         raise BenchmarkCorpusValidationError(str(error)) from error
 
@@ -90,9 +89,39 @@ def validate_benchmark_corpus(
         "schema_version": corpus["schema_version"],
         "version": corpus["version"],
     }
-    fingerprint = sha256_bytes(canonical_json(canonical))
+    case_set = {
+        "cases": validated_cases,
+        "schema_version": CORPUS_SCHEMA_VERSION,
+    }
+    fingerprint = sha256_bytes(canonical_json(case_set))
     if expected_fingerprint is not None and fingerprint != expected_fingerprint:
         raise BenchmarkCorpusValidationError(
             "Benchmark Corpus fingerprint does not match canonical content"
         )
-    return {**canonical, "cases": copy.deepcopy(raw_cases), "fingerprint": fingerprint}
+    literary_eras = {
+        case["identity"]["case_id"]: _publication_era(
+            case["source_work"]["publication_date"]
+        )
+        for case in validated_cases
+        if case["classification"]["domain"] in {"book", "lyrics"}
+    }
+    era_distribution = {
+        era: sum(value == era for value in literary_eras.values())
+        for era in ("pre-1950", "1950-1999", "2000-onward")
+    }
+    return {
+        **canonical,
+        "cases": copy.deepcopy(raw_cases),
+        "era_distribution": era_distribution,
+        "fingerprint": fingerprint,
+        "literary_eras": literary_eras,
+    }
+
+
+def _publication_era(publication_date: str) -> str:
+    year = int(publication_date[:4])
+    if year < 1950:
+        return "pre-1950"
+    if year < 2000:
+        return "1950-1999"
+    return "2000-onward"
