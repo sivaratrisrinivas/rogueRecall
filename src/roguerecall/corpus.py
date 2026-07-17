@@ -89,11 +89,11 @@ def validate_benchmark_corpus(
         "schema_version": corpus["schema_version"],
         "version": corpus["version"],
     }
-    case_set = {
+    fingerprint_content = {
         "cases": validated_cases,
         "schema_version": CORPUS_SCHEMA_VERSION,
     }
-    fingerprint = sha256_bytes(canonical_json(case_set))
+    fingerprint = sha256_bytes(canonical_json(fingerprint_content))
     if expected_fingerprint is not None and fingerprint != expected_fingerprint:
         raise BenchmarkCorpusValidationError(
             "Benchmark Corpus fingerprint does not match canonical content"
