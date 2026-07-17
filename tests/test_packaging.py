@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 import sys
 import tomllib
@@ -49,5 +50,12 @@ def test_wheel_contains_complete_cli_runtime(tmp_path: Path) -> None:
         "roguerecall/grading.py",
         "roguerecall/dashboard.py",
         "roguerecall/data/default_corpus.json",
+        "roguerecall/data/benchmark_corpus.json",
     ):
         assert required in names
+
+    with zipfile.ZipFile(wheel) as archive:
+        corpus = json.loads(archive.read("roguerecall/data/benchmark_corpus.json"))
+    assert corpus["version"] == "1.0.0"
+    assert len(corpus["cases"]) == 50
+    assert len(corpus["fingerprint"]) == 64

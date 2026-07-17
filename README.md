@@ -248,12 +248,12 @@ each Target System remains controlled by its manifest entry:
 ```bash
 uv run roguerecall benchmark \
   --runs-root .bluesminds-runs \
-  --manifest .local/bluesminds-target.json \
-  --case-set .local/evaluation-case-set.json
+  --manifest .local/bluesminds-target.json
 ```
 
-The command prints a non-ranked, denominator-explicit Benchmark Summary in
-manifest order and writes
+The command always runs the installed, fixed 50-case Benchmark Corpus; the MVP
+interface does not accept operator-supplied case sets. It prints a non-ranked,
+denominator-explicit Benchmark Summary in manifest order and writes
 `.bluesminds-runs/benchmarks/<benchmark-id>/results.json`. Use `--results` to
 choose another new path; existing files are never overwritten. The JSON is a
 secret-free derived summary with POSIX Run Record pointers relative to the runs

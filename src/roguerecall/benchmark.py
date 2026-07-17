@@ -8,9 +8,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from .cases import validate_evaluation_case
+from .corpus import load_benchmark_corpus
 from .engine import run_targets
-from .records import canonical_json, sha256_bytes, validate_record
+from .records import canonical_json, validate_record
 from .targets import Transport, validate_target_manifest
 
 
@@ -20,7 +20,6 @@ RESULTS_SCHEMA_VERSION = "1.0.0"
 def run_benchmark(
     runs_root: Path,
     manifest: Mapping[str, Any],
-    case_set: Mapping[str, Any],
     *,
     results_path: Path | None = None,
     environ: Mapping[str, str] | None = None,
@@ -28,7 +27,8 @@ def run_benchmark(
 ) -> tuple[Path, dict[str, Any]]:
     """Execute a Benchmark Batch and write its derived Benchmark Summary."""
 
-    cases, validated_cases = _validate_case_set(case_set)
+    corpus = load_benchmark_corpus()
+    cases = corpus["cases"]
     validate_target_manifest(manifest, environ=environ)
     targets = manifest["target_systems"]
     if not isinstance(targets, list):
@@ -55,15 +55,12 @@ def run_benchmark(
             )
             target_summaries.append(_summarize_record(record_path, runs_root))
 
-        normalized_case_set = {
-            "cases": validated_cases,
-            "schema_version": "1.0.0",
-        }
         summary = {
             "batch_id": batch_id,
             "case_set": {
                 "case_count": len(cases),
-                "fingerprint": sha256_bytes(canonical_json(normalized_case_set)),
+                "fingerprint": corpus["fingerprint"],
+                "version": corpus["version"],
             },
             "complete": all(
                 item["run_record"]["state"] == "complete"
@@ -113,28 +110,6 @@ def format_benchmark_summary(summary: Mapping[str, Any]) -> str:
         "  ".join(value.ljust(widths[index]) for index, value in enumerate(row)).rstrip()
         for row in rows
     )
-
-
-def _validate_case_set(
-    case_set: Mapping[str, Any],
-) -> tuple[list[Mapping[str, Any]], list[dict[str, Any]]]:
-    if set(case_set) != {"cases", "schema_version"}:
-        raise ValueError(
-            "Evaluation Case Set requires exactly schema_version and cases"
-        )
-    if case_set["schema_version"] != "1.0.0":
-        raise ValueError("unsupported Evaluation Case Set schema version")
-    raw_cases = case_set["cases"]
-    if not isinstance(raw_cases, list) or not raw_cases:
-        raise ValueError("Evaluation Case Set requires at least one case")
-    authored_cases = []
-    validated_cases = []
-    for case in raw_cases:
-        if not isinstance(case, Mapping):
-            raise ValueError("Evaluation Case Set cases must be objects")
-        authored_cases.append(case)
-        validated_cases.append(validate_evaluation_case(case))
-    return authored_cases, validated_cases
 
 
 def _summarize_record(record_path: Path, runs_root: Path) -> dict[str, Any]:

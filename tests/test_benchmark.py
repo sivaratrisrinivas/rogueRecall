@@ -1,8 +1,8 @@
 from __future__ import annotations
 
+import inspect
 import json
 from copy import deepcopy
-from importlib.resources import files
 from pathlib import Path
 
 import pytest
@@ -14,26 +14,18 @@ from test_target_run import RunTransport
 from test_targets import ScriptedTransport, local_manifest, local_success, response
 
 
-def _case_set() -> dict[str, object]:
-    case = json.loads(
-        files("roguerecall").joinpath("data/synthetic_case.json").read_text()
-    )
-    return {"schema_version": "1.0.0", "cases": [case]}
+def test_mvp_benchmark_interface_does_not_accept_an_arbitrary_case_set() -> None:
+    assert "case_set" not in inspect.signature(run_benchmark).parameters
 
-
-def _two_case_set() -> dict[str, object]:
-    case_set = _case_set()
-    second = deepcopy(case_set["cases"][0])  # type: ignore[index]
-    second["identity"]["case_id"] = "synthetic-book-continuation-002"
-    case_set["cases"].append(second)  # type: ignore[union-attr]
-    return case_set
+    with pytest.raises(SystemExit) as error:
+        main(["benchmark", "--help"])
+    assert error.value.code == 0
 
 
 def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) -> None:
     results_path, summary = run_benchmark(
         tmp_path,
         local_manifest(),
-        _case_set(),
         environ={"LOCAL_MODEL_TOKEN": "secret"},
         transport_factory=lambda _target: RunTransport(),
     )
@@ -41,14 +33,15 @@ def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) ->
     assert results_path.parent.parent == tmp_path / "benchmarks"
     assert json.loads(results_path.read_text()) == summary
     assert summary["schema_version"] == "1.0.0"
-    assert summary["case_set"]["case_count"] == 1
+    assert summary["case_set"]["case_count"] == 50
+    assert summary["case_set"]["version"] == "1.0.0"
     assert len(summary["targets"]) == 1
     target = summary["targets"][0]
     assert target["target_system_id"] == "local-llama-3-1"
     assert target["run_record"]["state"] == "complete"
-    assert target["planned"] == 1
-    assert target["grading_coverage"] == {"numerator": 1, "denominator": 1}
-    assert target["text_leaks"] == {"numerator": 1, "denominator": 1}
+    assert target["planned"] == 50
+    assert target["grading_coverage"] == {"numerator": 50, "denominator": 50}
+    assert target["text_leaks"] == {"numerator": 0, "denominator": 50}
     assert target["target_errors"] == 0
     assert target["grader_errors"] == 0
     assert target["not_tested"] == 0
@@ -68,7 +61,6 @@ def test_benchmark_batch_preserves_manifest_order_in_separate_run_records(
     _, summary = run_benchmark(
         tmp_path,
         manifest,
-        _case_set(),
         environ={"LOCAL_MODEL_TOKEN": "secret"},
         transport_factory=lambda _target: RunTransport(),
     )
@@ -108,7 +100,6 @@ def test_benchmark_batch_continues_after_an_incomplete_target(tmp_path: Path) ->
     _, summary = run_benchmark(
         tmp_path,
         manifest,
-        _two_case_set(),
         environ={"LOCAL_MODEL_TOKEN": "secret"},
         transport_factory=transport_factory,  # type: ignore[arg-type]
     )
@@ -118,10 +109,10 @@ def test_benchmark_batch_continues_after_an_incomplete_target(tmp_path: Path) ->
         "complete",
     ]
     assert summary["targets"][0]["target_errors"] == 1
-    assert summary["targets"][0]["not_tested"] == 1
+    assert summary["targets"][0]["not_tested"] == 49
     assert summary["targets"][1]["grading_coverage"] == {
-        "numerator": 2,
-        "denominator": 2,
+        "numerator": 50,
+        "denominator": 50,
     }
     assert summary["complete"] is False
 
@@ -136,7 +127,6 @@ def test_benchmark_summary_is_non_ranked_and_denominator_explicit(
     _, summary = run_benchmark(
         tmp_path,
         manifest,
-        _case_set(),
         environ={"LOCAL_MODEL_TOKEN": "secret"},
         transport_factory=lambda _target: RunTransport(),
     )
@@ -146,24 +136,10 @@ def test_benchmark_summary_is_non_ranked_and_denominator_explicit(
     assert rendered.index("local-llama-3-1") < rendered.index("local-llama-second")
     assert "Coverage" in rendered
     assert "Text Leaks" in rendered
-    assert rendered.count("1/1") == 4
+    assert rendered.count("50/50") == 2
+    assert all("0/50" in line for line in rendered.splitlines()[1:])
     assert "winner" not in rendered.casefold()
     assert "rank" not in rendered.casefold()
-
-
-def test_benchmark_rejects_candidate_records_before_execution(tmp_path: Path) -> None:
-    candidate = {**_case_set(), "release_version": "1.0.0"}
-
-    with pytest.raises(ValueError, match="exactly schema_version and cases"):
-        run_benchmark(
-            tmp_path,
-            local_manifest(),
-            candidate,
-            environ={"LOCAL_MODEL_TOKEN": "secret"},
-            transport_factory=lambda _target: RunTransport(),
-        )
-
-    assert list(tmp_path.iterdir()) == []
 
 
 def test_benchmark_never_overwrites_an_existing_summary(tmp_path: Path) -> None:
@@ -175,7 +151,6 @@ def test_benchmark_never_overwrites_an_existing_summary(tmp_path: Path) -> None:
         run_benchmark(
             tmp_path / "runs",
             local_manifest(),
-            _case_set(),
             results_path=results_path,
             environ={"LOCAL_MODEL_TOKEN": "secret"},
             transport_factory=lambda _target: RunTransport(),
@@ -199,7 +174,6 @@ def test_benchmark_reserves_results_before_target_execution(tmp_path: Path) -> N
         run_benchmark(
             tmp_path / "runs",
             local_manifest(),
-            _case_set(),
             results_path=unusable_parent / "results.json",
             environ={"LOCAL_MODEL_TOKEN": "secret"},
             transport_factory=transport_factory,  # type: ignore[arg-type]
@@ -209,24 +183,25 @@ def test_benchmark_reserves_results_before_target_execution(tmp_path: Path) -> N
     assert not (tmp_path / "runs").exists()
 
 
-def test_benchmark_cli_rejects_a_candidate_record(tmp_path: Path, capsys: object) -> None:
+def test_benchmark_cli_rejects_an_arbitrary_case_set_option(
+    tmp_path: Path, capsys: object
+) -> None:
     manifest_path = tmp_path / "manifest.json"
-    case_set_path = tmp_path / "candidate.json"
     manifest_path.write_text(json.dumps(local_manifest()))
-    case_set_path.write_text(json.dumps({**_case_set(), "release_version": "1.0.0"}))
 
-    exit_code = main(
-        [
-            "benchmark",
-            "--runs-root",
-            str(tmp_path / "runs"),
-            "--manifest",
-            str(manifest_path),
-            "--case-set",
-            str(case_set_path),
-        ]
-    )
+    with pytest.raises(SystemExit) as error:
+        main(
+            [
+                "benchmark",
+                "--runs-root",
+                str(tmp_path / "runs"),
+                "--manifest",
+                str(manifest_path),
+                "--case-set",
+                str(tmp_path / "candidate.json"),
+            ]
+        )
 
-    assert exit_code == 2
-    assert "invalid benchmark input" in capsys.readouterr().out  # type: ignore[attr-defined]
+    assert error.value.code == 2
+    assert "unrecognized arguments: --case-set" in capsys.readouterr().err  # type: ignore[attr-defined]
     assert not (tmp_path / "runs").exists()

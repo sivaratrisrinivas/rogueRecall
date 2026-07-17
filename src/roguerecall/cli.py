@@ -45,7 +45,6 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     benchmark_parser.add_argument("--runs-root", type=Path, required=True)
     benchmark_parser.add_argument("--manifest", type=Path, required=True)
-    benchmark_parser.add_argument("--case-set", type=Path, required=True)
     benchmark_parser.add_argument("--results", type=Path)
     validate_parser = subparsers.add_parser(
         "validate", help="independently validate a Run Record"
@@ -97,11 +96,9 @@ def main(argv: Sequence[str] | None = None) -> int:
     if args.command == "benchmark":
         try:
             manifest = _read_json_object(args.manifest)
-            case_set = _read_json_object(args.case_set)
             results_path, summary = run_benchmark(
                 args.runs_root,
                 manifest,
-                case_set,
                 results_path=args.results,
             )
         except (OSError, ValueError) as error:
