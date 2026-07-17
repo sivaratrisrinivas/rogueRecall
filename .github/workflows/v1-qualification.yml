@@ -33,8 +33,25 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: "3.12"}
-      - name: Install test tools
+      - name: Install test tools (Unix)
+        if: runner.os != 'Windows'
         run: python -m pip install . pytest==8.4.1 mypy==1.17.1 uv==0.8.4
+      - name: Install test tools (Windows, with download retry)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $maxAttempts = 3
+          for ($attempt = 1; $attempt -le $maxAttempts; $attempt++) {
+            python -m pip install . pytest==8.4.1 mypy==1.17.1 uv==0.8.4
+            if ($LASTEXITCODE -eq 0) {
+              exit 0
+            }
+            if ($attempt -eq $maxAttempts) {
+              exit $LASTEXITCODE
+            }
+            Write-Warning "Test-tool installation failed on attempt $attempt; retrying in 5 seconds."
+            Start-Sleep -Seconds 5
+          }
       - name: Test and record JUnit evidence
         run: python -m pytest --junitxml=qualification-${{ matrix.id }}.xml
       - name: Typecheck
