@@ -3,6 +3,7 @@
 __version__ = "0.1.0"
 
 from .cases import EvaluationCaseValidationError, validate_evaluation_case
+from .benchmark import run_benchmark
 from .grading import grade_observation
 from .engine import run_release
 from .releases import (
@@ -50,6 +51,7 @@ __all__ = [
     "load_release_identity",
     "load_verified_release_cases",
     "resolve_release_for_run",
+    "run_benchmark",
     "run_release",
     "validate_evaluation_case",
     "validate_corpus_candidate",

@@ -80,6 +80,14 @@ _Avoid_: Text Leak, hard failure
 A traceable execution of a specific Benchmark Corpus version against one or more Target Systems, including the prompts, responses, settings, timestamps, software version, and deterministic scoring results.
 _Avoid_: Guaranteed replay, experiment
 
+**Benchmark Batch**:
+One Benchmark Operator invocation that executes the same Evaluation Case Set against one or more Target Systems and produces one separate Run Record per Target System.
+_Avoid_: Evaluation Run, multi-target Run Record
+
+**Benchmark Summary**:
+The derived, secret-free human and machine-readable summary of a Benchmark Batch, including explicit Grading Coverage and Text Leak denominators and pointers to its Run Records. A Benchmark Summary is not the source of truth and never ranks Target Systems or declares a winner.
+_Avoid_: Leaderboard, Run Record, benchmark evidence
+
 **Evaluation Case Set**:
 The ordered collection of one or more validated Evaluation Cases selected for an Evaluation Run. An Evaluation Case Set is execution input and is not a Benchmark Corpus or Benchmark Corpus Release unless it independently satisfies those release contracts.
 _Avoid_: Benchmark Corpus, corpus snapshot

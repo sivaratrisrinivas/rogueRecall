@@ -171,7 +171,7 @@ optional custom CA bundle may be declared. Each target receives a model lookup
 and public response-shape probe before corpus timing. RogueRecall—not an SDK—owns
 the bounded three-attempt retry policy and preserves every physical attempt.
 
-### Run the 50-case corpus through an OpenAI-compatible gateway
+### Run an Evaluation Case Set through an OpenAI-compatible gateway
 
 This operator workflow uses BluesMinds as an example. The same adapter works
 with another HTTPS gateway that implements OpenAI-compatible model lookup and
@@ -193,17 +193,23 @@ export BLUESMINDS_API_KEY
 test -n "$BLUESMINDS_API_KEY" && echo "credential available"
 ```
 
-Split the frozen Corpus Candidate Record into the individual case files accepted
-by `roguerecall run`:
+Prepare a standalone, non-release Evaluation Case Set. It contains only its
+schema version and authored Evaluation Cases:
 
-```bash
-mkdir -p .local/cases
-jq -c '.cases[]' docs/corpus/candidate-v1/candidate.json |
-while IFS= read -r benchmark_case; do
-  case_id=$(jq -r '.identity.case_id' <<<"$benchmark_case")
-  printf '%s\n' "$benchmark_case" > ".local/cases/${case_id}.json"
-done
+```json
+{
+  "schema_version": "1.0.0",
+  "cases": [
+    {"identity": {"case_id": "example-case", "revision": 1}}
+  ]
+}
 ```
+
+The abbreviated case above illustrates only the container; every case must
+satisfy the complete Evaluation Case contract. `benchmark` rejects a Corpus
+Candidate Record because candidates cannot be executed before release
+assembly. Signed Benchmark Corpus Release orchestration remains available
+through the Python release interface rather than this first-run command.
 
 Create `.local/bluesminds-target.json`. The base URL deliberately omits `/v1`;
 the adapter appends its versioned endpoint paths:
@@ -235,23 +241,29 @@ the adapter appends its versioned endpoint paths:
 }
 ```
 
-Run one model at a time so rate limits and provider failures remain attributable
-to one Target System. The command prints the new Run Record path:
+Run the Benchmark Batch. Target Systems are executed sequentially in manifest
+order, with one separate Run Record per Target System. Case concurrency within
+each Target System remains controlled by its manifest entry:
 
 ```bash
-case_args=()
-for case_file in .local/cases/*.json; do
-  case_args+=(--case "$case_file")
-done
-
-uv run roguerecall run \
+uv run roguerecall benchmark \
   --runs-root .bluesminds-runs \
   --manifest .local/bluesminds-target.json \
-  "${case_args[@]}"
+  --case-set .local/evaluation-case-set.json
 ```
 
-Validate the exact printed path before treating it as benchmark evidence, then
-serve all valid records in the run root through the read-only dashboard:
+The command prints a non-ranked, denominator-explicit Benchmark Summary in
+manifest order and writes
+`.bluesminds-runs/benchmarks/<benchmark-id>/results.json`. Use `--results` to
+choose another new path; existing files are never overwritten. The JSON is a
+secret-free derived summary with POSIX Run Record pointers relative to the runs
+root, not benchmark evidence or a replacement for the underlying records.
+
+If one Target System produces an Incomplete Run Record, later targets still
+run, every terminal state remains visible, and the command exits nonzero.
+Invalid shared inputs abort before execution. Validate the Run Record paths
+printed in the summary before treating them as evidence, then serve all valid
+records in the run root through the read-only dashboard:
 
 ```bash
 uv run roguerecall validate .bluesminds-runs/<run-id>

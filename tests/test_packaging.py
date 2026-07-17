@@ -22,6 +22,7 @@ def test_python_312_package_exposes_exact_versioned_cli_metadata() -> None:
     )
     assert result.returncode == 0
     assert "run-synthetic" in result.stdout
+    assert "benchmark" in result.stdout
     assert "dashboard" in result.stdout
     assert "doctor" in result.stdout
     assert "paths" in result.stdout
@@ -43,6 +44,7 @@ def test_wheel_contains_complete_cli_runtime(tmp_path: Path) -> None:
 
     for required in (
         "roguerecall/cli.py",
+        "roguerecall/benchmark.py",
         "roguerecall/engine.py",
         "roguerecall/grading.py",
         "roguerecall/dashboard.py",

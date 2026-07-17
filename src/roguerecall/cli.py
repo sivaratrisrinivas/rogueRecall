@@ -7,6 +7,7 @@ import webbrowser
 from pathlib import Path
 from typing import Sequence
 
+from .benchmark import format_benchmark_summary, run_benchmark
 from .dashboard import create_server
 from .engine import run_synthetic, run_targets
 from .records import RecordValidationError, validate_record
@@ -38,6 +39,14 @@ def main(argv: Sequence[str] | None = None) -> int:
     targets_parser.add_argument("--runs-root", type=Path, required=True)
     targets_parser.add_argument("--manifest", type=Path, required=True)
     targets_parser.add_argument("--case", type=Path, action="append", required=True)
+    benchmark_parser = subparsers.add_parser(
+        "benchmark",
+        help="execute a Benchmark Batch and write its Benchmark Summary",
+    )
+    benchmark_parser.add_argument("--runs-root", type=Path, required=True)
+    benchmark_parser.add_argument("--manifest", type=Path, required=True)
+    benchmark_parser.add_argument("--case-set", type=Path, required=True)
+    benchmark_parser.add_argument("--results", type=Path)
     validate_parser = subparsers.add_parser(
         "validate", help="independently validate a Run Record"
     )
@@ -85,6 +94,22 @@ def main(argv: Sequence[str] | None = None) -> int:
         record_path = run_targets(args.runs_root, manifest, cases)
         print(record_path)
         return 1 if record_path.name.endswith(".incomplete") else 0
+    if args.command == "benchmark":
+        try:
+            manifest = _read_json_object(args.manifest)
+            case_set = _read_json_object(args.case_set)
+            results_path, summary = run_benchmark(
+                args.runs_root,
+                manifest,
+                case_set,
+                results_path=args.results,
+            )
+        except (OSError, ValueError) as error:
+            print(f"invalid benchmark input: {error}")
+            return 2
+        print(format_benchmark_summary(summary))
+        print(f"Benchmark Summary: {results_path}")
+        return 0 if summary["complete"] else 1
     if args.command == "validate":
         try:
             validate_record(
