@@ -15,8 +15,17 @@ build/
 
 # Local evidence and tool state
 runs/
+.bluesminds-runs/
+.synthetic-runs/
+.local/
+.scratch/
 .impeccable/
 .codex/
+
+# Additional Python tooling caches
+.ruff_cache/
+.tox/
+.nox/
 
 # Credentials and machine-local configuration
 .env

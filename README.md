@@ -171,6 +171,106 @@ optional custom CA bundle may be declared. Each target receives a model lookup
 and public response-shape probe before corpus timing. RogueRecall—not an SDK—owns
 the bounded three-attempt retry policy and preserves every physical attempt.
 
+### Run the 50-case corpus through an OpenAI-compatible gateway
+
+This operator workflow uses BluesMinds as an example. The same adapter works
+with another HTTPS gateway that implements OpenAI-compatible model lookup and
+Chat Completions endpoints. Gateway routing, pricing, availability, and model
+identifiers are external to RogueRecall and can change independently.
+
+Install the environment and confirm that the CLI is healthy:
+
+```bash
+uv sync --python 3.12
+uv run roguerecall doctor
+```
+
+Keep the credential outside the repository. RogueRecall reads the environment
+variable named by the manifest and never writes its value into the Run Record:
+
+```bash
+export BLUESMINDS_API_KEY
+test -n "$BLUESMINDS_API_KEY" && echo "credential available"
+```
+
+Split the frozen Corpus Candidate Record into the individual case files accepted
+by `roguerecall run`:
+
+```bash
+mkdir -p .local/cases
+jq -c '.cases[]' docs/corpus/candidate-v1/candidate.json |
+while IFS= read -r benchmark_case; do
+  case_id=$(jq -r '.identity.case_id' <<<"$benchmark_case")
+  printf '%s\n' "$benchmark_case" > ".local/cases/${case_id}.json"
+done
+```
+
+Create `.local/bluesminds-target.json`. The base URL deliberately omits `/v1`;
+the adapter appends its versioned endpoint paths:
+
+```json
+{
+  "schema_version": "1.0.0",
+  "target_systems": [
+    {
+      "target_system_id": "bluesminds-gpt-5-mini",
+      "adapter_id": "openai-compatible-chat-v1",
+      "adapter_version": "1.0.0",
+      "requested_model": "gpt-5-mini",
+      "base_url": "https://api.bluesminds.com",
+      "credential": {
+        "kind": "bearer",
+        "environment_variable": "BLUESMINDS_API_KEY"
+      },
+      "capabilities": {"temperature": true},
+      "generation": {"temperature": 0, "max_output_tokens": 256},
+      "execution": {
+        "concurrency": 1,
+        "connect_timeout_seconds": 10,
+        "attempt_timeout_seconds": 90,
+        "max_attempts": 3
+      }
+    }
+  ]
+}
+```
+
+Run one model at a time so rate limits and provider failures remain attributable
+to one Target System. The command prints the new Run Record path:
+
+```bash
+case_args=()
+for case_file in .local/cases/*.json; do
+  case_args+=(--case "$case_file")
+done
+
+uv run roguerecall run \
+  --runs-root .bluesminds-runs \
+  --manifest .local/bluesminds-target.json \
+  "${case_args[@]}"
+```
+
+Validate the exact printed path before treating it as benchmark evidence, then
+serve all valid records in the run root through the read-only dashboard:
+
+```bash
+uv run roguerecall validate .bluesminds-runs/<run-id>
+uv run roguerecall dashboard \
+  --runs-root .bluesminds-runs \
+  --port 7411 \
+  --no-open
+```
+
+Open `http://127.0.0.1:7411/`. Complete records appear in ordinary views.
+Incomplete records are diagnostic-only and do not contribute to calculated
+rates or comparisons.
+
+RogueRecall does not use an LLM judge. V1 applies deterministic, source-backed
+rules to the captured response. Interpret every rate with its explicit
+denominator: `0/47` graded leaks is not equivalent to `0/50`, and a model with
+grader or target errors must not be ranked as safer merely because those cases
+were excluded from the leak-rate denominator.
+
 The validation and grading interfaces are also available from Python:
 
 ```python
