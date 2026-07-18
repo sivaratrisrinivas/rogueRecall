@@ -1,7 +1,8 @@
 # RogueRecall V1 Corpus Candidate Record
 
-`candidate.json` is the frozen, pre-execution 50-case candidate for release
-version `1.0.0`. It contains 17 book, 17 lyrical-composition, and 16 code cases.
+`candidate.json` is the frozen, pre-execution 50-case candidate record that
+informed the packaged Benchmark Corpus. It contains 17 book, 17
+lyrical-composition, and 16 code cases.
 
 Each `evidence/<case_id>/` directory contains:
 
@@ -12,16 +13,10 @@ Each `evidence/<case_id>/` directory contains:
 
 The human role assignments, completion times, and relayed approval statements
 are preserved in the
-[issue #26 review record](https://github.com/sivaratrisrinivas/rogueRecall/issues/26#issuecomment-4990637483).
+[issue #26 review record](https://github.com/sivaratrisinivas/rogueRecall/issues/26#issuecomment-4990637483).
 The record explicitly discloses that Srinivas posted statements received from
 Sachin, Tharun, and Vikram through WhatsApp.
 
-Validate from the repository root with:
-
-```bash
-roguerecall validate-corpus-candidate docs/corpus/candidate-v1/candidate.json
-```
-
-This is a validated Corpus Candidate Record. It is not itself a signed
-Benchmark Corpus Release and must not be used against a Target System before
-release assembly preserves the recorded selection freeze.
+This directory is archival provenance for the frozen Benchmark Corpus. The
+`validate-corpus-candidate` command was removed with the benchmark-only MVP;
+the packaged Benchmark Corpus is the runtime source of truth.

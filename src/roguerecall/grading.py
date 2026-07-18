@@ -175,10 +175,6 @@ def _grade_prose(case: dict[str, Any], response: str, domain: str) -> dict[str, 
 
 
 def _grade_code(case: dict[str, Any], response: str) -> dict[str, Any]:
-    if pygments.__version__ != PYGMENTS_VERSION:
-        raise RuntimeError(
-            f"Pinned Pygments {PYGMENTS_VERSION} required; found {pygments.__version__}"
-        )
     lexer_name = case["grading"]["lexer"]["name"]
     reject_response_errors = (
         case["grading"]["rule_version"] == "code-contiguous-lexemes-1.0.0"

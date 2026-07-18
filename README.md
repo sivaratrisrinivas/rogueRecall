@@ -274,44 +274,19 @@ case = validate_evaluation_case(authored_case)
 grade = grade_observation(case, raw_response)
 ```
 
-Release curators use the Python release interfaces to atomically assemble and
-sign a candidate after distinct counsel, release-curator, and independent
-rights-reviewer approvals, verify it against an offline trust key, and append signed
-publication, supersession, suspension, withdrawal, or reinstatement records.
-Before an Evaluation Run, `run_release` verifies the signed release and latest
-online registry (or the identity and age of an offline snapshot), then executes
-the exact cases loaded from that release. Stale status, explicit supersession
-pins, and permanent reasoned audit overrides remain part of the immutable Run
-Record. `run_targets` remains the separate interface for a non-release
-Evaluation Case Set and cannot attach Benchmark Corpus Release identity.
+The corpus-authoring, release-governance, and qualification commands that used
+to live in this repository were removed for the benchmark-only MVP. The fixed
+50-case Benchmark Corpus is shipped in-repo, and the supported workflows are
+the benchmark runner, validation of benchmark records, and the read-only
+dashboard.
 
-### V1 qualification evidence
+### Removed Workflows
 
-RogueRecall includes a fail-closed validator for versioned qualification
-reports and their local evidence artifacts:
+The old corpus-authoring, release-governance, and qualification workflows were removed with the benchmark-only MVP.
 
-```bash
-roguerecall validate-qualification docs/qualification/v1/qualification.json
-```
 
-The validator checks the exact source revision and contract versions, artifact
-SHA-256 hashes, overall and per-domain grader confusion matrices, all three
-adapter contracts, the 50-case Corpus Candidate Record, required gate
-categories, and exception ownership and expiry. Correctness, traceability,
-provider, corpus, security, accessibility, packaging, and documentation gates
-cannot be waived; only an explicit performance exception is accepted.
 
-The checked-in V1 bundle includes the reproducible 909-example frozen Grader
-Validation Set, per-case results, raw adapter and corpus JUnit reports, and
-recursive artifact verification. The
-[V1 qualification workflow](https://github.com/sivaratrisrinivas/rogueRecall/actions/workflows/v1-qualification.yml)
-records passing Linux, macOS, and Windows evidence on x86-64 and ARM64, real
-Chromium/Firefox/WebKit checks, strict typing, dependency auditing, secret
-scanning, and qualification-bundle validation. The provider-dependent
-five-minute condition remains an owned, expiring performance exception rather
-than a measured pass; no non-waivable gate is excepted.
-
-### Benchmark Corpus release workflow
+### Historical Notes
 
 [Issue #26](https://github.com/sivaratrisrinivas/rogueRecall/issues/26) produced
 the frozen, human-reviewed 50-case Corpus Candidate Record. Publication fails
@@ -330,49 +305,7 @@ Records and distribute only its public trust identity. The release API stages
 and verifies every corpus artifact before publishing the initial signed registry
 entry:
 
-```python
-from roguerecall import (
-    CorpusRegistry,
-    TrustStore,
-    assemble_and_publish_release,
-    run_release,
-)
-
-trust = TrustStore.from_identities([bundled_public_identity])
-registry = CorpusRegistry(trust)
-manifest, publication = assemble_and_publish_release(
-    release_path,
-    registry,
-    version="1.0.0",
-    cases=approved_cases,
-    composition=composition_categories,
-    artifacts=release_artifacts,
-    notice_bundle=release_notice_bundle,
-    approvals=[counsel_approval, curator_approval, rights_reviewer_approval],
-    contracts={"corpus_schema": "1.0.0", "grading": "1.0.0"},
-    released_at=release_time,
-    release_channel="github:owner/repository",
-    signer=configured_release_identity,
-    publication_reason="initial_publication",
-    publication_authority="Release Curator",
-)
-```
-
-`run_release` verifies that signed release and registry state, loads the exact
-50 cases from the verified artifact, and records the registry snapshot identity,
-age, warnings, and any permanent audit-only override in the Run Record.
-
-Anyone can verify a downloaded release without network access using the public
-trust identity distributed alongside it:
-
-```bash
-roguerecall verify-release ./roguerecall-corpus-1.0.0 \
-  --trust-key ./roguerecall-release-key.json
-```
-
-The command emits the verified version, signer key ID, and release digest as
-JSON. Compare that digest and every published asset SHA-256 value with the
-GitHub Release manifest before operating the benchmark.
+The old release assembly, verification, and trust-key workflows were removed.
 
 Project licensing boundaries are explicit in [RIGHTS.md](RIGHTS.md), with the
 repository notice in [NOTICE](NOTICE) and dependency/corpus guidance in

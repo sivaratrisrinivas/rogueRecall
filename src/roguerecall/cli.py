@@ -11,14 +11,7 @@ from .benchmark import format_benchmark_summary, run_benchmark
 from .dashboard import create_server
 from .engine import run_synthetic, run_targets
 from .records import RecordValidationError, validate_record
-from .releases import (
-    ReleaseValidationError,
-    TrustStore,
-    validate_corpus_candidate,
-    verify_release,
-)
 from .installation import InstallationPaths, discover_paths, purge, run_doctor
-from .qualification import QualificationValidationError, validate_qualification_report
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -50,22 +43,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         "validate", help="independently validate a Run Record"
     )
     validate_parser.add_argument("record", type=Path)
-    candidate_parser = subparsers.add_parser(
-        "validate-corpus-candidate",
-        help="validate a frozen Corpus Candidate Record before assembly",
-    )
-    candidate_parser.add_argument("candidate", type=Path)
-    qualification_parser = subparsers.add_parser(
-        "validate-qualification",
-        help="validate a V1 qualification report and its evidence artifacts",
-    )
-    qualification_parser.add_argument("report", type=Path)
-    release_parser = subparsers.add_parser(
-        "verify-release",
-        help="verify a signed Benchmark Corpus Release without network access",
-    )
-    release_parser.add_argument("release", type=Path)
-    release_parser.add_argument("--trust-key", type=Path, required=True)
     dashboard_parser = subparsers.add_parser(
         "dashboard", help="serve validated results read-only over loopback"
     )
@@ -117,47 +94,6 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"invalid: {error}")
             return 1
         print(f"valid: {args.record}")
-        return 0
-    if args.command == "validate-corpus-candidate":
-        try:
-            validate_corpus_candidate(_read_json_object(args.candidate))
-        except ReleaseValidationError as error:
-            print(f"invalid: {error}")
-            return 1
-        except (OSError, ValueError) as error:
-            print(f"invalid: cannot read candidate JSON: {error}")
-            return 1
-        print(f"valid: {args.candidate}")
-        return 0
-    if args.command == "validate-qualification":
-        try:
-            validate_qualification_report(args.report)
-        except QualificationValidationError as error:
-            print(f"invalid: {error}")
-            return 1
-        print(f"valid: {args.report}")
-        return 0
-    if args.command == "verify-release":
-        try:
-            public_identity = _read_json_object(args.trust_key)
-            manifest = verify_release(
-                args.release,
-                TrustStore.from_identities([public_identity]),
-            )
-        except (OSError, ValueError, ReleaseValidationError) as error:
-            print(json.dumps({"error": str(error), "valid": False}, sort_keys=True))
-            return 1
-        print(
-            json.dumps(
-                {
-                    "release_digest": manifest["release_digest"],
-                    "signer_key_id": manifest["signer_key_id"],
-                    "valid": True,
-                    "version": manifest["version"],
-                },
-                sort_keys=True,
-            )
-        )
         return 0
     if args.command == "dashboard":
         server = create_server(args.runs_root, port=args.port)

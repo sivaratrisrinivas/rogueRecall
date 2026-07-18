@@ -149,51 +149,6 @@ def run_targets(
         runs_root,
         manifest,
         cases,
-        release_resolution=None,
-        environ=environ,
-        transport_factory=transport_factory,
-    )
-
-
-def run_release(
-    runs_root: Path,
-    manifest: Mapping[str, Any],
-    release_path: Path,
-    trust_store: Any,
-    *,
-    registry_snapshot: Mapping[str, Any],
-    checked_at: datetime,
-    refresh_registry: Callable[[], Mapping[str, Any]] | None = None,
-    max_snapshot_age: timedelta = timedelta(days=1),
-    explicitly_pinned: bool = False,
-    audit_override_reason: str | None = None,
-    environ: Mapping[str, str] | None = None,
-    transport_factory: Callable[[Mapping[str, Any]], Transport] | None = None,
-) -> Path:
-    """Verify and execute the exact cases from one signed Benchmark Corpus Release."""
-
-    from .releases import load_verified_release_cases, resolve_release_for_run
-
-    resolution = resolve_release_for_run(
-        release_path,
-        trust_store,
-        registry_snapshot=registry_snapshot,
-        checked_at=checked_at,
-        refresh_registry=refresh_registry,
-        max_snapshot_age=max_snapshot_age,
-        explicitly_pinned=explicitly_pinned,
-        audit_override_reason=audit_override_reason,
-    )
-    cases = load_verified_release_cases(
-        release_path,
-        trust_store,
-        expected_release_digest=resolution["release"]["release_digest"],
-    )
-    return _run_targets(
-        runs_root,
-        manifest,
-        cases,
-        release_resolution=resolution,
         environ=environ,
         transport_factory=transport_factory,
     )
@@ -204,16 +159,9 @@ def _run_targets(
     manifest: Mapping[str, Any],
     cases: Sequence[Mapping[str, Any]],
     *,
-    release_resolution: Mapping[str, Any] | None,
     environ: Mapping[str, str] | None,
     transport_factory: Callable[[Mapping[str, Any]], Transport] | None,
 ) -> Path:
-
-    validated_resolution = None
-    if release_resolution is not None:
-        from .releases import validate_release_resolution
-
-        validated_resolution = validate_release_resolution(release_resolution)
     started_monotonic = time.monotonic_ns()
     started_at = _utc_now()
     run_id = _uuid7()
@@ -272,7 +220,7 @@ def _run_targets(
     plan: list[dict[str, Any]] = []
     errors: list[dict[str, str]] = []
     warnings: list[str] = (
-        list(validated_resolution["warnings"]) if validated_resolution is not None else []
+        []
     )
     contains_not_tested = False
     for report in reports:
@@ -377,8 +325,6 @@ def _run_targets(
         },
         "warnings": warnings,
     }
-    if validated_resolution is not None:
-        run["corpus"] = validated_resolution
     write_json(record_path / "run.json", run)
     write_integrity(record_path)
     validate_record(record_path, require_complete=not contains_not_tested)
