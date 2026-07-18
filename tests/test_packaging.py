@@ -48,7 +48,6 @@ def test_source_tree_contains_complete_cli_runtime() -> None:
     for required in (
         "roguerecall/cli.py",
         "roguerecall/benchmark.py",
-        "roguerecall/engine.py",
         "roguerecall/grading.py",
         "roguerecall/data/benchmark_corpus.json",
     ):
@@ -59,6 +58,8 @@ def test_source_tree_contains_complete_cli_runtime() -> None:
         "roguerecall/dashboard_exports.py",
         "roguerecall/dashboard_data.py",
         "roguerecall/installation.py",
+        "roguerecall/engine.py",
+        "roguerecall/records.py",
         "roguerecall/data/default_corpus.json",
         "roguerecall/data/synthetic_case.json",
     ):

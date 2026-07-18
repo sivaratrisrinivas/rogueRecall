@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import tomllib
+from pathlib import Path
 
 import pytest
 
@@ -48,6 +50,8 @@ def test_removed_corpus_governance_surfaces_are_absent(
         "roguerecall.candidate_prep",
         "roguerecall.qualification",
         "roguerecall.releases",
+        "roguerecall.engine",
+        "roguerecall.records",
     ):
         assert importlib.util.find_spec(module_name) is None
 
@@ -73,3 +77,9 @@ def test_removed_corpus_governance_surfaces_are_absent(
             assert command in help_text
             continue
         assert command not in help_text
+
+
+def test_obsolete_run_record_dependency_is_not_packaged() -> None:
+    project = tomllib.loads(Path("pyproject.toml").read_text(encoding="utf-8"))
+
+    assert "PyNaCl==1.6.2" not in project["project"]["dependencies"]

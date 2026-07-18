@@ -1,4 +1,4 @@
-"""RogueRecall's local Evaluation Run engine."""
+"""RogueRecall's fixed protected-text benchmark."""
 
 __version__ = "0.1.0"
 

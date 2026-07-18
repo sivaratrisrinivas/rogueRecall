@@ -68,6 +68,31 @@ def test_benchmark_never_overwrites_or_contacts_a_target_for_existing_output(
     assert transports_created == 0
 
 
+def test_cli_refuses_existing_results_before_constructing_a_transport(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    manifest_path = tmp_path / "manifest.json"
+    results_path = tmp_path / "results.json"
+    manifest_path.write_text(json.dumps(local_manifest()))
+    results_path.write_text("original\n")
+    monkeypatch.setenv("LOCAL_MODEL_TOKEN", "secret")
+    calls = 0
+
+    def transport_factory(_target: object) -> RunTransport:
+        nonlocal calls
+        calls += 1
+        return RunTransport()
+
+    monkeypatch.setattr("roguerecall.benchmark._default_transport", transport_factory)
+
+    exit_code = main(["benchmark", "--manifest", str(manifest_path), "--results", str(results_path)])
+
+    assert exit_code == 2
+    assert calls == 0
+    assert "invalid benchmark input: results.json already exists" in capsys.readouterr().out
+    assert results_path.read_text() == "original\n"
+
+
 def test_interruption_preserves_completed_observations_in_running_json(tmp_path: Path) -> None:
     results_path = tmp_path / "results.json"
 
@@ -151,6 +176,102 @@ def test_controls_failure_is_persisted_without_provider_execution(
     assert results["status"] == "controls_failed"
     assert results["target_systems"] == []
     assert calls == 0
+
+
+def test_cli_reports_control_failure_without_constructing_a_transport(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    manifest_path = tmp_path / "manifest.json"
+    results_path = tmp_path / "results.json"
+    manifest_path.write_text(json.dumps(local_manifest()))
+    monkeypatch.setenv("LOCAL_MODEL_TOKEN", "secret")
+    calls = 0
+
+    def broken_grade(case: object, response: object) -> dict[str, object]:
+        del case, response
+        return {"evaluation_status": "completed", "text_leak": False}
+
+    def transport_factory(_target: object) -> RunTransport:
+        nonlocal calls
+        calls += 1
+        return RunTransport()
+
+    monkeypatch.setattr("roguerecall.benchmark.grade_observation", broken_grade)
+    monkeypatch.setattr("roguerecall.benchmark._default_transport", transport_factory)
+
+    exit_code = main(["benchmark", "--manifest", str(manifest_path), "--results", str(results_path)])
+
+    assert exit_code == 1
+    assert calls == 0
+    assert "Status: controls_failed" in capsys.readouterr().out
+    persisted = json.loads(results_path.read_text())
+    assert persisted["status"] == "controls_failed"
+    assert persisted["target_systems"] == []
+
+
+def test_cli_records_target_errors_as_ungraded_incomplete_observations(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    manifest_path = tmp_path / "manifest.json"
+    results_path = tmp_path / "results.json"
+    manifest_path.write_text(json.dumps(local_manifest()))
+    monkeypatch.setenv("LOCAL_MODEL_TOKEN", "secret")
+
+    class RejectingTransport(RunTransport):
+        def send(self, request: object) -> object:
+            if request.url.endswith("/v1/chat/completions"):  # type: ignore[attr-defined]
+                prompt = json.loads(request.body)["messages"][0]["content"]  # type: ignore[attr-defined]
+                if prompt != "Reply with exactly: OK":
+                    return response(401, {"error": "unauthorized"})
+            return super().send(request)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(
+        "roguerecall.benchmark._default_transport", lambda _target: RejectingTransport()
+    )
+
+    exit_code = main(["benchmark", "--manifest", str(manifest_path), "--results", str(results_path)])
+
+    assert exit_code == 1
+    assert "Status: incomplete" in capsys.readouterr().out
+    persisted = json.loads(results_path.read_text())
+    target = persisted["target_systems"][0]
+    assert target["grading_coverage"] == {"numerator": 0, "denominator": 50}
+    assert target["text_leaks"] == {"numerator": 0, "denominator": 0}
+    assert target["target_errors"] == 1
+    assert target["observations"][0]["terminal_status"] == "target_error"
+    assert target["observations"][0]["grade"] is None
+
+
+def test_cli_reports_interruption_and_preserves_running_results(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch, capsys: pytest.CaptureFixture[str]
+) -> None:
+    manifest_path = tmp_path / "manifest.json"
+    results_path = tmp_path / "results.json"
+    manifest_path.write_text(json.dumps(local_manifest()))
+    monkeypatch.setenv("LOCAL_MODEL_TOKEN", "secret")
+
+    class InterruptingTransport(RunTransport):
+        def __init__(self) -> None:
+            self.completions = 0
+
+        def send(self, request: object) -> object:
+            if request.url.endswith("/v1/chat/completions"):  # type: ignore[attr-defined]
+                self.completions += 1
+                if self.completions == 3:
+                    raise KeyboardInterrupt
+            return super().send(request)  # type: ignore[arg-type]
+
+    monkeypatch.setattr(
+        "roguerecall.benchmark._default_transport", lambda _target: InterruptingTransport()
+    )
+
+    exit_code = main(["benchmark", "--manifest", str(manifest_path), "--results", str(results_path)])
+
+    assert exit_code == 130
+    assert "benchmark interrupted" in capsys.readouterr().out
+    persisted = json.loads(results_path.read_text())
+    assert persisted["status"] == "running"
+    assert len(persisted["target_systems"][0]["observations"]) == 1
 
 
 def test_cli_has_only_manifest_and_results_inputs(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:

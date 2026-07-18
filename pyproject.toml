@@ -9,7 +9,6 @@ description = "A local benchmark for observable protected-text reproduction"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
-    "PyNaCl==1.6.2",
     "Pygments==2.20.0",
     "regex==2024.11.6",
 ]

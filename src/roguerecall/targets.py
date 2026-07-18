@@ -24,7 +24,7 @@ from pathlib import Path
 from typing import Any, Protocol
 from urllib.parse import quote, urlsplit, urlunsplit
 
-from .records import canonical_json, sha256_bytes
+from .canonical import canonical_json, sha256_bytes
 
 
 TARGET_MANIFEST_VERSION = "1.0.0"
@@ -253,15 +253,15 @@ def execute_target_system(
     warnings = list(target_copy.get("warnings", []))
     preflight = _preflight(target_copy, transport, environment, warnings)
     if preflight["status"] != "passed":
-        observations = [
+        failed_preflight_observations = [
             _not_tested(case, position, preflight["error"])
             for position, case in enumerate(cases)
         ]
         if persist_observation is not None:
-            for observation in observations:
+            for observation in failed_preflight_observations:
                 persist_observation(observation)
         return {
-            "observations": observations,
+            "observations": failed_preflight_observations,
             "preflight": preflight,
             "target_system_id": target_copy["target_system_id"],
             "warnings": warnings,

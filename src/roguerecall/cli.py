@@ -25,6 +25,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         try:
             manifest = _read_json_object(args.manifest)
             results_path, summary = run_benchmark(manifest, results_path=args.results)
+        except KeyboardInterrupt:
+            print("benchmark interrupted")
+            return 130
         except (OSError, ValueError) as error:
             print(f"invalid benchmark input: {error}")
             return 2

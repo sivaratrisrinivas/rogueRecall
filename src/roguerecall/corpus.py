@@ -6,8 +6,8 @@ from collections.abc import Mapping
 from importlib.resources import files
 from typing import Any
 
+from .canonical import canonical_json, sha256_bytes
 from .cases import EvaluationCaseValidationError, validate_evaluation_case
-from .records import canonical_json, sha256_bytes
 
 
 CORPUS_SCHEMA_VERSION = "1.0.0"
