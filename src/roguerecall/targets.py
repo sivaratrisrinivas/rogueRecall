@@ -237,6 +237,7 @@ def execute_target_system(
     sleep: Callable[[float], None] = time.sleep,
     jitter: Callable[[float], float] | None = None,
     persist_attempt: Callable[[dict[str, Any]], None] | None = None,
+    persist_observation: Callable[[dict[str, Any]], None] | None = None,
     stop_all: threading.Event | None = None,
 ) -> dict[str, Any]:
     """Preflight and execute corpus cases for one validated Target System.
@@ -252,12 +253,15 @@ def execute_target_system(
     warnings = list(target_copy.get("warnings", []))
     preflight = _preflight(target_copy, transport, environment, warnings)
     if preflight["status"] != "passed":
-        cause = preflight["error"]
+        observations = [
+            _not_tested(case, position, preflight["error"])
+            for position, case in enumerate(cases)
+        ]
+        if persist_observation is not None:
+            for observation in observations:
+                persist_observation(observation)
         return {
-            "observations": [
-                _not_tested(case, position, cause)
-                for position, case in enumerate(cases)
-            ],
+            "observations": observations,
             "preflight": preflight,
             "target_system_id": target_copy["target_system_id"],
             "warnings": warnings,
@@ -271,10 +275,11 @@ def execute_target_system(
         if stop_all is not None and stop_all.is_set():
             raise EngineExecutionError("Evaluation Run stopped after persistence failure")
         if shared_cause is not None:
-            observations.extend(
-                _not_tested(cases[index], index, shared_cause)
-                for index in range(position, len(cases))
-            )
+            for index in range(position, len(cases)):
+                observation = _not_tested(cases[index], index, shared_cause)
+                observations.append(observation)
+                if persist_observation is not None:
+                    persist_observation(observation)
             break
         batch = list(enumerate(cases[position : position + concurrency], position))
         with ThreadPoolExecutor(max_workers=concurrency) as pool:
@@ -305,6 +310,8 @@ def execute_target_system(
                 shared_cause = observation["error"]
             observation.pop("stop_target", None)
             observations.append(observation)
+            if persist_observation is not None:
+                persist_observation(observation)
         position += len(batch)
     return {
         "observations": observations,

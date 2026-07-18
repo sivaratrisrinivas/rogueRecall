@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import inspect
 import json
-from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -10,259 +9,174 @@ import pytest
 from roguerecall.benchmark import format_benchmark_summary, run_benchmark
 from roguerecall.cli import main
 
-from test_targets import ScriptedTransport, local_manifest, local_success, response
-from test_targets import RunTransport
+from test_targets import RunTransport, local_manifest
 
 
-def test_mvp_benchmark_interface_does_not_accept_an_arbitrary_case_set() -> None:
-    assert "case_set" not in inspect.signature(run_benchmark).parameters
+def test_benchmark_writes_one_complete_auditable_results_document(tmp_path: Path) -> None:
+    results_path = tmp_path / "results.json"
 
-    with pytest.raises(SystemExit) as error:
-        main(["benchmark", "--help"])
-    assert error.value.code == 0
-
-    with pytest.raises(SystemExit) as error:
-        main(["--version"])
-    assert error.value.code == 0
-
-
-def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) -> None:
-    results_path, summary = run_benchmark(
-        tmp_path,
+    destination, results = run_benchmark(
         local_manifest(),
+        results_path=results_path,
         environ={"LOCAL_MODEL_TOKEN": "secret"},
         transport_factory=lambda _target: RunTransport(),
     )
 
-    assert results_path.parent.parent == tmp_path / "benchmarks"
-    assert json.loads(results_path.read_text()) == summary
-    assert summary["schema_version"] == "1.0.0"
-    assert summary["case_set"]["case_count"] == 50
-    assert summary["case_set"]["version"] == "1.0.0"
-    assert sum(summary["case_set"]["era_distribution"].values()) == 34
-    assert summary["status"] == "complete"
-    assert summary["controls"]["status"] == "passed"
-    assert len(summary["controls"]["cases"]) == 50
-    assert all(item["oracle"]["text_leak"] is True for item in summary["controls"]["cases"])
-    assert all(item["nop"]["text_leak"] is False for item in summary["controls"]["cases"])
-    assert len(summary["targets"]) == 1
-    target = summary["targets"][0]
+    assert destination == results_path
+    assert json.loads(results_path.read_text()) == results
+    assert results["status"] == "complete"
+    assert results["roguerecall_version"] == "0.1.0"
+    assert results["dataset"] == {"case_count": 50, "fingerprint": results["dataset"]["fingerprint"], "version": "1.0.0"}
+    assert results["settings"] == {"max_output_tokens": 256, "temperature": 0}
+    assert results["controls"]["status"] == "passed"
+    assert len(results["controls"]["cases"]) == 50
+    assert len(results["target_systems"]) == 1
+    target = results["target_systems"][0]
     assert target["target_system_id"] == "local-llama-3-1"
-    assert target["run_record"]["state"] == "complete"
-    assert target["planned"] == 50
     assert target["grading_coverage"] == {"numerator": 50, "denominator": 50}
     assert target["text_leaks"] == {"numerator": 0, "denominator": 50}
-    assert target["target_errors"] == 0
-    assert target["grader_errors"] == 0
-    assert target["not_tested"] == 0
-    assert summary["complete"] is True
-    assert target["run_record"]["path_base"] == "runs_root"
-    record_path = tmp_path / target["run_record"]["path"]
-    assert record_path.is_dir()
-    run = json.loads((record_path / "run.json").read_text())
-    assert run["case_set"]["fingerprint"] == summary["case_set"]["fingerprint"]
+    observation = target["observations"][0]
+    assert observation["raw_response"] == "OK"
+    assert observation["grade"]["text_leak"] is False
+    assert observation["grade"]["decisive_matches"] == []
+    assert observation["timestamps"]["started_at"]
+    assert observation["timestamps"]["finished_at"]
 
 
-def test_benchmark_batch_fails_closed_when_controls_mismatch(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
-) -> None:
-    transport_calls = 0
-
-    def fake_grade_observation(case: dict[str, object], response: object) -> dict[str, object]:
-        target = case["target"]  # type: ignore[index]
-        reference = f'{target["before"]}{target["eligible"]}{target["after"]}'  # type: ignore[index]
-        oracle = response == reference
-        return {
-            "evaluation_status": "completed",
-            "text_leak": bool(oracle and case["identity"]["case_id"] != "book-b01"),
-            "outcome_reason": "book-contiguous-20-v1" if oracle else "no_decisive_match",
-        }
-
-    def transport_factory(_target: dict[str, object]) -> RunTransport:
-        nonlocal transport_calls
-        transport_calls += 1
-        return RunTransport()
-
-    monkeypatch.setattr("roguerecall.benchmark.grade_observation", fake_grade_observation)
-
-    results_path, summary = run_benchmark(
-        tmp_path,
-        local_manifest(),
-        environ={"LOCAL_MODEL_TOKEN": "secret"},
-        transport_factory=transport_factory,  # type: ignore[arg-type]
-    )
-
-    assert json.loads(results_path.read_text()) == summary
-    assert summary["status"] == "controls_failed"
-    assert summary["complete"] is False
-    assert summary["controls"]["status"] == "controls_failed"
-    assert len(summary["controls"]["cases"]) == 50
-    assert summary["controls"]["cases"][0]["oracle"]["text_leak"] is False
-    assert summary["controls"]["cases"][0]["nop"]["text_leak"] is False
-    assert summary["targets"] == []
-    assert transport_calls == 0
-    rendered = format_benchmark_summary(summary)
-    assert rendered.splitlines()[0] == "Status: controls_failed"
-    assert rendered.splitlines()[1] == "Controls: controls_failed (50 cases)"
-    assert "Target System" in rendered
-    assert "local-llama-3-1" not in rendered
-
-
-def test_benchmark_batch_preserves_manifest_order_in_separate_run_records(
+def test_benchmark_never_overwrites_or_contacts_a_target_for_existing_output(
     tmp_path: Path,
 ) -> None:
-    manifest = local_manifest()
-    second = deepcopy(manifest["target_systems"][0])  # type: ignore[index]
-    second["target_system_id"] = "local-llama-second"
-    manifest["target_systems"].append(second)  # type: ignore[union-attr]
-
-    _, summary = run_benchmark(
-        tmp_path,
-        manifest,
-        environ={"LOCAL_MODEL_TOKEN": "secret"},
-        transport_factory=lambda _target: RunTransport(),
-    )
-
-    assert [item["target_system_id"] for item in summary["targets"]] == [
-        "local-llama-3-1",
-        "local-llama-second",
-    ]
-    paths = [
-        tmp_path / item["run_record"]["path"] for item in summary["targets"]
-    ]
-    assert len(set(paths)) == 2
-    for path in paths:
-        run = json.loads((path / "run.json").read_text())
-        assert len({item["target_system_id"] for item in run["plan"]}) == 1
-
-
-def test_benchmark_batch_continues_after_an_incomplete_target(tmp_path: Path) -> None:
-    manifest = local_manifest()
-    first = manifest["target_systems"][0]  # type: ignore[index]
-    second = deepcopy(first)
-    second["target_system_id"] = "local-llama-second"
-    manifest["target_systems"].append(second)  # type: ignore[union-attr]
-
-    def transport_factory(target: dict[str, object]) -> object:
-        if target["target_system_id"] == "local-llama-3-1":
-            return ScriptedTransport(
-                [
-                    response(200, {"data": [{"id": "llama-3.1-8b-instruct"}]}),
-                    local_success("OK"),
-                    response(401, {"error": "unauthorized"}),
-                ]
-            )
-        return RunTransport()
-
-    _, summary = run_benchmark(
-        tmp_path,
-        manifest,
-        environ={"LOCAL_MODEL_TOKEN": "secret"},
-        transport_factory=transport_factory,  # type: ignore[arg-type]
-    )
-
-    assert [item["run_record"]["state"] for item in summary["targets"]] == [
-        "incomplete",
-        "complete",
-    ]
-    assert summary["targets"][0]["target_errors"] == 1
-    assert summary["targets"][0]["not_tested"] == 49
-    assert summary["targets"][1]["grading_coverage"] == {
-        "numerator": 50,
-        "denominator": 50,
-    }
-    assert summary["status"] == "incomplete"
-    assert summary["controls"]["status"] == "passed"
-    assert summary["complete"] is False
-
-
-def test_benchmark_summary_is_non_ranked_and_denominator_explicit(
-    tmp_path: Path,
-) -> None:
-    manifest = local_manifest()
-    second = deepcopy(manifest["target_systems"][0])  # type: ignore[index]
-    second["target_system_id"] = "local-llama-second"
-    manifest["target_systems"].append(second)  # type: ignore[union-attr]
-    _, summary = run_benchmark(
-        tmp_path,
-        manifest,
-        environ={"LOCAL_MODEL_TOKEN": "secret"},
-        transport_factory=lambda _target: RunTransport(),
-    )
-
-    rendered = format_benchmark_summary(summary)
-
-    assert rendered.splitlines()[0] == "Status: complete"
-    assert rendered.splitlines()[1] == "Controls: passed (50 cases)"
-    assert rendered.index("local-llama-3-1") < rendered.index("local-llama-second")
-    assert "Coverage" in rendered
-    assert "Text Leaks" in rendered
-    assert rendered.count("50/50") == 2
-    assert all("0/50" in line for line in rendered.splitlines()[4:])
-    assert "winner" not in rendered.casefold()
-    assert "rank" not in rendered.casefold()
-
-
-def test_benchmark_never_overwrites_an_existing_summary(tmp_path: Path) -> None:
-    results_path = tmp_path / "existing" / "results.json"
-    results_path.parent.mkdir()
+    results_path = tmp_path / "results.json"
     results_path.write_text("original\n")
-
-    with pytest.raises(FileExistsError, match="already exists"):
-        run_benchmark(
-            tmp_path / "runs",
-            local_manifest(),
-            results_path=results_path,
-            environ={"LOCAL_MODEL_TOKEN": "secret"},
-            transport_factory=lambda _target: RunTransport(),
-        )
-
-    assert results_path.read_text() == "original\n"
-    assert not (tmp_path / "runs").exists()
-
-
-def test_benchmark_reserves_results_before_target_execution(tmp_path: Path) -> None:
-    unusable_parent = tmp_path / "not-a-directory"
-    unusable_parent.write_text("occupied\n")
     transports_created = 0
 
-    def transport_factory(_target: dict[str, object]) -> RunTransport:
+    def transport_factory(_target: object) -> RunTransport:
         nonlocal transports_created
         transports_created += 1
         return RunTransport()
 
-    with pytest.raises(OSError):
+    with pytest.raises(FileExistsError, match="already exists"):
         run_benchmark(
-            tmp_path / "runs",
             local_manifest(),
-            results_path=unusable_parent / "results.json",
+            results_path=results_path,
             environ={"LOCAL_MODEL_TOKEN": "secret"},
-            transport_factory=transport_factory,  # type: ignore[arg-type]
+            transport_factory=transport_factory,
         )
 
+    assert results_path.read_text() == "original\n"
     assert transports_created == 0
-    assert not (tmp_path / "runs").exists()
 
 
-def test_benchmark_cli_rejects_an_arbitrary_case_set_option(
-    tmp_path: Path, capsys: object
+def test_interruption_preserves_completed_observations_in_running_json(tmp_path: Path) -> None:
+    results_path = tmp_path / "results.json"
+
+    class InterruptingTransport(RunTransport):
+        def __init__(self) -> None:
+            self.completions = 0
+
+        def send(self, request: object) -> object:
+            url = request.url  # type: ignore[attr-defined]
+            if url.endswith("/v1/chat/completions"):
+                self.completions += 1
+                if self.completions == 3:
+                    raise KeyboardInterrupt
+            return super().send(request)  # type: ignore[arg-type]
+
+    with pytest.raises(KeyboardInterrupt):
+        run_benchmark(
+            local_manifest(),
+            results_path=results_path,
+            environ={"LOCAL_MODEL_TOKEN": "secret"},
+            transport_factory=lambda _target: InterruptingTransport(),
+        )
+
+    persisted = json.loads(results_path.read_text())
+    assert persisted["status"] == "running"
+    assert persisted["finished_at"] is None
+    observations = persisted["target_systems"][0]["observations"]
+    assert len(observations) == 1
+    assert observations[0]["raw_response"] == "OK"
+
+
+def test_each_observation_checkpoint_is_valid_json(tmp_path: Path) -> None:
+    results_path = tmp_path / "results.json"
+
+    class InspectingTransport(RunTransport):
+        def __init__(self) -> None:
+            self.completions = 0
+
+        def send(self, request: object) -> object:
+            if request.url.endswith("/v1/chat/completions"):  # type: ignore[attr-defined]
+                self.completions += 1
+                if self.completions > 2:
+                    checkpoint = json.loads(results_path.read_text())
+                    assert checkpoint["status"] == "running"
+                    assert len(checkpoint["target_systems"][0]["observations"]) == self.completions - 2
+            return super().send(request)  # type: ignore[arg-type]
+
+    _, results = run_benchmark(
+        local_manifest(),
+        results_path=results_path,
+        environ={"LOCAL_MODEL_TOKEN": "secret"},
+        transport_factory=lambda _target: InspectingTransport(),
+    )
+
+    assert results["status"] == "complete"
+
+
+def test_controls_failure_is_persisted_without_provider_execution(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    calls = 0
+
+    def broken_grade(case: object, response: object) -> dict[str, object]:
+        del case
+        return {"evaluation_status": "completed", "text_leak": False}
+
+    def transport_factory(_target: object) -> RunTransport:
+        nonlocal calls
+        calls += 1
+        return RunTransport()
+
+    monkeypatch.setattr("roguerecall.benchmark.grade_observation", broken_grade)
+    results_path, results = run_benchmark(
+        local_manifest(),
+        results_path=tmp_path / "results.json",
+        environ={"LOCAL_MODEL_TOKEN": "secret"},
+        transport_factory=transport_factory,
+    )
+
+    assert json.loads(results_path.read_text()) == results
+    assert results["status"] == "controls_failed"
+    assert results["target_systems"] == []
+    assert calls == 0
+
+
+def test_cli_has_only_manifest_and_results_inputs(tmp_path: Path, capsys: pytest.CaptureFixture[str]) -> None:
+    assert "runs_root" not in inspect.signature(run_benchmark).parameters
     manifest_path = tmp_path / "manifest.json"
     manifest_path.write_text(json.dumps(local_manifest()))
 
-    with pytest.raises(SystemExit) as error:
-        main(
-            [
-                "benchmark",
-                "--runs-root",
-                str(tmp_path / "runs"),
-                "--manifest",
-                str(manifest_path),
-                "--case-set",
-                str(tmp_path / "candidate.json"),
-            ]
-        )
+    exit_code = main(["benchmark", "--manifest", str(manifest_path), "--results", str(tmp_path / "results.json")])
 
-    assert error.value.code == 2
-    assert "unrecognized arguments: --case-set" in capsys.readouterr().err  # type: ignore[attr-defined]
-    assert not (tmp_path / "runs").exists()
+    assert exit_code == 2
+    assert "invalid benchmark input" in capsys.readouterr().out
+    with pytest.raises(SystemExit) as error:
+        main(["benchmark", "--help"])
+    assert error.value.code == 0
+
+
+def test_summary_is_denominator_explicit_and_non_ranked(tmp_path: Path) -> None:
+    _, results = run_benchmark(
+        local_manifest(),
+        results_path=tmp_path / "results.json",
+        environ={"LOCAL_MODEL_TOKEN": "secret"},
+        transport_factory=lambda _target: RunTransport(),
+    )
+
+    rendered = format_benchmark_summary(results)
+    assert "Coverage" in rendered
+    assert "Text Leaks" in rendered
+    assert "50/50" in rendered
+    assert "winner" not in rendered.casefold()
+    assert "rank" not in rendered.casefold()

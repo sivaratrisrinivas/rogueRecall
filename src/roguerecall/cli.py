@@ -17,25 +17,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         "benchmark",
         help="execute a Benchmark Batch and write its Benchmark Summary",
     )
-    benchmark_parser.add_argument("--runs-root", type=Path, required=True)
     benchmark_parser.add_argument("--manifest", type=Path, required=True)
-    benchmark_parser.add_argument("--results", type=Path)
+    benchmark_parser.add_argument("--results", type=Path, required=True)
     args = parser.parse_args(argv)
 
     if args.command == "benchmark":
         try:
             manifest = _read_json_object(args.manifest)
-            results_path, summary = run_benchmark(
-                args.runs_root,
-                manifest,
-                results_path=args.results,
-            )
+            results_path, summary = run_benchmark(manifest, results_path=args.results)
         except (OSError, ValueError) as error:
             print(f"invalid benchmark input: {error}")
             return 2
         print(format_benchmark_summary(summary))
-        print(f"Benchmark Summary: {results_path}")
-        return 0 if summary["complete"] else 1
+        print(f"Results: {results_path}")
+        return 0 if summary["status"] == "complete" else 1
     parser.error("unknown command")
     return 2
 

@@ -2,17 +2,15 @@ from __future__ import annotations
 
 import json
 import os
-import uuid
 from collections.abc import Callable, Mapping
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from . import __version__
 from .corpus import load_benchmark_corpus
-from .engine import run_targets
 from .grading import grade_observation
-from .records import canonical_json, validate_record
-from .targets import Transport, validate_target_manifest
+from .targets import Transport, execute_target_system, validate_target_manifest
 
 
 RESULTS_SCHEMA_VERSION = "1.0.0"
@@ -20,87 +18,98 @@ _NOP_CONTROL_RESPONSE = "cannot comply"
 
 
 def run_benchmark(
-    runs_root: Path,
     manifest: Mapping[str, Any],
     *,
-    results_path: Path | None = None,
+    results_path: Path,
     environ: Mapping[str, str] | None = None,
     transport_factory: Callable[[Mapping[str, Any]], Transport] | None = None,
 ) -> tuple[Path, dict[str, Any]]:
-    """Execute a Benchmark Batch and write its derived Benchmark Summary."""
+    """Run the fixed Benchmark Corpus and preserve observations in results.json."""
 
-    corpus = load_benchmark_corpus()
-    cases = corpus["cases"]
-    validate_target_manifest(manifest, environ=environ)
-    targets = manifest["target_systems"]
-    if not isinstance(targets, list):
-        raise ValueError("target_systems must be a list")
-
-    batch_id = str(uuid.uuid4())
-    destination = results_path or (
-        runs_root / "benchmarks" / batch_id / "results.json"
-    )
-    reservation = _reserve_summary(destination)
+    reservation = _reserve_results(results_path)
     try:
+        corpus = load_benchmark_corpus()
+        cases = corpus["cases"]
+        validated_manifest = validate_target_manifest(manifest, environ=environ)
         controls = _grade_controls(cases)
-        summary: dict[str, Any] = {
-            "batch_id": batch_id,
-            "case_set": {
+        results: dict[str, Any] = {
+            "controls": controls,
+            "dataset": {
                 "case_count": len(cases),
                 "fingerprint": corpus["fingerprint"],
-                "era_distribution": corpus["era_distribution"],
                 "version": corpus["version"],
             },
-            "complete": False,
-            "controls": controls,
             "finished_at": None,
+            "roguerecall_version": __version__,
             "schema_version": RESULTS_SCHEMA_VERSION,
+            "settings": {"max_output_tokens": 256, "temperature": 0},
+            "started_at": _utc_now(),
             "status": controls["status"],
-            "targets": [],
+            "target_systems": [],
+            "updated_at": _utc_now(),
         }
         if controls["status"] != "passed":
-            summary["finished_at"] = datetime.now(timezone.utc).isoformat()
-            _write_summary(reservation, destination, summary)
-            return destination, summary
+            results["finished_at"] = _utc_now()
+            _write_results(reservation, results_path, results)
+            return results_path, results
 
-        target_summaries = []
-        for target in targets:
-            single_manifest = {
-                "schema_version": manifest["schema_version"],
-                "target_systems": [target],
-            }
-            record_path = run_targets(
-                runs_root,
-                single_manifest,
-                cases,
-                environ=environ,
-                transport_factory=transport_factory,
+        results["status"] = "running"
+        for target in validated_manifest["target_systems"]:
+            target_results = _new_target_results(target, len(cases))
+            results["target_systems"].append(target_results)
+            _refresh_results(results, target_results)
+            _write_results(reservation, results_path, results)
+
+            def persist_observation(observation: Mapping[str, Any]) -> None:
+                target_results["observations"].append(
+                    _record_observation(observation, cases)
+                )
+                _refresh_results(results, target_results)
+                _write_results(reservation, results_path, results)
+
+            execution_cases = [
+                {
+                    "case_id": case["identity"]["case_id"],
+                    "prompt": case["prompt"]["text"],
+                }
+                for case in cases
+            ]
+            transport = (
+                transport_factory(target)
+                if transport_factory is not None
+                else _default_transport(target)
             )
-            target_summaries.append(_summarize_record(record_path, runs_root))
+            report = execute_target_system(
+                target,
+                execution_cases,
+                transport,
+                environ=environ,
+                persist_observation=persist_observation,
+            )
+            target_results["preflight"] = report["preflight"]
+            target_results["warnings"] = report["warnings"]
+            _refresh_results(results, target_results)
+            _write_results(reservation, results_path, results)
 
-        complete = all(
-            item["run_record"]["state"] == "complete" for item in target_summaries
+        results["status"] = (
+            "complete"
+            if all(_target_is_complete(target) for target in results["target_systems"])
+            else "incomplete"
         )
-        summary.update(
-            {
-                "complete": complete,
-                "finished_at": datetime.now(timezone.utc).isoformat(),
-                "status": "complete" if complete else "incomplete",
-                "targets": target_summaries,
-            }
-        )
-        _write_summary(reservation, destination, summary)
-        return destination, summary
+        results["finished_at"] = _utc_now()
+        results["updated_at"] = results["finished_at"]
+        _write_results(reservation, results_path, results)
+        return results_path, results
     finally:
         reservation.unlink(missing_ok=True)
 
 
-def format_benchmark_summary(summary: Mapping[str, Any]) -> str:
-    """Render a non-ranked Benchmark Summary in manifest order."""
+def format_benchmark_summary(results: Mapping[str, Any]) -> str:
+    """Render a compact, manifest-order, denominator-explicit result table."""
 
     lines = [
-        f"Status: {summary['status']}",
-        f"Controls: {summary['controls']['status']} ({len(summary['controls']['cases'])} cases)",
+        f"Status: {results['status']}",
+        f"Controls: {results['controls']['status']} ({len(results['controls']['cases'])} cases)",
         "",
     ]
     headers = (
@@ -110,25 +119,21 @@ def format_benchmark_summary(summary: Mapping[str, Any]) -> str:
         "Text Leaks",
         "Target Errors",
         "Grader Errors",
-        "Not Tested",
-        "Run Record",
     )
     rows = [headers]
-    for target in summary["targets"]:
+    for target in results["target_systems"]:
         coverage = target["grading_coverage"]
         leaks = target["text_leaks"]
         rows.append(
             (
                 target["target_system_id"],
-                target["run_record"]["state"],
+                target["state"],
                 f'{coverage["numerator"]}/{coverage["denominator"]}',
                 f'{leaks["numerator"]}/{leaks["denominator"]}',
                 str(target["target_errors"]),
                 str(target["grader_errors"]),
-                str(target["not_tested"]),
-                f'runs_root/{target["run_record"]["path"]}',
             )
-    )
+        )
     widths = [max(len(row[index]) for row in rows) for index in range(len(headers))]
     lines.extend(
         "  ".join(value.ljust(widths[index]) for index, value in enumerate(row)).rstrip()
@@ -137,37 +142,85 @@ def format_benchmark_summary(summary: Mapping[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def _summarize_record(record_path: Path, runs_root: Path) -> dict[str, Any]:
-    complete = not record_path.name.endswith(".incomplete")
-    run = validate_record(record_path, require_complete=complete)
-    observations = [
-        json.loads((record_path / item["path"]).read_text(encoding="utf-8"))
-        for item in run["observations"]
-    ]
-    integrity = json.loads(
-        (record_path / "integrity.json").read_text(encoding="utf-8")
-    )
+def _default_transport(target: Mapping[str, Any]) -> Transport:
+    from .targets import UrllibTransport
+
+    return UrllibTransport(target.get("ca_bundle"))
+
+
+def _new_target_results(target: Mapping[str, Any], planned: int) -> dict[str, Any]:
     return {
-        "grader_errors": sum(
-            item.get("terminal_status") == "grader_error" for item in observations
-        ),
-        "grading_coverage": run["summary"]["grading_coverage"],
-        "planned": run["summary"]["planned"],
-        "not_tested": sum(
-            item.get("terminal_status") == "not_tested" for item in observations
-        ),
-        "run_record": {
-            "fingerprint": integrity["record_fingerprint"],
-            "path": record_path.resolve().relative_to(runs_root.resolve()).as_posix(),
-            "path_base": "runs_root",
-            "state": run["lifecycle"]["state"],
+        "adapter": {
+            "id": target["adapter_id"],
+            "version": target["adapter_version"],
         },
-        "target_errors": sum(
-            item.get("terminal_status") == "target_error" for item in observations
-        ),
-        "target_system_id": run["plan"][0]["target_system_id"],
-        "text_leaks": run["summary"]["leak_rate"],
+        "credential_environment_variable": target["credential"]["environment_variable"],
+        "base_url": target["base_url"],
+        "execution": target["execution"],
+        "generation": target["generation"],
+        "model_id": target["requested_model"],
+        "observations": [],
+        "preflight": None,
+        "state": "running",
+        "target_errors": 0,
+        "target_system_id": target["target_system_id"],
+        "timestamps": {"started_at": _utc_now(), "finished_at": None},
+        "warnings": [],
+        "grading_coverage": {"numerator": 0, "denominator": planned},
+        "text_leaks": {"numerator": 0, "denominator": 0},
+        "grader_errors": 0,
     }
+
+
+def _record_observation(
+    result: Mapping[str, Any], cases: list[dict[str, Any]]
+) -> dict[str, Any]:
+    case_id = result["case_id"]
+    case = next(case for case in cases if case["identity"]["case_id"] == case_id)
+    terminal_status = result["terminal_status"]
+    record: dict[str, Any] = {
+        "case_id": case_id,
+        "attempts": result.get("attempts", []),
+        "error": result.get("error"),
+        "grade": None,
+        "raw_response": None,
+        "terminal_status": terminal_status,
+        "timestamps": result.get("timestamps", {"started_at": _utc_now(), "finished_at": _utc_now()}),
+        "warnings": result.get("warnings", []),
+    }
+    selected_response = result.get("selected_response")
+    if isinstance(selected_response, Mapping) and isinstance(selected_response.get("text"), str):
+        record["raw_response"] = selected_response["text"]
+    if terminal_status == "completed":
+        grade = grade_observation(case, record["raw_response"])
+        record["grade"] = grade
+        record["terminal_status"] = (
+            "graded" if grade["evaluation_status"] == "completed" else "grader_error"
+        )
+    return record
+
+
+def _refresh_results(results: dict[str, Any], target: dict[str, Any]) -> None:
+    observations = target["observations"]
+    graded = [item for item in observations if item["terminal_status"] == "graded"]
+    target["grading_coverage"]["numerator"] = len(graded)
+    target["text_leaks"] = {
+        "numerator": sum(item.get("grade", {}).get("text_leak") is True for item in graded),
+        "denominator": len(graded),
+    }
+    target["target_errors"] = sum(item["terminal_status"] == "target_error" for item in observations)
+    target["grader_errors"] = sum(item["terminal_status"] == "grader_error" for item in observations)
+    target["state"] = "complete" if _target_is_complete(target) else "running"
+    if target["state"] == "complete":
+        target["timestamps"]["finished_at"] = _utc_now()
+    results["updated_at"] = _utc_now()
+
+
+def _target_is_complete(target: Mapping[str, Any]) -> bool:
+    observations = target["observations"]
+    return len(observations) == target["grading_coverage"]["denominator"] and all(
+        item["terminal_status"] != "not_tested" for item in observations
+    )
 
 
 def _grade_controls(cases: list[dict[str, Any]]) -> dict[str, Any]:
@@ -176,50 +229,50 @@ def _grade_controls(cases: list[dict[str, Any]]) -> dict[str, Any]:
     for case in cases:
         oracle_grade = grade_observation(case, _oracle_control_response(case))
         nop_grade = grade_observation(case, _NOP_CONTROL_RESPONSE)
-        control_cases.append(
-            {
-                "case_id": case["identity"]["case_id"],
-                "oracle": oracle_grade,
-                "nop": nop_grade,
-            }
-        )
-        if not _control_passed(oracle_grade, expected_text_leak=True):
-            all_passed = False
-        if not _control_passed(nop_grade, expected_text_leak=False):
-            all_passed = False
-    return {
-        "cases": control_cases,
-        "status": "passed" if all_passed else "controls_failed",
-    }
+        control_cases.append({"case_id": case["identity"]["case_id"], "oracle": oracle_grade, "nop": nop_grade})
+        all_passed &= _control_passed(oracle_grade, expected_text_leak=True)
+        all_passed &= _control_passed(nop_grade, expected_text_leak=False)
+    return {"cases": control_cases, "status": "passed" if all_passed else "controls_failed"}
 
 
-def _oracle_control_response(case: dict[str, Any]) -> str:
+def _oracle_control_response(case: Mapping[str, Any]) -> str:
     target = case["target"]
     return f'{target["before"]}{target["eligible"]}{target["after"]}'
 
 
-def _control_passed(grade: dict[str, Any], *, expected_text_leak: bool) -> bool:
-    return (
-        grade.get("evaluation_status") == "completed"
-        and grade.get("text_leak") is expected_text_leak
-    )
+def _control_passed(grade: Mapping[str, Any], *, expected_text_leak: bool) -> bool:
+    return grade.get("evaluation_status") == "completed" and grade.get("text_leak") is expected_text_leak
 
 
-def _reserve_summary(path: Path) -> Path:
+def _reserve_results(path: Path) -> Path:
     path.parent.mkdir(parents=True, exist_ok=True)
     if path.exists():
-        raise FileExistsError(f"Benchmark Summary already exists: {path}")
-    temporary = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
-    temporary.touch(exist_ok=False)
-    return temporary
-
-
-def _write_summary(
-    temporary: Path, path: Path, summary: Mapping[str, Any]
-) -> None:
-    with temporary.open("wb") as handle:
-        handle.write(canonical_json(summary) + b"\n")
+        raise FileExistsError(f"results.json already exists: {path}")
+    reservation = path.with_name(f".{path.name}.lock")
     try:
-        os.link(temporary, path)
+        with reservation.open("x", encoding="utf-8"):
+            pass
     except FileExistsError as error:
-        raise FileExistsError(f"Benchmark Summary already exists: {path}") from error
+        raise FileExistsError(f"results.json already exists: {path}") from error
+    return reservation
+
+
+def _write_results(reservation: Path, path: Path, results: Mapping[str, Any]) -> None:
+    temporary = reservation.with_suffix(".json.tmp")
+    with temporary.open("x", encoding="utf-8") as handle:
+        json.dump(results, handle, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
+        handle.write("\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    try:
+        if path.exists():
+            os.replace(temporary, path)
+        else:
+            os.link(temporary, path)
+            temporary.unlink()
+    except FileExistsError as error:
+        raise FileExistsError(f"results.json already exists: {path}") from error
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
