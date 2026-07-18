@@ -29,8 +29,6 @@ def local_manifest() -> dict[str, object]:
         "target_systems": [
             {
                 "target_system_id": "local-llama-3-1",
-                "adapter_id": "openai-compatible-chat-v1",
-                "adapter_version": "1.0.0",
                 "requested_model": "llama-3.1-8b-instruct",
                 "base_url": "http://127.0.0.1:8080",
                 "credential": {
@@ -77,33 +75,23 @@ def test_local_manifest_rejects_unsafe_or_noncanonical_urls(base_url: str) -> No
         validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
 
 
-def test_official_adapters_reject_endpoint_overrides() -> None:
+def test_manifest_rejects_removed_adapter_fields() -> None:
     manifest = local_manifest()
     target = manifest["target_systems"][0]  # type: ignore[index]
     target["adapter_id"] = "openai-responses-v1"  # type: ignore[index]
     target["base_url"] = "https://proxy.example.com"  # type: ignore[index]
 
-    with pytest.raises(TargetManifestError, match="base_url"):
+    with pytest.raises(TargetManifestError, match="fixed target contract"):
         validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
 
 
-def test_official_capabilities_come_from_the_adapter_catalog() -> None:
+def test_manifest_rejects_removed_provider_capabilities() -> None:
     manifest = local_manifest()
     target = manifest["target_systems"][0]  # type: ignore[index]
-    target["adapter_id"] = "openai-responses-v1"  # type: ignore[index]
-    target["requested_model"] = "gpt-5-2026-01-01"  # type: ignore[index]
-    target["base_url"] = None  # type: ignore[index]
     target["capabilities"] = {"temperature": True}  # type: ignore[index]
 
-    with pytest.raises(TargetManifestError, match="versioned catalog"):
+    with pytest.raises(TargetManifestError, match="fixed target contract"):
         validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
-
-    del target["capabilities"]  # type: ignore[index]
-    validated = validate_target_manifest(
-        manifest, environ={"LOCAL_MODEL_TOKEN": "secret"}
-    )["target_systems"][0]
-    assert validated["capabilities"] == {"temperature": False}
-    assert "temperature_unsupported" in validated["warnings"]
 
 
 def test_manifest_fails_closed_on_unknown_fields_and_missing_credentials() -> None:
@@ -205,78 +193,6 @@ class TruncatingRunTransport(RunTransport):
                 body["choices"][0]["finish_reason"] = "length"
                 return response(200, body)
         return result
-
-
-def official_target(adapter_id: str) -> dict[str, Any]:
-    target = local_manifest()["target_systems"][0]  # type: ignore[index]
-    target["target_system_id"] = adapter_id.replace("-v1", "")  # type: ignore[index]
-    target["adapter_id"] = adapter_id  # type: ignore[index]
-    target["requested_model"] = "provider-model-2026-01-01"  # type: ignore[index]
-    target["base_url"] = None  # type: ignore[index]
-    target["generation"] = {"max_output_tokens": 128, "temperature": 0}  # type: ignore[index]
-    return validate_target_manifest(
-        {"schema_version": "1.0.0", "target_systems": [target]},
-        environ={"LOCAL_MODEL_TOKEN": "secret"},
-    )["target_systems"][0]
-
-
-@pytest.mark.parametrize(
-    ("adapter_id", "endpoint", "provider_body", "token_field"),
-    [
-        (
-            "openai-responses-v1",
-            "https://api.openai.com/v1/responses",
-            {
-                "id": "resp-1",
-                "model": "provider-model-2026-01-01",
-                "status": "completed",
-                "output": [
-                    {
-                        "type": "message",
-                        "role": "assistant",
-                        "content": [{"type": "output_text", "text": "answer"}],
-                    }
-                ],
-                "usage": {},
-            },
-            "max_output_tokens",
-        ),
-        (
-            "anthropic-messages-v1",
-            "https://api.anthropic.com/v1/messages",
-            {
-                "id": "msg-1",
-                "model": "provider-model-2026-01-01",
-                "content": [{"type": "text", "text": "answer"}],
-                "stop_reason": "end_turn",
-                "usage": {},
-            },
-            "max_tokens",
-        ),
-    ],
-)
-def test_official_adapters_preflight_the_model_and_keep_fixed_contracts(
-    adapter_id: str, endpoint: str, provider_body: dict[str, Any], token_field: str
-) -> None:
-    transport = ScriptedTransport(
-        [response(200, {"id": "provider-model-2026-01-01"}), response(200, provider_body), response(200, provider_body)]
-    )
-
-    report = execute_target_system(
-        official_target(adapter_id),
-        [{"case_id": "case-1", "prompt": "exact prompt"}],
-        transport,
-        environ={"LOCAL_MODEL_TOKEN": "secret"},
-    )
-
-    assert transport.requests[0].url.endswith("/v1/models/provider-model-2026-01-01")
-    assert transport.requests[1].url == endpoint
-    body = json.loads(transport.requests[2].body)
-    assert body[token_field] == 128
-    assert body["messages" if adapter_id.startswith("anthropic") else "input"] == [
-        {"content": "exact prompt", "role": "user"}
-    ]
-    assert report["observations"][0]["selected_response"]["text"] == "answer"
 
 
 def test_local_adapter_preflights_and_uses_only_the_fixed_request_contract() -> None:

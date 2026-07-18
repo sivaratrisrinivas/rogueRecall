@@ -1002,8 +1002,7 @@ def _validate_target(
 ) -> dict[str, Any]:
     if not isinstance(raw_target, Mapping):
         raise TargetManifestError("each Target System must be an object")
-    if raw_target.get("adapter_id") == "openai-compatible-chat-v1":
-        return _validate_local_chat_target(raw_target, environment)
+    return _validate_local_chat_target(raw_target, environment)
     _allowed_fields(raw_target, _TARGET_FIELDS, _REQUIRED_TARGET_FIELDS, "Target System")
     target = copy.deepcopy(dict(raw_target))
     target.setdefault("base_url", None)
@@ -1102,8 +1101,6 @@ def _validate_local_chat_target(
     raw_target: Mapping[str, Any], environment: Mapping[str, str]
 ) -> dict[str, Any]:
     allowed = {
-        "adapter_id",
-        "adapter_version",
         "base_url",
         "credential",
         "requested_model",
@@ -1124,8 +1121,6 @@ def _validate_local_chat_target(
     target_id = target["target_system_id"]
     if not isinstance(target_id, str) or not _TARGET_ID.fullmatch(target_id):
         raise TargetManifestError("target_system_id must be a stable lowercase ID")
-    if target["adapter_version"] != ADAPTER_VERSION:
-        raise TargetManifestError("unsupported adapter_version")
     _nonempty_text(target, "requested_model")
     target["base_url"] = _validate_local_url(target["base_url"])
 
@@ -1151,6 +1146,8 @@ def _validate_local_chat_target(
     target["ca_bundle"] = None
     target["local_artifact"] = None
     target["warnings"] = []
+    target["adapter_id"] = "openai-compatible-chat-v1"
+    target["adapter_version"] = ADAPTER_VERSION
     return target
 
 

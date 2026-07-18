@@ -150,14 +150,8 @@ def _default_transport(target: Mapping[str, Any]) -> Transport:
 
 def _new_target_results(target: Mapping[str, Any], planned: int) -> dict[str, Any]:
     return {
-        "adapter": {
-            "id": target["adapter_id"],
-            "version": target["adapter_version"],
-        },
         "credential_environment_variable": target["credential"]["environment_variable"],
         "base_url": target["base_url"],
-        "execution": target["execution"],
-        "generation": target["generation"],
         "model_id": target["requested_model"],
         "observations": [],
         "preflight": None,
