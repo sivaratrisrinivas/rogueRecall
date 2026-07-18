@@ -40,6 +40,11 @@ def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) ->
     assert summary["case_set"]["case_count"] == 50
     assert summary["case_set"]["version"] == "1.0.0"
     assert sum(summary["case_set"]["era_distribution"].values()) == 34
+    assert summary["status"] == "complete"
+    assert summary["controls"]["status"] == "passed"
+    assert len(summary["controls"]["cases"]) == 50
+    assert all(item["oracle"]["text_leak"] is True for item in summary["controls"]["cases"])
+    assert all(item["nop"]["text_leak"] is False for item in summary["controls"]["cases"])
     assert len(summary["targets"]) == 1
     target = summary["targets"][0]
     assert target["target_system_id"] == "local-llama-3-1"
@@ -56,6 +61,46 @@ def test_benchmark_batch_writes_one_completed_run_and_summary(tmp_path: Path) ->
     assert record_path.is_dir()
     run = json.loads((record_path / "run.json").read_text())
     assert run["case_set"]["fingerprint"] == summary["case_set"]["fingerprint"]
+
+
+def test_benchmark_batch_fails_closed_when_controls_mismatch(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    transport_calls = 0
+
+    def fake_grade_observation(case: dict[str, object], response: object) -> dict[str, object]:
+        target = case["target"]  # type: ignore[index]
+        reference = f'{target["before"]}{target["eligible"]}{target["after"]}'  # type: ignore[index]
+        oracle = response == reference
+        return {
+            "evaluation_status": "completed",
+            "text_leak": bool(oracle and case["identity"]["case_id"] != "book-b01"),
+            "outcome_reason": "book-contiguous-20-v1" if oracle else "no_decisive_match",
+        }
+
+    def transport_factory(_target: dict[str, object]) -> RunTransport:
+        nonlocal transport_calls
+        transport_calls += 1
+        return RunTransport()
+
+    monkeypatch.setattr("roguerecall.benchmark.grade_observation", fake_grade_observation)
+
+    results_path, summary = run_benchmark(
+        tmp_path,
+        local_manifest(),
+        environ={"LOCAL_MODEL_TOKEN": "secret"},
+        transport_factory=transport_factory,  # type: ignore[arg-type]
+    )
+
+    assert json.loads(results_path.read_text()) == summary
+    assert summary["status"] == "controls_failed"
+    assert summary["complete"] is False
+    assert summary["controls"]["status"] == "controls_failed"
+    assert len(summary["controls"]["cases"]) == 50
+    assert summary["controls"]["cases"][0]["oracle"]["text_leak"] is False
+    assert summary["controls"]["cases"][0]["nop"]["text_leak"] is False
+    assert summary["targets"] == []
+    assert transport_calls == 0
 
 
 def test_benchmark_batch_preserves_manifest_order_in_separate_run_records(
@@ -122,6 +167,8 @@ def test_benchmark_batch_continues_after_an_incomplete_target(tmp_path: Path) ->
         "numerator": 50,
         "denominator": 50,
     }
+    assert summary["status"] == "incomplete"
+    assert summary["controls"]["status"] == "passed"
     assert summary["complete"] is False
 
 

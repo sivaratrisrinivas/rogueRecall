@@ -10,11 +10,13 @@ from typing import Any
 
 from .corpus import load_benchmark_corpus
 from .engine import run_targets
+from .grading import grade_observation
 from .records import canonical_json, validate_record
 from .targets import Transport, validate_target_manifest
 
 
 RESULTS_SCHEMA_VERSION = "1.0.0"
+_NOP_CONTROL_RESPONSE = "cannot comply"
 
 
 def run_benchmark(
@@ -40,6 +42,27 @@ def run_benchmark(
     )
     reservation = _reserve_summary(destination)
     try:
+        controls = _grade_controls(cases)
+        summary: dict[str, Any] = {
+            "batch_id": batch_id,
+            "case_set": {
+                "case_count": len(cases),
+                "fingerprint": corpus["fingerprint"],
+                "era_distribution": corpus["era_distribution"],
+                "version": corpus["version"],
+            },
+            "complete": False,
+            "controls": controls,
+            "finished_at": None,
+            "schema_version": RESULTS_SCHEMA_VERSION,
+            "status": controls["status"],
+            "targets": [],
+        }
+        if controls["status"] != "passed":
+            summary["finished_at"] = datetime.now(timezone.utc).isoformat()
+            _write_summary(reservation, destination, summary)
+            return destination, summary
+
         target_summaries = []
         for target in targets:
             single_manifest = {
@@ -55,22 +78,17 @@ def run_benchmark(
             )
             target_summaries.append(_summarize_record(record_path, runs_root))
 
-        summary = {
-            "batch_id": batch_id,
-            "case_set": {
-                "case_count": len(cases),
-                "fingerprint": corpus["fingerprint"],
-                "era_distribution": corpus["era_distribution"],
-                "version": corpus["version"],
-            },
-            "complete": all(
-                item["run_record"]["state"] == "complete"
-                for item in target_summaries
-            ),
-            "finished_at": datetime.now(timezone.utc).isoformat(),
-            "schema_version": RESULTS_SCHEMA_VERSION,
-            "targets": target_summaries,
-        }
+        complete = all(
+            item["run_record"]["state"] == "complete" for item in target_summaries
+        )
+        summary.update(
+            {
+                "complete": complete,
+                "finished_at": datetime.now(timezone.utc).isoformat(),
+                "status": "complete" if complete else "incomplete",
+                "targets": target_summaries,
+            }
+        )
         _write_summary(reservation, destination, summary)
         return destination, summary
     finally:
@@ -144,6 +162,41 @@ def _summarize_record(record_path: Path, runs_root: Path) -> dict[str, Any]:
         "target_system_id": run["plan"][0]["target_system_id"],
         "text_leaks": run["summary"]["leak_rate"],
     }
+
+
+def _grade_controls(cases: list[dict[str, Any]]) -> dict[str, Any]:
+    control_cases = []
+    all_passed = True
+    for case in cases:
+        oracle_grade = grade_observation(case, _oracle_control_response(case))
+        nop_grade = grade_observation(case, _NOP_CONTROL_RESPONSE)
+        control_cases.append(
+            {
+                "case_id": case["identity"]["case_id"],
+                "oracle": oracle_grade,
+                "nop": nop_grade,
+            }
+        )
+        if not _control_passed(oracle_grade, expected_text_leak=True):
+            all_passed = False
+        if not _control_passed(nop_grade, expected_text_leak=False):
+            all_passed = False
+    return {
+        "cases": control_cases,
+        "status": "passed" if all_passed else "controls_failed",
+    }
+
+
+def _oracle_control_response(case: dict[str, Any]) -> str:
+    target = case["target"]
+    return f'{target["before"]}{target["eligible"]}{target["after"]}'
+
+
+def _control_passed(grade: dict[str, Any], *, expected_text_leak: bool) -> bool:
+    return (
+        grade.get("evaluation_status") == "completed"
+        and grade.get("text_leak") is expected_text_leak
+    )
 
 
 def _reserve_summary(path: Path) -> Path:
