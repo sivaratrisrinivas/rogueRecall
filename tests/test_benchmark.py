@@ -139,7 +139,6 @@ def test_benchmark_batch_preserves_manifest_order_in_separate_run_records(
 def test_benchmark_batch_continues_after_an_incomplete_target(tmp_path: Path) -> None:
     manifest = local_manifest()
     first = manifest["target_systems"][0]  # type: ignore[index]
-    first["execution"]["concurrency"] = 1
     second = deepcopy(first)
     second["target_system_id"] = "local-llama-second"
     manifest["target_systems"].append(second)  # type: ignore[union-attr]

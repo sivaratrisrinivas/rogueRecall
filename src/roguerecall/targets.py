@@ -29,6 +29,11 @@ from .records import canonical_json, sha256_bytes
 
 TARGET_MANIFEST_VERSION = "1.0.0"
 ADAPTER_VERSION = "1.0.0"
+_LOCAL_CHAT_MAX_OUTPUT_TOKENS = 256
+_LOCAL_CHAT_CONCURRENCY = 1
+_LOCAL_CHAT_MAX_ATTEMPTS = 2
+_LOCAL_CHAT_CONNECT_TIMEOUT_SECONDS = 10
+_LOCAL_CHAT_ATTEMPT_TIMEOUT_SECONDS = 90
 ADAPTER_IDS = {
     "anthropic-messages-v1",
     "openai-compatible-chat-v1",
@@ -564,13 +569,13 @@ def _request(
         url = f"{target['base_url']}/v1/chat/completions"
         method = "POST"
         body_value: dict[str, Any] = {
-            "max_tokens": token_cap,
+            "max_tokens": _LOCAL_CHAT_MAX_OUTPUT_TOKENS,
             "messages": [{"content": prompt, "role": "user"}],
             "model": target["requested_model"],
             "n": 1,
             "stream": False,
+            "temperature": 0,
         }
-        _add_temperature(target, body_value)
         body = canonical_json(body_value)
     elif adapter_id == "openai-responses-v1":
         url = "https://api.openai.com/v1/responses"
@@ -990,6 +995,8 @@ def _validate_target(
 ) -> dict[str, Any]:
     if not isinstance(raw_target, Mapping):
         raise TargetManifestError("each Target System must be an object")
+    if raw_target.get("adapter_id") == "openai-compatible-chat-v1":
+        return _validate_local_chat_target(raw_target, environment)
     _allowed_fields(raw_target, _TARGET_FIELDS, _REQUIRED_TARGET_FIELDS, "Target System")
     target = copy.deepcopy(dict(raw_target))
     target.setdefault("base_url", None)
@@ -1079,12 +1086,64 @@ def _validate_target(
         warnings.append("temperature_unsupported")
     if adapter_id in OFFICIAL_ADAPTERS and not _looks_pinned(target["requested_model"]):
         warnings.append("unpinned_model")
-    if adapter_id == "openai-compatible-chat-v1":
-        artifact = target["local_artifact"]
-        if artifact is None or artifact["model_digest"] is None:
-            warnings.append("unverifiable_model_artifact")
     target["capabilities"] = dict(capabilities)
     target["warnings"] = warnings
+    return target
+
+
+def _validate_local_chat_target(
+    raw_target: Mapping[str, Any], environment: Mapping[str, str]
+) -> dict[str, Any]:
+    allowed = {
+        "adapter_id",
+        "adapter_version",
+        "base_url",
+        "credential",
+        "requested_model",
+        "target_system_id",
+    }
+    present = set(raw_target)
+    unknown = present - allowed
+    if unknown:
+        raise TargetManifestError(
+            f"openai-compatible chat uses a fixed target contract; unexpected field: {sorted(unknown)[0]}"
+        )
+    missing = allowed - present
+    if missing:
+        raise TargetManifestError(
+            f"Target System is missing field: {sorted(missing)[0]}"
+        )
+    target = copy.deepcopy(dict(raw_target))
+    target_id = target["target_system_id"]
+    if not isinstance(target_id, str) or not _TARGET_ID.fullmatch(target_id):
+        raise TargetManifestError("target_system_id must be a stable lowercase ID")
+    if target["adapter_version"] != ADAPTER_VERSION:
+        raise TargetManifestError("unsupported adapter_version")
+    _nonempty_text(target, "requested_model")
+    target["base_url"] = _validate_local_url(target["base_url"])
+
+    credential = _object(target, "credential", _CREDENTIAL_FIELDS)
+    kind = _enum(credential, "kind", {"bearer"})
+    env_name = credential["environment_variable"]
+    if not isinstance(env_name, str) or not env_name or not environment.get(env_name):
+        raise TargetManifestError(f"credential environment variable is missing: {env_name}")
+    if kind != "bearer":
+        raise TargetManifestError("openai-compatible chat requires a bearer credential")
+
+    target["generation"] = {
+        "max_output_tokens": _LOCAL_CHAT_MAX_OUTPUT_TOKENS,
+        "temperature": 0,
+    }
+    target["execution"] = {
+        "attempt_timeout_seconds": _LOCAL_CHAT_ATTEMPT_TIMEOUT_SECONDS,
+        "concurrency": _LOCAL_CHAT_CONCURRENCY,
+        "connect_timeout_seconds": _LOCAL_CHAT_CONNECT_TIMEOUT_SECONDS,
+        "max_attempts": _LOCAL_CHAT_MAX_ATTEMPTS,
+    }
+    target["capabilities"] = {"temperature": True}
+    target["ca_bundle"] = None
+    target["local_artifact"] = None
+    target["warnings"] = []
     return target
 
 

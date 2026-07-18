@@ -37,24 +37,6 @@ def local_manifest() -> dict[str, object]:
                     "kind": "bearer",
                     "environment_variable": "LOCAL_MODEL_TOKEN",
                 },
-                "generation": {"max_output_tokens": 128, "temperature": 0},
-                "execution": {
-                    "concurrency": 2,
-                    "connect_timeout_seconds": 3,
-                    "attempt_timeout_seconds": 20,
-                    "max_attempts": 3,
-                },
-                "capabilities": {"temperature": True},
-                "local_artifact": {
-                    "software_name": "llama.cpp",
-                    "software_version": "b6000",
-                    "model_artifact_name": "llama.gguf",
-                    "model_digest": "sha256:" + "a" * 64,
-                    "quantization": "Q4_K_M",
-                    "context_size": 8192,
-                    "launch_configuration_digest": "sha256:" + "b" * 64,
-                },
-                "ca_bundle": None,
             }
         ],
     }
@@ -111,7 +93,7 @@ def test_official_capabilities_come_from_the_adapter_catalog() -> None:
     target["adapter_id"] = "openai-responses-v1"  # type: ignore[index]
     target["requested_model"] = "gpt-5-2026-01-01"  # type: ignore[index]
     target["base_url"] = None  # type: ignore[index]
-    target["local_artifact"] = None  # type: ignore[index]
+    target["capabilities"] = {"temperature": True}  # type: ignore[index]
 
     with pytest.raises(TargetManifestError, match="versioned catalog"):
         validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
@@ -127,7 +109,7 @@ def test_official_capabilities_come_from_the_adapter_catalog() -> None:
 def test_manifest_fails_closed_on_unknown_fields_and_missing_credentials() -> None:
     unknown = local_manifest()
     unknown["target_systems"][0]["surprise"] = True  # type: ignore[index]
-    with pytest.raises(TargetManifestError, match="unknown field"):
+    with pytest.raises(TargetManifestError, match="fixed target contract"):
         validate_target_manifest(unknown, environ={"LOCAL_MODEL_TOKEN": "secret"})
 
     missing = copy.deepcopy(local_manifest())
@@ -135,46 +117,29 @@ def test_manifest_fails_closed_on_unknown_fields_and_missing_credentials() -> No
         validate_target_manifest(missing, environ={})
 
 
-def test_manifest_applies_versioned_generation_and_execution_defaults() -> None:
-    manifest = local_manifest()
-    target = manifest["target_systems"][0]  # type: ignore[index]
-    del target["generation"]  # type: ignore[index]
-    del target["execution"]  # type: ignore[index]
-    del target["capabilities"]  # type: ignore[index]
-    del target["local_artifact"]  # type: ignore[index]
-    del target["ca_bundle"]  # type: ignore[index]
-
+def test_manifest_applies_fixed_local_contract_defaults() -> None:
     validated = validate_target_manifest(
-        manifest, environ={"LOCAL_MODEL_TOKEN": "secret"}
+        local_manifest(), environ={"LOCAL_MODEL_TOKEN": "secret"}
     )["target_systems"][0]
 
-    assert validated["generation"] == {"max_output_tokens": 1024, "temperature": 0}
+    assert validated["generation"] == {"max_output_tokens": 256, "temperature": 0}
     assert validated["execution"] == {
         "attempt_timeout_seconds": 90,
-        "concurrency": 5,
+        "concurrency": 1,
         "connect_timeout_seconds": 10,
-        "max_attempts": 3,
+        "max_attempts": 2,
     }
     assert validated["capabilities"] == {"temperature": True}
+    assert validated["ca_bundle"] is None
     assert validated["local_artifact"] is None
 
 
-def test_custom_ca_manifest_retains_only_the_bundle_fingerprint(tmp_path: Path) -> None:
-    ca_bundle = tmp_path / "operator-ca.pem"
-    ca_bundle.write_text("public certificate bytes")
+def test_local_contract_rejects_optional_fields_and_extra_settings() -> None:
     manifest = local_manifest()
     target = manifest["target_systems"][0]  # type: ignore[index]
-    target["base_url"] = "https://models.example.com"  # type: ignore[index]
-    target["ca_bundle"] = str(ca_bundle)  # type: ignore[index]
-
-    validated = validate_target_manifest(
-        manifest, environ={"LOCAL_MODEL_TOKEN": "secret"}
-    )["target_systems"][0]
-
-    assert validated["ca_bundle"] == {
-        "sha256": "0fe37f70726e4c14a7a6c2f095eee49c57af70cccb32dd64fe0fa93d5bb6bb01"
-    }
-    assert str(ca_bundle) not in repr(validated)
+    target["generation"] = {"max_output_tokens": 128, "temperature": 0}  # type: ignore[index]
+    with pytest.raises(TargetManifestError, match="fixed target contract"):
+        validate_target_manifest(manifest, environ={"LOCAL_MODEL_TOKEN": "secret"})
 
 
 class ScriptedTransport:
@@ -248,7 +213,7 @@ def official_target(adapter_id: str) -> dict[str, Any]:
     target["adapter_id"] = adapter_id  # type: ignore[index]
     target["requested_model"] = "provider-model-2026-01-01"  # type: ignore[index]
     target["base_url"] = None  # type: ignore[index]
-    target["local_artifact"] = None  # type: ignore[index]
+    target["generation"] = {"max_output_tokens": 128, "temperature": 0}  # type: ignore[index]
     return validate_target_manifest(
         {"schema_version": "1.0.0", "target_systems": [target]},
         environ={"LOCAL_MODEL_TOKEN": "secret"},
@@ -337,7 +302,7 @@ def test_local_adapter_preflights_and_uses_only_the_fixed_request_contract() -> 
     ]
     corpus_body = json.loads(transport.requests[2].body)
     assert corpus_body == {
-        "max_tokens": 128,
+        "max_tokens": 256,
         "messages": [{"content": "published prompt", "role": "user"}],
         "model": "llama-3.1-8b-instruct",
         "n": 1,
@@ -454,7 +419,6 @@ def test_retry_policy_records_retry_after_and_exhausted_transient_failures() -> 
             local_success("OK"),
             response(429, {"error": "busy"}, **{"retry-after": "2"}),
             response(503, {"error": "busy"}),
-            response(503, {"error": "busy"}),
         ]
     )
 
@@ -470,14 +434,14 @@ def test_retry_policy_records_retry_after_and_exhausted_transient_failures() -> 
     observation = report["observations"][0]
     assert observation["terminal_status"] == "target_error"
     assert observation["error"]["code"] == "target_request_error"
-    assert len(observation["attempts"]) == 3
+    assert len(observation["attempts"]) == 2
     assert observation["attempts"][0]["retry"] == {
         "actual_wait_seconds": 2,
         "delay_seconds": 2,
         "source": "retry_after",
         "will_retry": True,
     }
-    assert waits == [2, 1]
+    assert waits == [2]
 
 
 def test_deterministic_target_error_stops_remaining_cases_in_corpus_order() -> None:
@@ -599,7 +563,7 @@ def test_case_attempts_are_bounded_by_target_concurrency_and_return_in_corpus_or
         environ={"LOCAL_MODEL_TOKEN": "secret"},
     )
 
-    assert transport.maximum_active == 2
+    assert transport.maximum_active == 1
     assert [item["case_id"] for item in report["observations"]] == [
         "case-0",
         "case-1",
