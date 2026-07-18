@@ -13,13 +13,13 @@ Accepted
 The V1 code rule treated every Pygments `Token.Error` as a grader failure.
 Target System responses often mix code with imperfect Markdown, so a single
 recoverable error token caused an otherwise lexable response to lose Grading
-Coverage. Validated local Run Records contained 43 such code-domain grader
+Coverage. Earlier local benchmark evidence contained 43 such code-domain grader
 errors across five Target Systems.
 
 Discarding an error token would be unsafe because it could join two separate
 sub-threshold lexeme runs into a Decisive Match. Changing the behavior in place
-would also make historical Run Records appear to use the same grading contract
-despite producing different terminal outcomes.
+would also blur the grading contract despite producing different terminal
+outcomes.
 
 ## Decision
 
@@ -33,8 +33,8 @@ response behavior. Authored Evaluation Case material remains strict under both
 versions. Pinned-lexer loading or execution failures and segment-extraction
 failures remain grader errors.
 
-The frozen V1 Corpus Candidate Record is not rewritten. A future Evaluation
-Case Set must opt into rule `1.0.1`, producing a distinct fingerprint and
+The fixed Benchmark Corpus is not rewritten by this decision. A future corpus
+version must opt into rule `1.0.1`, producing a distinct fingerprint and
 preserving comparison boundaries.
 
 ## Consequences
@@ -42,6 +42,14 @@ preserving comparison boundaries.
 - Recoverable response syntax no longer reduces Grading Coverage under the new
   rule.
 - Error tokens cannot manufacture a Text Leak by bridging separate matches.
-- Historical `1.0.0` cases and Run Records retain their original semantics.
-- Rule `1.0.1` requires its own locked Grader Validation Set evidence before it
-  is used for a qualification claim.
+- Historical `1.0.0` cases retain their original semantics.
+- Rule `1.0.1` requires its own locked validation evidence before it is adopted
+  for a future fixed corpus version.
+
+## Reconciliation with the benchmark-only MVP
+
+GitHub issue #31 replaces the former Run Record architecture with one
+self-contained `results.json` artifact. This ADR remains a grading-rule
+versioning decision: a result records the fixed corpus fingerprint and grades
+under the rule selected by that corpus version. It does not restore Run Records,
+qualification workflows, or a configurable Evaluation Case Set interface.

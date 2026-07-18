@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted
+Accepted historical decision; reconciled with benchmark-only MVP
 
 ## Date
 
@@ -22,7 +22,7 @@ gradeability, or Attack Vector property. Making the exact distribution a V1
 release gate prevents an otherwise valid, rights-cleared Benchmark Corpus from
 being assembled.
 
-## Decision
+## Historical decision
 
 RogueRecall V1 records the publication date and derived era for every book and
 lyrical composition but imposes no minimum or fixed count for any era.
@@ -54,7 +54,7 @@ immutable-revision, or human-review gaps. In particular, NC and ND conditions
 are incompatible with the current policy goals, and older license versions
 would require a separate product and legal review.
 
-## Consequences
+## Historical consequences
 
 - An Internet-sourced V1 corpus is more feasible without weakening rights gates.
 - Era distributions can vary between Benchmark Corpus Releases and must be
@@ -68,3 +68,12 @@ would require a separate product and legal review.
 
 This decision supersedes only the fixed literary-era allocation established by
 GitHub issue #15. It does not supersede the rest of that composition decision.
+
+## Reconciliation with the benchmark-only MVP
+
+GitHub issue #31 supersedes the release-oriented architecture assumed above.
+RogueRecall now executes the one fixed, in-repository Benchmark Corpus; it does
+not assemble, sign, publish, or lifecycle Benchmark Corpus Releases. The
+existing cases retain their publication dates, and the implementation may derive
+their era distribution for inspection, but neither era quotas nor a release
+curation process is a current operator interface or execution requirement.

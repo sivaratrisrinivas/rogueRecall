@@ -1,12 +1,3 @@
 # Third-party notices
 
-This repository contains third-party dependencies and candidate source
-material. Dependency notices are carried by their installed distributions.
-Candidate and released Benchmark Corpus material is governed by each case's
-Rights Record, Rights Evidence, attribution, copyright notice, and license
-text. No repository-level license grants rights in those third-party excerpts
-or evidence files.
-
-Every Benchmark Corpus Release must generate a complete case-specific notice
-inventory from its validated Rights Records. This repository file is not a
-substitute for that Release Notice Bundle.
+Third-party dependencies retain the notices carried by their installed distributions. Third-party excerpts and source-audit material in the fixed Benchmark Corpus retain the case-specific attribution, copyright, and license information recorded with each Evaluation Case. No repository-level license grants rights in those excerpts or source-audit materials.
