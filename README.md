@@ -9,16 +9,15 @@ It measures observable behavior only. It does not claim to know what is stored i
 The installed package exposes one public workflow:
 
 ```bash
-roguerecall benchmark --runs-root ./runs --manifest ./targets.json
+roguerecall benchmark --manifest ./targets.json --results ./results.json
 ```
 
 The command runs the fixed Benchmark Corpus against the declared target systems in manifest order, then prints a non-ranked summary and writes a `results.json` file.
 
 ### Inputs
 
-- `--runs-root`: directory for benchmark output.
 - `--manifest`: strict target-system manifest in JSON form.
-- `--results`: optional explicit path for the summary JSON.
+- `--results`: required, new path for the self-contained result JSON.
 
 ### Behavior
 

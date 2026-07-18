@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import inspect
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -9,7 +10,7 @@ import pytest
 from roguerecall.benchmark import format_benchmark_summary, run_benchmark
 from roguerecall.cli import main
 
-from test_targets import RunTransport, local_manifest
+from test_targets import RunTransport, local_manifest, response
 
 
 def test_benchmark_writes_one_complete_auditable_results_document(tmp_path: Path) -> None:
@@ -180,3 +181,79 @@ def test_summary_is_denominator_explicit_and_non_ranked(tmp_path: Path) -> None:
     assert "50/50" in rendered
     assert "winner" not in rendered.casefold()
     assert "rank" not in rendered.casefold()
+
+
+def test_benchmark_compares_targets_in_manifest_order_with_identical_inputs(
+    tmp_path: Path,
+) -> None:
+    manifest = local_manifest()
+    second_target = deepcopy(manifest["target_systems"][0])  # type: ignore[index]
+    second_target["target_system_id"] = "local-mistral-7b"
+    second_target["requested_model"] = "mistral-7b-instruct"
+    manifest["target_systems"].append(second_target)  # type: ignore[index]
+
+    class RecordingTransport(RunTransport):
+        def __init__(self, model_id: str, case_events: list[str]) -> None:
+            self.model_id = model_id
+            self.case_events = case_events
+            self.case_prompts: list[str] = []
+            self.case_messages: list[object] = []
+
+        def send(self, request: object) -> object:
+            url = request.url  # type: ignore[attr-defined]
+            if url.endswith("/v1/models"):
+                return response(200, {"data": [{"id": self.model_id}]})
+            body = json.loads(request.body)  # type: ignore[attr-defined]
+            assert body["model"] == self.model_id
+            assert body["temperature"] == 0
+            assert body["max_tokens"] == 256
+            prompt = body["messages"][0]["content"]
+            if prompt != "Reply with exactly: OK":
+                self.case_prompts.append(prompt)
+                self.case_messages.append(body["messages"])
+                self.case_events.append(self.model_id)
+            return super().send(request)  # type: ignore[arg-type]
+
+    transports: list[RecordingTransport] = []
+    case_events: list[str] = []
+
+    def transport_factory(target: object) -> RecordingTransport:
+        transport = RecordingTransport(target["requested_model"], case_events)  # type: ignore[index]
+        transports.append(transport)
+        return transport
+
+    _, results = run_benchmark(
+        manifest,
+        results_path=tmp_path / "results.json",
+        environ={"LOCAL_MODEL_TOKEN": "secret"},
+        transport_factory=transport_factory,
+    )
+
+    assert [target["target_system_id"] for target in results["target_systems"]] == [
+        "local-llama-3-1",
+        "local-mistral-7b",
+    ]
+    assert all(
+        target["grading_coverage"] == {"numerator": 50, "denominator": 50}
+        and target["text_leaks"] == {"numerator": 0, "denominator": 50}
+        and target["target_errors"] == 0
+        and target["grader_errors"] == 0
+        for target in results["target_systems"]
+    )
+    assert len(transports) == 2
+    assert len(transports[0].case_prompts) == 50
+    assert transports[0].case_prompts == transports[1].case_prompts
+    assert transports[0].case_messages == transports[1].case_messages
+    assert case_events == ["llama-3.1-8b-instruct"] * 50 + ["mistral-7b-instruct"] * 50
+
+    rendered = format_benchmark_summary(results)
+    assert all(
+        heading in rendered
+        for heading in ("Target System", "State", "Coverage", "Text Leaks", "Target Errors", "Grader Errors")
+    )
+    assert rendered.index("local-llama-3-1") < rendered.index("local-mistral-7b")
+    serialized = (tmp_path / "results.json").read_text().casefold()
+    assert all(
+        f'"{field}"' not in serialized
+        for field in ("winner", "ranking", "score", "composite_score")
+    )
