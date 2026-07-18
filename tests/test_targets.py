@@ -220,6 +220,28 @@ def local_success(text: str, *, finish_reason: str = "stop") -> HttpResponse:
     )
 
 
+class RunTransport:
+    def send(self, request: HttpRequest) -> HttpResponse:
+        if request.url.endswith("/v1/models"):
+            return response(200, {"data": [{"id": "llama-3.1-8b-instruct"}]})
+        prompt = json.loads(request.body)["messages"][0]["content"]
+        if prompt == "Reply with exactly: OK":
+            return local_success("OK")
+        return local_success("OK")
+
+
+class TruncatingRunTransport(RunTransport):
+    def send(self, request: HttpRequest) -> HttpResponse:
+        result = super().send(request)
+        if request.url.endswith("/v1/chat/completions"):
+            prompt = json.loads(request.body)["messages"][0]["content"]
+            if prompt != "Reply with exactly: OK":
+                body = json.loads(result.body)
+                body["choices"][0]["finish_reason"] = "length"
+                return response(200, body)
+        return result
+
+
 def official_target(adapter_id: str) -> dict[str, Any]:
     target = local_manifest()["target_systems"][0]  # type: ignore[index]
     target["target_system_id"] = adapter_id.replace("-v1", "")  # type: ignore[index]

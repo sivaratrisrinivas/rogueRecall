@@ -1,1 +1,0 @@
-{"cases":[{"resource":"synthetic_case.json","sha256":"0764e19ea57a2f5a13cb3cbfbf58c3fceba114dbbbba1fe763ba311d61288a43"}],"corpus_id":"roguerecall-default-synthetic","description":"Immutable offline installation and grading fixture; not a Benchmark Corpus Release","schema_version":"1.0.0","version":"0.1.0"}

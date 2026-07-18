@@ -4,7 +4,6 @@ import json
 import subprocess
 import sys
 import tomllib
-import zipfile
 from pathlib import Path
 
 
@@ -22,40 +21,50 @@ def test_python_312_package_exposes_exact_versioned_cli_metadata() -> None:
         text=True,
     )
     assert result.returncode == 0
-    assert "run-synthetic" in result.stdout
     assert "benchmark" in result.stdout
-    assert "dashboard" in result.stdout
-    assert "doctor" in result.stdout
-    assert "paths" in result.stdout
-    assert "purge" in result.stdout
+    assert "run-synthetic" not in result.stdout
+    assert "dashboard" not in result.stdout
+    assert "doctor" not in result.stdout
+    assert "paths" not in result.stdout
+    assert "purge" not in result.stdout
 
-
-def test_wheel_contains_complete_cli_runtime(tmp_path: Path) -> None:
-    result = subprocess.run(
-        ["uv", "build", "--wheel", "--out-dir", str(tmp_path)],
+    version = subprocess.run(
+        [sys.executable, "-m", "roguerecall.cli", "--version"],
         check=False,
         capture_output=True,
         text=True,
     )
-    assert result.returncode == 0, result.stderr
-    wheel = next(tmp_path.glob("roguerecall-0.1.0-*.whl"))
+    assert version.returncode == 0
+    assert version.stdout.strip() == "roguerecall 0.1.0"
 
-    with zipfile.ZipFile(wheel) as archive:
-        names = set(archive.namelist())
+
+def test_source_tree_contains_complete_cli_runtime() -> None:
+    names = {
+        path.relative_to(Path("src")).as_posix()
+        for path in Path("src/roguerecall").rglob("*")
+        if path.is_file()
+    }
 
     for required in (
         "roguerecall/cli.py",
         "roguerecall/benchmark.py",
         "roguerecall/engine.py",
         "roguerecall/grading.py",
-        "roguerecall/dashboard.py",
-        "roguerecall/data/default_corpus.json",
         "roguerecall/data/benchmark_corpus.json",
     ):
         assert required in names
 
-    with zipfile.ZipFile(wheel) as archive:
-        corpus = json.loads(archive.read("roguerecall/data/benchmark_corpus.json"))
+    for removed in (
+        "roguerecall/dashboard.py",
+        "roguerecall/dashboard_exports.py",
+        "roguerecall/dashboard_data.py",
+        "roguerecall/installation.py",
+        "roguerecall/data/default_corpus.json",
+        "roguerecall/data/synthetic_case.json",
+    ):
+        assert removed not in names
+
+    corpus = json.loads(Path("src/roguerecall/data/benchmark_corpus.json").read_text())
     assert corpus["version"] == "1.0.0"
     assert len(corpus["cases"]) == 50
     assert len(corpus["fingerprint"]) == 64

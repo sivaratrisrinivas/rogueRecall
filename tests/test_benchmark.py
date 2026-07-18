@@ -10,8 +10,8 @@ import pytest
 from roguerecall.benchmark import format_benchmark_summary, run_benchmark
 from roguerecall.cli import main
 
-from test_target_run import RunTransport
 from test_targets import ScriptedTransport, local_manifest, local_success, response
+from test_targets import RunTransport
 
 
 def test_mvp_benchmark_interface_does_not_accept_an_arbitrary_case_set() -> None:
@@ -19,6 +19,10 @@ def test_mvp_benchmark_interface_does_not_accept_an_arbitrary_case_set() -> None
 
     with pytest.raises(SystemExit) as error:
         main(["benchmark", "--help"])
+    assert error.value.code == 0
+
+    with pytest.raises(SystemExit) as error:
+        main(["--version"])
     assert error.value.code == 0
 
 
