@@ -98,6 +98,11 @@ def run_benchmark(
 def format_benchmark_summary(summary: Mapping[str, Any]) -> str:
     """Render a non-ranked Benchmark Summary in manifest order."""
 
+    lines = [
+        f"Status: {summary['status']}",
+        f"Controls: {summary['controls']['status']} ({len(summary['controls']['cases'])} cases)",
+        "",
+    ]
     headers = (
         "Target System",
         "State",
@@ -123,12 +128,13 @@ def format_benchmark_summary(summary: Mapping[str, Any]) -> str:
                 str(target["not_tested"]),
                 f'runs_root/{target["run_record"]["path"]}',
             )
-        )
+    )
     widths = [max(len(row[index]) for row in rows) for index in range(len(headers))]
-    return "\n".join(
+    lines.extend(
         "  ".join(value.ljust(widths[index]) for index, value in enumerate(row)).rstrip()
         for row in rows
     )
+    return "\n".join(lines)
 
 
 def _summarize_record(record_path: Path, runs_root: Path) -> dict[str, Any]:

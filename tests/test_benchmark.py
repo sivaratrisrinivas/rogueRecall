@@ -101,6 +101,11 @@ def test_benchmark_batch_fails_closed_when_controls_mismatch(
     assert summary["controls"]["cases"][0]["nop"]["text_leak"] is False
     assert summary["targets"] == []
     assert transport_calls == 0
+    rendered = format_benchmark_summary(summary)
+    assert rendered.splitlines()[0] == "Status: controls_failed"
+    assert rendered.splitlines()[1] == "Controls: controls_failed (50 cases)"
+    assert "Target System" in rendered
+    assert "local-llama-3-1" not in rendered
 
 
 def test_benchmark_batch_preserves_manifest_order_in_separate_run_records(
@@ -188,11 +193,13 @@ def test_benchmark_summary_is_non_ranked_and_denominator_explicit(
 
     rendered = format_benchmark_summary(summary)
 
+    assert rendered.splitlines()[0] == "Status: complete"
+    assert rendered.splitlines()[1] == "Controls: passed (50 cases)"
     assert rendered.index("local-llama-3-1") < rendered.index("local-llama-second")
     assert "Coverage" in rendered
     assert "Text Leaks" in rendered
     assert rendered.count("50/50") == 2
-    assert all("0/50" in line for line in rendered.splitlines()[1:])
+    assert all("0/50" in line for line in rendered.splitlines()[4:])
     assert "winner" not in rendered.casefold()
     assert "rank" not in rendered.casefold()
 
